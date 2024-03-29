@@ -1,0 +1,27 @@
+body {
+    background-color: rgb(193, 193, 244);
+}
+
+.confirm {
+    text-align: center;
+    font-size: 20px;
+}
+
+.confirm i {
+    color: green;
+    /* Couleur de l'icône de confirmation */
+    box-shadow: green 2px 2px 2px 2px ;
+    border-radius: 50%;
+   
+}
+.secon{
+    text-align: center;
+   
+}
+a{
+    text-decoration: none;
+   margin-left: 580px;
+}
+a:hover{
+    color: rgb(62, 62, 245);
+}

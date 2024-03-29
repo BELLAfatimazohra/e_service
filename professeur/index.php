@@ -1,4 +1,4 @@
-User
+
 <?php
 // Démarrer la session
 session_start();
@@ -122,7 +122,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
                         <ul>
                             <li><a href="../professeur/profil.php"><i class="fas fa-user"></i> Profil </a></li>
                             <li><a href="#"><i class="fas fa-sign-out-alt"></i> Se déconnecter </a></li>
-                            <li><a href="changer_mot_de_passe.php"><i class="fas fa-lock"></i> Changer mot de passe</a></li>
+                            <li><a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i> Changer mot de passe</a></li>
                         </ul>
                     </div>
                 </div>

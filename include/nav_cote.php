@@ -71,6 +71,11 @@
             width: 150px;
             margin-left: 80px;
         }
+
+        .column2 {
+            margin-bottom: 0px;
+            height: 60px;
+        }
     </style>
 </head>
 

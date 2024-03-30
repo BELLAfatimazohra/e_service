@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 29 mars 2024 à 11:43
+-- Généré le : sam. 30 mars 2024 à 16:20
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.0.30
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `ensah_eservice`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `actualites`
+--
+
+CREATE TABLE `actualites` (
+  `id` int(11) NOT NULL,
+  `titre` varchar(255) NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `date_actualite` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `actualites`
+--
+
+INSERT INTO `actualites` (`id`, `titre`, `image_url`, `description`, `date_actualite`) VALUES
+(1, 'Nouvelle exposition d\'art contemporain', 'https://media.lactualite.com/2021/03/1920x1080-bettle-1200x675.jpg', 'Venez découvrir notre toute nouvelle exposition d\'art contemporain qui met en vedette des artistes locaux et internationaux.', '2024-04-01');
 
 -- --------------------------------------------------------
 
@@ -162,7 +183,8 @@ CREATE TABLE `note` (
   `id_prof` int(11) NOT NULL,
   `id_module` int(11) NOT NULL,
   `ide_exam` int(11) NOT NULL,
-  `remarque` varchar(100) DEFAULT NULL
+  `remarque` varchar(100) DEFAULT NULL,
+  `note_value` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -199,7 +221,7 @@ CREATE TABLE `professeur` (
 --
 
 INSERT INTO `professeur` (`id`, `Nom`, `Prenom`, `id_module_primaire`, `id_module_secondaire`, `id_filiere`, `id_departement`, `Email`, `Password`, `CIN`, `sexe`, `pays`, `date_naissance`, `ville_naisance`, `telephone`, `email_personnel`, `ann_insc_ens_sup`, `ann_travail_ens_sup`, `ann_travail_uae`, `id_filiere_2`) VALUES
-(5, 'ELWARDANI', 'dadi', 1, NULL, 1, 1, 'w.dadi@uae.ac.ma', '123', 'Z343', 'homme', 'Maroc', '0000-00-00', 'EL HOSEIMA', '6487283', 'elwardanidadi2gmail.com', '01/01/22', '01/01/22', '01/01/23', 2);
+(5, 'ELWARDANI', 'dadi', 1, NULL, 1, 1, 'w.dadi@uae.ac.ma', '4343', 'Z343', 'homme', 'Maroc', '0000-00-00', 'EL HOSEIMA', '6487283', 'elwardanidadi2gmail.com', '01/01/22', '01/01/22', '01/01/23', 2);
 
 -- --------------------------------------------------------
 
@@ -229,6 +251,12 @@ CREATE TABLE `salle` (
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `actualites`
+--
+ALTER TABLE `actualites`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `chef_departement`
@@ -299,6 +327,12 @@ ALTER TABLE `salle`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `actualites`
+--
+ALTER TABLE `actualites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `chef_departement`

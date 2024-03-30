@@ -1,4 +1,3 @@
-
 <?php
 // Démarrer la session
 session_start();
@@ -25,6 +24,11 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+
         .search-container {
             display: flex;
             align-items: center;
@@ -87,6 +91,45 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
             width: 150px;
             margin-left: 80px;
         }
+
+        .ns {
+            text-align: center;
+
+        }
+
+        .col2 {
+            margin-right: 200px;
+            max-width: 200px;
+
+        }
+
+        .actualite {
+            padding: 10px;
+            margin-bottom: 40px;
+            max-width: 2000px;
+            /* Limite la largeur de l'actualité */
+            width: 100%;
+
+        }
+
+        .actualite img {
+            max-width: 100px;
+            /* Assurez-vous que l'image ne dépasse pas la taille de son conteneur */
+            height: 90px;
+            /* Garantit que la hauteur de l'image est ajustée proportionnellement à sa largeur */
+        }
+
+        .text-container {
+            margin-left: 100px;
+            /* Ajustez la marge selon vos besoins */
+        }
+
+        .text-container p {
+            margin-top: -95px;
+            width: 250px;
+            padding-left: 5px;
+            /* Supprimez la marge supérieure par défaut pour le paragraphe et les en-têtes */
+        }
     </style>
 </head>
 
@@ -121,7 +164,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
                     <div class="dropdown-content" id="dropdownContent">
                         <ul>
                             <li><a href="../professeur/profil.php"><i class="fas fa-user"></i> Profil </a></li>
-                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Se déconnecter </a></li>
+                            <li><a href="../professeur/se_deconnecter.php"><i class="fas fa-sign-out-alt"></i> Se déconnecter </a></li>
                             <li><a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i> Changer mot de passe</a></li>
                         </ul>
                     </div>
@@ -204,13 +247,43 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
                     <button class="btn3"><a href=""></a><i class="fas fa-upload"></i> Importer Cours</button><br>
                     <button class="btn4"><a href=""></a><i class="fas fa-calendar-alt"></i> Emploi du Temps</button>
                 </div>
+                <!-- Partie HTML de votre page -->
                 <div class="col2">
                     <div class="news-container" id="news-container">
-                        <h1>Actualites</h1>
+                        <h1> Actualites</h1>
                         <hr>
+                        <?php
+                        require_once '../include/database.php';
+                        try {
+                            // Requête SQL pour récupérer les actualités
+                            $sql = "SELECT * FROM actualites";
+                            $stmt = $pdo->query($sql);
 
+                            // Affichage des actualités
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<div class='actualite'>";
+                                echo "<div class='news-content'>";
+                                echo "<p><strong>Date :</strong> " . htmlspecialchars($row['date_actualite']) . "</p>";
+                                if (!empty($row['image_url'])) {
+                                    echo "<img src='" . htmlspecialchars($row['image_url']) . "' alt='Image de l'actualité'>";
+                                }
+                                echo "<div class='text-container'>";
+                                echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+                                echo "<br>";
+                                echo "<hr>"; 
+                                echo "</div>"; // Fin de .text-container
+                                echo "</div>"; // Fin de .news-content
+                                echo "</div>"; // Fin de .actualite
+                            }
+                        } catch (PDOException $e) {
+                            // Gestion des erreurs de connexion
+                            echo "Erreur de connexion : " . $e->getMessage();
+                        }
+                        ?>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

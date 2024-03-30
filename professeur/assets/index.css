@@ -105,6 +105,8 @@ nav {
     background-color: white;
     overflow: hidden;
     height: 50px;
+ 
+
 }
 
 .dropdown {
@@ -151,7 +153,7 @@ nav {
 }
 
 .col1 {
-    flex: 3;
+    flex: 2.5;
     text-align: center;
     /* Chaque colonne prendra la même largeur */
 }
@@ -165,7 +167,8 @@ nav {
 }
 
 .col2 {
-    flex: 1;
+    flex: 4;
+   
 }
 
 .msg {

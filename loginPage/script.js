@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Your JavaScript code here
+
   const show = document.getElementById("showPwd");
   const password = document.getElementById("password");
   const nonVisible = document.querySelector(".pwd");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   password.addEventListener("blur", () => {
-    visible.style.opacity = nonVisible.style.opacity = "0.3"; // Or any value you want
+    visible.style.opacity = nonVisible.style.opacity = "0.3"; 
   });
 
 

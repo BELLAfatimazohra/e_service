@@ -93,12 +93,12 @@
                 <button class="acceuil"><a href="biblio.php"><i class="fas fa-book"></i></a> Bibliothque</button><br><br>
             </div>
             <div class="e_service">
-                <p class="txt">ce site est une application Web développée par BELLA Fatima Zohra ,AMMARA Abderrahmane et AISSAM Amine pour offrir un ensemble de services numériques aux membres de l'établissement .</p>
+                <p class="txt">Ce site est une application Web développée par BELLA Fatima Zohra et AMMARA Abderrahmane pour offrir un ensemble de services numériques aux membres de l'établissement.</p>
                 <button class="savoir_plus"><a href="en-savoir_plus.php">En Savoir plus sur e_services</a></button><br><br><br>
             </div>
             <div class="signaler">
                 <h1>Signaler un bug </h1>
-                <p>Si vous constatez la moindre anomalie n'hésitez pas à nous contactez via l'email <a href="mailto:bellafatimazahrae@gmail.com">bellafatimazahrae@gmail.com</a></p>
+                <p>Si vous constatez la moindre anomalie n'hésitez pas à nous contactez via l'email <a href="mailto:support_ensah@gmail.com">support_ensah@gmail.com</a></p>
             </div>
         </div>
 

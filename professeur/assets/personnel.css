@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif; /* Police de caractères pour le corps du document */
+    margin: 20px; /* Marge autour du contenu */
+    background: #f4f4f9; /* Couleur de fond */
+    color: #333; /* Couleur du texte */
+}
+table {
+    width: 100%; /* Largeur du tableau */
+    border-collapse: collapse; /* Les bordures des cellules sont fusionnées */
+    margin-top: 20px; /* Marge au-dessus du tableau */
+}
+th, td {
+    border: 1px solid #ccc; /* Bordure des cellules */
+    padding: 8px; /* Espacement intérieur */
+    text-align: left; /* Alignement du texte */
+    font-size: 16px; /* Taille de la police */
+}
+th {
+    background-color: #007BFF; /* Couleur de fond des en-têtes */
+    color: white; /* Couleur du texte des en-têtes */
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Couleur de fond pour les lignes paires */
+}
+tr:hover {
+    background-color: #ddd; /* Couleur de fond au survol des lignes */
+}

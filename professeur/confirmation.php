@@ -10,9 +10,22 @@
 </head>
 
 <body>
-    <p class="confirm">Votre mot de passe a été changé avec succès   <i class="fas fa-check-circle"></i></p> <br>
+<?php
+ include '../include/nav_cote.php'; 
+
+?>
+<script>
+       
+        var bodyDiv = document.querySelector('.body');
+        
+        
+        bodyDiv.innerHTML = `
+        <p class="confirm">Votre mot de passe a été changé avec succès   <i class="fas fa-check-circle"></i></p> <br>
     <p class="secon">Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.</p>
     <a href="index.php">Se connecter</a>
+        `;
+    </script>
+  
 </body>
 
 </html>

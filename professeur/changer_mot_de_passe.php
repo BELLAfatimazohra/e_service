@@ -1,52 +1,47 @@
 <?php
 session_start();
 
-// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php");
     exit;
 }
-
-// Vérifier si le formulaire a été soumis
+ 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset($_POST['nouveau_mdp']) && isset($_POST['confirmer_mdp'])) {
-    // Récupérer les données du formulaire
+
     $ancien_mdp = $_POST['ancien_mdp'];
     $nouveau_mdp = $_POST['nouveau_mdp'];
     $confirmer_mdp = $_POST['confirmer_mdp'];
 
-    // Vérifier si les nouveaux mots de passe correspondent
     if ($nouveau_mdp !== $confirmer_mdp) {
         echo "Les nouveaux mots de passe ne correspondent pas.";
         exit;
     }
 
-    // Connexion à la base de données
     require_once '../include/database.php';
 
-    // Récupérer l'ID de l'utilisateur
-    $userId = $_SESSION['user_id'];
 
+    $userId = $_SESSION['user_id'];
     try {
-        // Préparer et exécuter la requête pour récupérer le mot de passe actuel de l'utilisateur
+
         $stmt = $pdo->prepare("SELECT Password FROM professeur WHERE id = :id");
         $stmt->execute(['id' => $userId]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Vérifier si l'ancien mot de passe correspond
+      
         if ($row && $ancien_mdp === $row['Password']) {
-            // Mettre à jour le mot de passe dans la base de données
+
             $stmt = $pdo->prepare("UPDATE professeur SET Password = :password WHERE id = :id");
+          
             $stmt->execute(['password' => $nouveau_mdp, 'id' => $userId]);
 
-            // Rediriger l'utilisateur vers une page de confirmation ou la page d'accueil après la modification du mot de passe
             header("Location: ../professeur/confirmation.php");
             exit;
         } else {
-            // Afficher un message d'erreur si l'ancien mot de passe est incorrect
+          
             echo "L'ancien mot de passe est incorrect.";
         }
     } catch (PDOException $e) {
-        // En cas d'erreur lors de la modification du mot de passe
+      
         echo "Erreur lors de la modification du mot de passe : " . $e->getMessage();
     }
 }
@@ -64,55 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .search-container {
-            display: flex;
-            align-items: center;
-            margin-left: auto;
-
-            padding-left: 20px;
-
-            border-left: 1px solid #ccc;
-
-        }
-
-        .search-container input[type="text"] {
-            flex: 1;
-
-            padding: 8px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 4px;
-
-            margin-top: 10px;
-        }
-
-        .search-container button {
-            padding: 8px;
-
-            border: none;
-
-            background-color: #007bff;
-
-            color: #fff;
-
-            border-radius: 4px;
-
-            cursor: pointer;
-
-        }
-
-        .search-container button:hover {
-            background-color: #0056b3;
-
-        }
-
-
-        .highlighted {
-            background-color: yellow;
-
-        }
-
+       
         .col1 hr.transparent-line {
             border: none;
 
@@ -251,110 +198,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
 </head>
 
 <body>
-
-    <div class="container">
-        <!-- Première colonne -->
-        <div class="column1">
-            <div class="logobt">
-                <img src="../images/logo-eservices.png" alt="" class="logo_eservice"><br>
-            </div>
-            <div class="option_left">
-                <button class="acceuil"><a href="index.php"><i class="fas fa-home"></i></a> Acceuil</button><br><br>
-                <button class="acceuil"><a href="personnel.php"><i class="fas fa-users"></i></a> Personnel</button><br><br>
-                <button class="acceuil"><a href="biblio.php"><i class="fas fa-book"></i></a> Bibliothque</button><br><br>
-            </div>
-            <div class="e_service">
-                <p class="txt">ce site est une application Web développée par BELLA Fatima Zohra ,AMMARA Abderrahmane et AISSAM Amine pour offrir un ensemble de services numériques aux membres de l'établissement .</p>
-                <button class="savoir_plus"><a href="../professeur/en_savoir_plus.php">En Savoir plus sur e_services</a></button><br><br><br>
-            </div>
-            <div class="signaler">
-                <h1>Signaler un bug </h1>
-                <p>Si vous constatez la moindre anomalie n'hésitez pas à nous contactez via l'email <a href="mailto:bellafatimazahrae@gmail.com">bellafatimazahrae@gmail.com</a></p>
-            </div>
-        </div>
-
-        <!-- Deuxième colonne -->
-        <div class="column2">
-            <nav>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleDropdown()"><i class="fas fa-user"></i></button><br><br>
-                    <div class="dropdown-content" id="dropdownContent">
-                        <ul>
-                            <li><a href="../professeur/profil.php"><i class="fas fa-user"></i> Profil </a></li>
-                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Se déconnecter </a></li>
-                            <li><a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i> Changer mot de passe</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="msg"><a href=""><i class="fas fa-envelope"></i>
-                    </a></button>
-                <script>
-                    function toggleDropdown() {
-                        console.log("Toggle dropdown function called");
-                        var dropdownContent = document.getElementById("dropdownContent");
-                        if (dropdownContent.style.display === "block") {
-                            dropdownContent.style.display = "none";
-                        } else {
-                            dropdownContent.style.display = "block";
-                        }
-                    }
-                </script>
-                <div class="search-container">
-                    <form>
-                        <input type="text" id="searchInput" placeholder="Rechercher..." name="search">
-                        <button type="button" onclick="highlightSearch()"><i class="fas fa-search"></i></button>
-                        <script>
-                            function highlightSearch() {
-                                var searchText = document.getElementById('searchInput').value.trim(); // Récupérer le texte de recherche
-                                console.log('Texte de recherche :', searchText); // Afficher le texte de recherche dans la console
-
-                                var textNodes = document.createTreeWalker(
-                                    document.body,
-                                    NodeFilter.SHOW_TEXT,
-                                    null,
-                                    false
-                                );
-
-
-                                while (textNodes.nextNode()) {
-                                    var node = textNodes.currentNode;
-                                    var text = node.nodeValue;
-
-
-                                    if (text.toLowerCase().includes(searchText.toLowerCase())) {
-                                        console.log('Texte trouvé dans cet élément :', node);
-
-                                        var parts = text.split(new RegExp('(' + searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'));
-
-
-                                        var fragment = document.createDocumentFragment();
-
-
-                                        fragment.appendChild(document.createTextNode(parts[0]));
-
-
-                                        var highlightedWord = document.createElement('span');
-                                        highlightedWord.classList.add('highlighted');
-                                        highlightedWord.style.backgroundColor = 'yellow';
-                                        highlightedWord.textContent = parts[1];
-                                        fragment.appendChild(highlightedWord);
-
-                                        fragment.appendChild(document.createTextNode(parts[2]));
-
-
-                                        node.parentNode.insertBefore(fragment, node);
-
-
-                                        node.parentNode.removeChild(node);
-                                    }
-                                }
-                            }
-                        </script>
-                    </form>
-                </div>
-            </nav>
-
-            <div class="change">
+<?php
+     
+     include '../include/nav_cote.php'; 
+     ?>
+ <script>
+         
+         var bodyDiv = document.querySelector('.body');
+         
+         bodyDiv.innerHTML = `
+         <div class="change">
                 <h2>  <i class="fas fa-key"></i> Changer le mot de passe</h2>
                 <hr>
                 <h3>Règles du mot de passe:</h3>
@@ -373,9 +226,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
                     <input type="submit" value="Modifier le mot de passe">
                     <a href="../professeur/index.php"><button type="button">Annuler</button></a>
                 </form>
-            </div>
-        </div>
-    </div>
+         `;
+     </script>
+     
 
 </body>
 

@@ -1,0 +1,44 @@
+/* Assurez-vous d'importer votre fichier de styles CSS dans le head de votre document HTML */
+
+/* Style pour le corps de la page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style pour le conteneur principal */
+.filiere-list {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 300px;
+    margin-top: -650px;
+    margin-bottom: 100px;
+}
+
+/* Style pour le titre de la liste */
+.filiere-list h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Style pour les liens des filières */
+.filiere-list a {
+    display: block;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style lorsque survolé */
+.filiere-list a:hover {
+    color: #0056b3;
+}
+

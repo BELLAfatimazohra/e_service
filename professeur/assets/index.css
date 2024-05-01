@@ -1,250 +1,108 @@
-body,
-html {
-    margin: 0;
-    padding: 0;
-    background-color: rgb(240, 238, 231);
-    height: 100%;
-}
-
 /* Style pour les colonnes */
-.container {
-    position: relative;
-    min-height: 100vh;
-    /* Hauteur minimale de la page égale à 100% de la hauteur de la fenêtre du navigateur */
-    display: flex;
+
+
+
+
+
+
+
+.col1{
+    margin-left: 150px;
 }
-
-.column1 {
-    flex: 18%;
-    /* Prendre le double de l'espace par rapport à la colonne 2 */
-    background-color: darkblue;
-    padding: 0;
-    margin: 0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    padding-bottom: 0px;
-    overflow-y: auto;
-    margin-bottom: 0px;
-    padding-bottom: 0%;
-}
-
-.column2 {
-    padding: 0;
-    margin: 0;
-    width: 82%;
-}
-
-.logobt img {
-    display: flex;
-    /* Utiliser Flexbox pour centrer l'image */
-    justify-content: center;
-    /* Centrer horizontalement */
-    align-items: center;
-    /* Centrer verticalement */
-    max-width: 60px;
-    /* Largeur maximale du conteneur */
-    margin: 20px auto 0;
-
-}
-
-.logobt a {
-    color: aliceblue;
-    margin-right: 10px;
-    text-align: center;
-    justify-content: center;
-    display: block;
-    font-size: 20px;
-}
-
-.logobt {
-    justify-content: center;
-    /* Centrer horizontalement les éléments */
-    align-items: center;
-}
-
-.dropdown-content {
-    display: none;
-    position: fixed;
-    /* Définit la position fixe pour le menu */
-    top: 50px;
-    /* Le menu sera fixé en haut de la fenêtre */
-    right: 0;
-    /* Le menu sera aligné sur le bord droit */
-    width: 10%;
-    /* Le menu occupera toute la largeur de la fenêtre */
-    background-color: white;
-    /* Couleur de fond du menu */
-    z-index: 1;
-    /* Assure que le menu s'affiche au-dessus du contenu de la page */
-    padding: 30px;
-    /* Ajoutez un peu de marge intérieure pour le contenu du menu */
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-/* Style pour l'icône à côté du lien */
-.dropdown-content a i {
-    margin-right: 8px;
-    /* Espacement entre l'icône et le texte */
-}
-
-.dropdown-content ul {
-    list-style-type: none;
-    /* Supprimer les puces des listes */
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-}
-
-/* Style pour la barre de navigation */
-nav {
-    background-color: white;
-    overflow: hidden;
-    height: 50px;
- 
-
-}
-
-.dropdown {
-    float: right;
-    padding: 10px;
-    border: none;
-    margin-right: 10px;
-    /* Supprimer la bordure */
-}
-
-.dropbtn i {
-    font-size: 20px;
-    text-align: center;
-}
-
-.bienvenue h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    font-size: 30px;
-    margin-right: 350px;
-}
-
-.bienvenue button {
-    float: right;
-    background-color: cornflowerblue;
-    min-height: 30px;
-
-}
-
-.bienvenue button:hover {
-    background-color: blue;
-}
-
-.bienvenue {
-    display: inline-flex;
-    /* Utiliser flexbox avec affichage en ligne */
-    align-items: center;
-}
-
-.options {
-    display: flex;
-    /* Utiliser le modèle de boîte flexible */
-    height: 100vh;
-}
-
-.col1 {
-    flex: 2.5;
-    text-align: center;
-    /* Chaque colonne prendra la même largeur */
-}
-
-.col1 button {
+/* Styles généraux pour les boutons */
+.btn1,
+.btn2,
+.btn3,
+.btn4 {
     display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
     font-size: 16px;
-    width: 200px;
     height: 70px;
-    margin-bottom: 30px;
+    text-align: center;
+    margin-left: 50px;
+    width: 200px;
+    background-color: darkolivegreen;
+}
+.opt{
+    text-decoration: none;
+    color: black;
+}
+
+
+
+/* Style pour l'icône à l'intérieur des boutons */
+.btn1 i,
+.btn2 i,
+.btn3 i,
+.btn4 i {
+    margin-right: 5px;
 }
 
 .col2 {
-    flex: 4;
-   
+    margin-right: -200px;
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: gray 1px 1px 1px 1px;
+    margin-top: -400px;
+    margin-left: 600px;
+    padding: 0 20px;
+}
+.news-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
 }
 
-.msg {
-    float: right;
-    margin-top: 13px;
-    margin-right: 30px;
-    background-color: white;
-
+.h1-act {
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
-.acceuil {
-    background-color: darkblue;
-    border: none;
-    color: white;
-    font-size: 15px;
+.news-content {
+    margin-bottom: 20px;
+}
+
+.news-content img {
+  
+    height: auto;
+    margin-bottom: 10px;
+}
+
+
+
+.text-container  {
+   margin-top: -120px;
+    margin-left: 110px;
+}
+.text-container p{
+    margin-bottom: 2px;
+}
+.url_act {
+    display: block;
     text-align: center;
-    float: center;
-}
-
-.acceuil i {
-    font-size: 20px;
-    color: white;
-}
-
-.e_service {
-    padding: 10px;
-    background-color: rgba(5, 5, 58, 0.5);
-    margin: 10px;
-    margin-top: 100px;
-}
-
-.txt {
-    justify-content: center;
-    text-align: center;
-    color: gray;
-}
-
-.savoir_plus {
-    height: 40px;
-    background-color: darkolivegreen;
-}
-
-.savoir_plus a {
+    margin-top: 10px;
+    color: #007bff;
+    font-size: 18px;
     text-decoration: none;
-    color: white;
+    margin-bottom: 30px;
 }
+
+.url_act:hover {
+    text-decoration: underline;
+}
+
 
 .actua {
     background-color: rgb(247, 247, 239);
 }
 
-.news-container h1 {
-    font-size: 20px;
-    color: blue;
-}
 
-/* Styles pour les actualités */
-.news-item {
-    border-bottom: 1px solid #ccc;
-    padding: 20px;
-}
-
-.news-title {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.news-summary {
-    margin-top: 5px;
-}
-
-.news-image {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
 
 .option_left i {
     color: #ccc;
@@ -254,31 +112,45 @@ nav {
     color: white;
 }
 
-.signaler {
-    background-color: white;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 0;
-}
-
-.signaler p {
-    bottom: 0;
-    left: 0;
-    margin: 0;
-    margin-bottom: 0;
-    justify-content: center;
+.h1-act {
     text-align: center;
-}
-
-.signaler h1 {
-    margin-top: 20px;
-    height: 30px;
-    text-align: center;
+    color: black;
     font-size: 20px;
+}
+.news-container i {
+    color: black;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.news-container i:hover {
+    transform: translateY(-5px);
+}
+
+
+.url_act:hover {
+    color: darkblue;
+    /* Changez la couleur selon votre préférence */
+    text-decoration: underline;
+    /* Ajoutez ou modifiez les styles selon vos préférences */
+}
+
+
+.actualite {
+    padding-left: 10px;
+    margin-bottom: 15px;
+    max-width: 2000px;
+    /* Limite la largeur de l'actualité */
+    width: 100%;
+    padding-bottom: -2px;
 
 }
 
-footer p {
-    text-align: center;
-    background-color: #c1bcbc9d;
+.actualite img {
+    max-width: 100px;
+    /* Assurez-vous que l'image ne dépasse pas la taille de son conteneur */
+    height: 90px;
+    /* Garantit que la hauteur de l'image est ajustée proportionnellement à sa largeur */
 }
+
+

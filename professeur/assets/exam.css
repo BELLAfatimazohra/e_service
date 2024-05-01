@@ -1,0 +1,29 @@
+.module-list {
+    margin-top: 20px;
+}
+
+.module-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.module-list th,
+.module-list td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.module-list th {
+    background-color: #f2f2f2;
+}
+
+.module-list td a {
+    color: #007bff;
+    margin-right: 8px;
+    text-decoration: none;
+}
+
+.module-list td a:hover {
+    color: #0056b3;
+}

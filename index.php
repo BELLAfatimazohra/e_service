@@ -76,6 +76,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $result_etudiant['id'];
             header("Location:etudiant/index.php");
             exit;
+        } elseif (($result_professeur) &&  ($result_coordinateur)){
+
+            session_start();
+
+            $_SESSION['user_type'] = 'professeur';
+            $_SESSION['user_id'] = $result_professeur['id'];
+
+            header("Location:coordinateur_prof/index.php");
+            exit;
         } elseif ($result_professeur) {
 
             session_start();
@@ -84,15 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $result_professeur['id'];
 
             header("Location:professeur/index.php");
-            exit;
-        } elseif ($result_coordinateur) {
-
-            session_start();
-
-            $_SESSION['user_type'] = 'coordinateur';
-            $_SESSION['user_id'] = $result_coordinateur['id'];
-
-            header("Location:coordinateur/index.php");
             exit;
         } elseif ($result_chef_departement) {
 

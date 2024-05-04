@@ -30,38 +30,37 @@ try {
     $stmt_filiere_info->execute(['filiere_id' => $filiere_id]);
     $filiere_info = $stmt_filiere_info->fetch(PDO::FETCH_ASSOC);
 
-   
-    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
 
-  
-    if (file_exists($filename)) { 
+    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
+
+
+    if (file_exists($filename)) {
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
+        <!DOCTYPE html>
+        <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contenu du fichier CSV</title>
-    <link rel="stylesheet" href="../professeur/assets/exam.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../professeur/assets/consulter_notes.css"> 
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Contenu du fichier CSV</title>
+            <link rel="stylesheet" href="../professeur/assets/exam.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+            <link rel="stylesheet" href="../professeur/assets/consulter_notes.css">
 
-</head>
+        </head>
 
-<body>
-    <?php include '../include/nav_cote_corr.php'; ?>
-    <script>
-       
-       var bodyDiv = document.querySelector('.bodyDiv');
+        <body>
+            <?php include '../include/nav_cote_corr.php'; ?>
+            <script>
+                var bodyDiv = document.querySelector('.bodyDiv');
 
-       bodyDiv.innerHTML = `
-       <h1>Contenu du fichier CSV :</h1>
+                bodyDiv.innerHTML = `
+       <h1>Les notes des etudiants sont  :</h1>
     <table>
         <?php
         $file = fopen($filename, "r");
-        while (($data = fgetcsv($file)) ) {
+        while (($data = fgetcsv($file))) {
             echo "<tr>";
             foreach ($data as $value) {
                 echo "<td>$value</td>";
@@ -70,14 +69,28 @@ try {
         }
         fclose($file);
         ?>
-    </table>
+    </table><br>
+    <form action="modifier_notes.php?id_exam=<?php echo $exam_id; ?>&id_module=<?php echo $module_id; ?>&id_filiere=<?php echo $filiere_id; ?>" method="POST">
+    <button type="submit">Modifier les notes</button>
+</form><br>
+
+
+
+<form action="telecharger_notes.php" method="POST">
+    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+    <button type="submit">Télécharger les notes</button>
+</form>
+
+
        `;
-   </script> 
+            </script>
 
-    
-</body>
 
-</html>
+        </body>
+
+        </html>
 
 <?php
     } else {

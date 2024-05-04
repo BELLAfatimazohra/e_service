@@ -1,0 +1,22 @@
+{
+    "name": "info/e_service",
+    "description": "un systeme de gestion des notes",
+    "type": "library",
+    "require": {
+        "phpoffice/phpspreadsheet": "1.2.3",
+        "#": "1.2.3"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Info\\EService\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "bella fatima zohra",
+            "email": "bellafatimazahrae@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

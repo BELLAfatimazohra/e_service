@@ -6,17 +6,16 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_p
     exit;
 }
 
+require_once '../include/database.php';
+
 if (!isset($_GET['exam_id'])) {
     header("Location: erreur.php");
     exit;
 }
 
-include '../include/database.php';
-
 $exam_id = $_GET['exam_id'];
 
 try {
-
     $stmt_exam_info = $pdo->prepare("SELECT type, pourcentage, id_module FROM exam WHERE id = :exam_id");
     $stmt_exam_info->execute(['exam_id' => $exam_id]);
     $exam_info = $stmt_exam_info->fetch(PDO::FETCH_ASSOC);
@@ -34,30 +33,52 @@ try {
     $stmt_students = $pdo->prepare("SELECT id, nom, prenom FROM etudiant WHERE id_filiere = :filiere_id");
     $stmt_students->execute(['filiere_id' => $module_info['id_filiere']]);
     $students = $stmt_students->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $notes = $_POST['notes'];
+        $remarques = $_POST['remarques'];
+
+        // Création du nom de fichier
+        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
+
+        // Ouverture du fichier en mode écriture
+        $file = fopen($filename, "w");
+
+        // Vérification si l'ouverture du fichier a réussi
+        if ($file === false) {
+            die('Impossible d\'ouvrir le fichier pour l\'écriture');
+        }
+
+        // En-tête du fichier CSV
+        $headers = ['Nom', 'Prenom', 'Note', 'Remarque'];
+
+        // Écriture de l'en-tête dans le fichier CSV
+        fputcsv($file, $headers);
+
+        // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier CSV
+        foreach ($students as $student) {
+            $note = $notes[$student['id']] ?? ''; // Récupération de la note
+            $remarque = $remarques[$student['id']] ?? ''; // Récupération de la remarque
+
+            // Données à écrire dans le fichier CSV
+            $data = [
+                $student['nom'],
+                $student['prenom'],
+                $note,
+                $remarque
+            ];
+
+            // Écriture des données dans le fichier CSV
+            fputcsv($file, $data);
+        }
+
+        // Fermeture du fichier
+        fclose($file);
+
+        echo "Les notes ont été sauvegardées avec succès dans le fichier $filename.";
+    }
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
-}
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $notes = $_POST['notes'];
-    $remarques = $_POST['remarques'];
-
-    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
-    $file = fopen($filename, "w");
-    fwrite($file, "Nom                           Prenom                              Note                              Remarque\n");
-    foreach ($students as $student) {
-        $note = $notes[$student['id']] ?? '';
-        $remarque = $remarques[$student['id']] ?? '';
-        fwrite($file, $student['nom']  . "               " .    $student['prenom'] . "              "    . $note .     "                            " . $remarque . "\n");
-    }
-    fclose($file);
-    // Téléchargement du fichier
-    header("Content-disposition: attachment; filename=$filename");
-    header("Content-type: application/csv");
-    readfile($filename);
-    exit;
 }
 ?>
 
@@ -131,14 +152,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <button type="submit"> Télécharger</button>
+        <button type="submit"> Sauvegarder</button>
         <button class="consulter">
-    <a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">
-        Consulter les Notes
-    </a>
-</button>
-
-
+            <a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">
+                Consulter les Notes
+            </a>
+        </button>
     </form>
         `;
     </script>

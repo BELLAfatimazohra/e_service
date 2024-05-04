@@ -60,17 +60,19 @@ $types_cours = ['TD', 'TP', 'Cours'];
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer Emploi du Temps</title>
 </head>
-<body>
-<?php include '../include/nav_cote_corr.php'; ?>
-<script>
-    var bodyDiv = document.querySelector('.bodyDiv');
 
-    bodyDiv.innerHTML = `
+<body>
+    <?php include '../include/nav_cote_corr.php'; ?>
+    <script>
+        var bodyDiv = document.querySelector('.bodyDiv');
+
+        bodyDiv.innerHTML = `
     <h1>Créer Emploi du Temps pour <?php echo $filiere['Nom_filiere']; ?></h1>
 
 <table>
@@ -145,7 +147,8 @@ $types_cours = ['TD', 'TP', 'Cours'];
 
 
     `;
-</script>
+    </script>
 
 </body>
+
 </html>

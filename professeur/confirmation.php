@@ -16,7 +16,7 @@
 ?>
 <script>
        
-        var bodyDiv = document.querySelector('.body');
+        var bodyDiv = document.querySelector('.bodyDiv');
         
         
         bodyDiv.innerHTML = `

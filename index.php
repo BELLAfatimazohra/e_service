@@ -50,10 +50,10 @@
 
 require_once 'include/database.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-    
+
     $email = $_POST['mail'];
     $password = $_POST['password'];
-    
+
     try {
         $stmt_etudiant = $pdo->prepare("SELECT * FROM etudiant WHERE Email = :email AND Password = :password");
         $stmt_etudiant->execute(['email' => $email, 'password' => $password]);
@@ -76,11 +76,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $result_etudiant['id'];
             header("Location:etudiant/index.php");
             exit;
-        } elseif (($result_professeur) &&  ($result_coordinateur)){
+        } elseif (($result_professeur) &&  ($result_coordinateur)) {
 
             session_start();
 
-            $_SESSION['user_type'] = 'professeur';
+            $_SESSION['user_type'] = 'coordinateur_prof';
             $_SESSION['user_id'] = $result_professeur['id'];
 
             header("Location:coordinateur_prof/index.php");
@@ -107,8 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
             echo "Email ou mot de passe incorrect.";
         }
-    }
-    catch (PDOException $e) {
+    } catch (PDOException $e) {
         echo "Erreur de connexion : " . $e->getMessage();
     }
 }

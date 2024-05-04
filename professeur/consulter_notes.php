@@ -54,7 +54,7 @@ try {
     <?php include '../include/nav_cote.php'; ?>
     <script>
        
-       var bodyDiv = document.querySelector('.body');
+       var bodyDiv = document.querySelector('.bodyDiv');
 
        bodyDiv.innerHTML = `
        <h1>Contenu du fichier CSV :</h1>

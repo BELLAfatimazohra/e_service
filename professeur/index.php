@@ -29,7 +29,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     include '../include/nav_cote.php';
     ?>
     <script>
-        var bodyDiv = document.querySelector('.body');
+        var bodyDiv = document.querySelector('.bodyDiv');
 
         bodyDiv.innerHTML = `
         <div class="bienvenue">

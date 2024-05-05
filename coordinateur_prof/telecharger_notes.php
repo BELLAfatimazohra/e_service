@@ -44,10 +44,10 @@ try {
         header('Content-Type: application/xls');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         header('Pragma: no-cache');
-        
+
         // Ouvrir le fichier en lecture
         $file = fopen($filename, 'r');
-        
+
         // Envoyer les en-têtes de colonne
         echo "Nom,Prenom,Note,Remarque\n";
 
@@ -67,4 +67,3 @@ try {
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
 }
-?>

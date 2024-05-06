@@ -15,7 +15,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emploi du Temps</title>
-    <style>/* styles.css */
+    <style>
 
 .container {
     max-width: 800px;

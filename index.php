@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="loginPage/style.css" />
-    <script src="loginPage/script.js"></script>
+    <link rel="stylesheet" href="images/loginPage/style.css" />
+    <script src="images/loginPage/script.js"></script>
     <title>ENSAH E-Services</title>
 </head>
 

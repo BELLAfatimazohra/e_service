@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '../include/nav_cote.php';
     ?>
     <script>
-        var bodyDiv = document.querySelector('.body');
+        var bodyDiv = document.querySelector('.bodyDiv');
         bodyDiv.innerHTML = `
         <div class="form-container">
         <h1 style="text-align: center; color: #333;">Ajouter un Examen</h1>

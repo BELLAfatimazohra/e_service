@@ -204,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
      ?>
  <script>
          
-         var bodyDiv = document.querySelector('.body');
+         var bodyDiv = document.querySelector('.bodyDiv');
          
          bodyDiv.innerHTML = `
          <div class="change">

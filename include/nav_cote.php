@@ -2,386 +2,266 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceuil</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        .container {
-            position: relative;
-            min-height: 100vh;
-            /* Hauteur minimale de la page égale à 100% de la hauteur de la fenêtre du navigateur */
-            display: flex;
-            background-color: #f1f1f1;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="home/Home.css">
+  <title>e-Service</title>
+  <style>
+    :root {
+  --body-bg: rgb(243, 243, 243);
+  --nav-bg: #555ce3;
+}
 
-        .column1 {
-            flex: 18%;
-            /* Prendre le double de l'espace par rapport à la colonne 2 */
-            background-color: white;
-            padding: 0;
-            margin: 0;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            height: 100%;
-            padding-bottom: 0px;
-            overflow-y: auto;
-            margin-bottom: 0px;
-            padding-bottom: 0%;
-        }
+* {
+  box-sizing: border-box;
+  font-family: poppins;
+  margin: 0;
+  padding: 0;
+}
 
-        .column2 {
+body {
+  font-size: 1rem;
+  background: var(--body-bg);
+  height: 100vh;
 
-            flex: 82%;
-            display: flex;
-            flex-direction: column;
-            background-color: #f1f1f1;
-        }
+}
+#sidebar {
+  background: var(--nav-bg);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
 
+.nav-list {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  position: relative;
+  font-size: small;
+}
 
+.nav-list a {
+  color: white;
+  display: block;
+  text-decoration: none;
+  opacity: 80%;
+  width: 100%;
+  transition: all 0.1s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.nav-list a:hover {
+  opacity: 100%;
+}
 
-        .dropdown-content {
-            display: none;
-            position: fixed;
-            /* Définit la position fixe pour le menu */
-            top: 50px;
-            /* Le menu sera fixé en haut de la fenêtre */
-            right: 0;
-            /* Le menu sera aligné sur le bord droit */
-            width: 10%;
-            /* Le menu occupera toute la largeur de la fenêtre */
-            background-color: white;
-            /* Couleur de fond du menu */
-            z-index: 1;
-            /* Assure que le menu s'affiche au-dessus du contenu de la page */
-            padding: 30px;
-            /* Ajoutez un peu de marge intérieure pour le contenu du menu */
-        }
+.nav-list li {
+  padding-block: 1rem;
+  padding-inline: 2rem;
+  margin-inline: 1rem 0;
+  box-shadow: 2px 0 0 var(--body-bg);
+}
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent; /* Top side of the arrow */
+  border-bottom: 7px solid transparent; /* Bottom side of the arrow */
+  border-left: 5px solid rgb(255, 255, 255); /* Right side of the arrow */
+  opacity: 80%;
+}
+.nav-list a:hover ~ .arrow-left {
+  opacity: 100%;
+  transform: translateX(5%);
+}
 
-        .acceuil {
-            background-color: white;
-            border: none;
-            color: blue;
-            font-size: 13px;
-            text-align: center;
-            float: center;
-            margin-left: 10px;
-            font-family: Arial, sans-serif;
-            /* Exemple de police de caractères */
-        }
+.nav-list li.active {
+  background: var(--body-bg);
+  position: relative;
+  border-radius: 100vw 0 0 100vw;
+}
+.nav-list li.active a {
+  color: rgb(0, 0, 0);
+  opacity: 100%;
+}
+.nav-list li.active .arrow-left {
+  border-left: 5px solid rgb(0, 0, 0);
+}
+.nav-list li.active path {
+  fill: black;
+}
 
-        .acceuil i {
-            font-size: 15px;
-            color: blue;
-        }
+.nav-list li.active::before,
+.nav-list li.active::after {
+  --border-radius: 1rem;
+  content: "";
+  position: absolute;
+  width: var(--border-radius);
+  height: var(--border-radius);
+  right: 0rem;
+}
 
-        .option_left {
-            margin-top: 50px;
-        }
+.nav-list li.active::before {
+  border-radius: 0 0 var(--border-radius);
+  top: calc(var(--border-radius) * -1);
+  box-shadow: 5px 5px 0 5px var(--body-bg);
+}
 
-        .e_service {
-            padding: 10px;
-            background-color: gray;
-            margin-right: 10px;
-            margin-left: 10px;
-            margin-top: 80px;
-            border-radius: 5px;
-        }
+.nav-list li.active::after {
+  border-radius: 0 var(--border-radius) 0 0;
+  bottom: calc(var(--border-radius) * -1);
+  box-shadow: 5px -5px 0 5px var(--body-bg);
+}
+.imgcontainer {
+  position: relative;
+}
 
-        .signaler {
-            background-color: white;
-            padding: 0;
-            margin: 0;
-            margin-bottom: 0;
-        }
+.logo {
+  height: 3rem;
+  width: fit-content;
+}
+.imgcontainer::after,
+.nav-list::after {
+  content: "";
+  width: 10rem;
+  height: 0.5px;
+  display: block;
+  position: absolute;
+  background-color: rgb(197, 194, 255);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -35%;
+  opacity: 50%;
+}
+li svg path {
+  fill: white;
+}
+li svg {
+  height: 1.5rem;
+}
+.group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.nav-list::after {
+  bottom: -1rem;
+}
 
-        .signaler p {
-            bottom: 0;
-            left: 0;
-            margin: 0;
-            margin-bottom: 0;
-            justify-content: center;
-            text-align: center;
-        }
+/*navbar*/
 
-        .signaler h1 {
-            margin-top: 20px;
-            height: 30px;
-            text-align: center;
-            font-size: 20px;
+header {
+  position: fixed;
+  top: 0;
+  padding: 2rem;
+  padding-left: 17rem;
+  width: 100%;
+  height: 2.5rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 10px 3px 10px rgb(211, 211, 211);
+  display: flex;
+  align-items: center;
+}
 
-        }
+.profile {
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+  display: grid;
+  place-items: center;
+}
+.profile svg path {
+  fill: rgb(0, 0, 0);
+}
+.profile svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.bodyDiv{
+padding-top: 100px;
+padding-left: 300px;
 
-
-        .savoir_plus {
-            height: 40px;
-            background-color: darkolivegreen;
-            border: none;
-        }
-
-        .savoir_plus a {
-            text-decoration: none;
-            color: white;
-        }
-
-        /* Style pour le survol des liens dans le menu déroulant */
-        .dropdown-content {
-            display: none;
-            /* Caché par défaut */
-            position: absolute;
-            /* Position absolue pour le positionner par rapport au bouton */
-            top: 40px;
-            /* Espacement par rapport au haut */
-            right: 0;
-            /* Aligné sur le bord droit */
-            background-color: #fff;
-            /* Couleur de fond */
-            min-width: 160px;
-            /* Largeur minimale */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            /* Ombre légère */
-            z-index: 1;
-            /* Assurer que le menu s'affiche au-dessus du contenu */
-            border-radius: 5px;
-            /* Coins arrondis */
-            padding: 10px 0;
-            /* Espacement intérieur */
-        }
-
-        /* Style pour les éléments de la liste */
-        .dropdown-content ul {
-            list-style-type: none;
-            /* Supprimer les puces */
-            padding: 0;
-            /* Supprimer le padding */
-            margin: 0;
-            /* Supprimer les marges */
-        }
-
-        /* Style pour les liens dans le menu déroulant */
-        .dropdown-content a {
-            display: block;
-            /* Affichage en bloc */
-            padding: 5px 10px;
-            /* Espacement intérieur */
-            text-decoration: none;
-            /* Supprimer le soulignement par défaut */
-            color: black;
-            /* Couleur du texte */
-            transition: background-color 0.3s;
-            /* Transition fluide pour le survol */
-        }
-
-        /* Style pour le survol des liens */
-        .dropdown-content a:hover {
-            background-color: #f0f0f0;
-            /* Couleur de fond au survol */
-        }
-
-        nav {
-            background-color: #ccc;
-            overflow: hidden;
-            display: flex;
-            justify-content: space-between;
-            /* Pour espacer les éléments à l'intérieur de la barre de navigation */
-            align-items: center;
-            /* Pour aligner les éléments verticalement au centre */
-            flex: 5%;
-            padding: 0 10px;
-            /* Ajoute une marge interne pour éviter le chevauchement */
-        }
-
-        .msg,
-        .notif,
-        .dropbtn {
-            background-color: #ccc;
-            border: none;
-            padding: 10px;
-            margin: 0;
-        }
-
-        .msg i,
-        .notif i,
-        .dropbtn i {
-            font-size: 20px;
-            color: #007bff;
-        }
-
-
-        .body {
-            flex: 90%;
-            background-color: #d6d5d5;
-        }
-
-        .dropbtn {
-            float: right;
-
-            margin-right: 10px;
-            background-color: #ccc;
-            border: none;
-        }
-
-        .dropbtn i {
-
-            text-align: center;
-            font-size: 20px;
-            /* Taille de l'icône */
-            color: #007bff;
-        }
-
-        body {
-            padding: 0px;
-            margin: 0px;
-        }
-
-        .search-container {
-            display: flex;
-            align-items: center;
-            /* Pour centrer verticalement */
-            margin-top: 0px;
-            padding-left: 20px;
-            border-left: 1px solid #ccc;
-            flex: 1;
-            /* Pour que la barre de recherche occupe tout l'espace disponible */
-        }
-
-        .search-container input[type="text"] {
-            flex: 1;
-            /* Pour que le champ de saisie occupe tout l'espace disponible */
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .search-container button {
-            padding: 8px;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .search-container button:hover {
-            background-color: #0056b3;
-        }
-
-
-
-
-        .bienvenue button {
-            width: 150px;
-            margin-left: 80px;
-        }
-
-        .ns {
-            text-align: center;
-
-        }
-
-
-
-
-
-
-        .savoir_plus {
-            border: none;
-            border-radius: 5px;
-        }
-
-        footer {
-            height: 0px;
-            text-align: center;
-        }
-
-
-        .fas fa-chevron-right {
-            margin-left: 5px;
-        }
-
-        .txt {
-            text-decoration: none;
-            justify-content: center;
-            text-align: center;
-            color: black;
-            font-style: italic;
-            /* Ajout de l'italique au texte */
-            font-size: 16px;
-            /* Taille de la police */
-            margin: 20px;
-            /* Ajout de marges autour du paragraphe */
-        }
-    </style>
+}
+  </style>
 </head>
 
 <body>
-
-    <div class="container">
-        <!-- Première colonne -->
-        <div class="column1">
-            <div class="option_left">
-                <button class="acceuil"><a href="../professeur/index.php"><i class="fas fa-home"></i></a> Acceuil <a href="../professeur/index.php"><i class="fas fa-chevron-right"></i></button><br><br>
-                <button class="acceuil"><a href="personnel.php"><i class="fas fa-users"></i></a> Personnel <a href="personnel.php"> <i class="fas fa-chevron-right"></i></button><br><br>
-                <button class="acceuil"><a href="profil.php"><i class="fas fa-user"></i></a> Profil <a href="profil.php"><i class="fas fa-chevron-right"></i></button><br><br>
-                <button class="acceuil"><a href="about.php"><i class="fa-question-circle"></i></a> About ENSAH <a href="about.php"><i class="fas fa-chevron-right"></i></button><br><br>
-                <button class="acceuil"><a href="biblio.php"><i class="fas fa-book"></i></a> Bibliothque <a href="biblio.php"><i class="fas fa-chevron-right"></i></button><br><br>
-            </div>
-            <div class="e_service">
-                <p class="txt">ce site est une application Web développée par BELLA Fatima Zohra et AMMARA Abderrahmane pour offrir un ensemble de services numériques aux membres de l'établissement .</p>
-                <button class="savoir_plus"><a href="../professeur/en_savoir_plus.php">En Savoir plus sur e_services</a></button><br><br><br>
-            </div>
-            <div class="signaler">
-                <h1>Signaler un bug </h1>
-                <p>Si vous constatez la moindre anomalie n'hésitez pas à nous contactez via l'email <a href="mailto:support_ensah@gmail.com">support_ensah@gmail.com</a></p>
-            </div>
-        </div>
-
-        <div class="column2">
-            <nav>
-                <div class="search-container">
-                    <form>
-                        <input type="text" id="searchInput" placeholder="Rechercher..." name="search">
-                        <button type="button" onclick="highlightSearch()"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleDropdown()"><i class="fas fa-user fa-lg"></i></button><br><br>
-                    <div class="dropdown-content" id="dropdownContent">
-                        <ul>
-                            <li><a href="../professeur/profil.php"><i class="fas fa-user"></i> Profil </a></li>
-                            <li><a href="../professeur/se_deconnecter.php"><i class="fas fa-sign-out-alt"></i> Se déconnecter </a></li>
-                            <li><a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i> Changer mot de passe</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="msg"><a href="message.php"><i class="fas fa-envelope"></i>
-                    </a></button>
-                <button class="notif"><a href="notif.php"><i class="fas fa-bell"></i>
-                    </a></button>
-                <script>
-                    function toggleDropdown() {
-                        console.log("Toggle dropdown function called");
-                        var dropdownContent = document.getElementById("dropdownContent");
-                        if (dropdownContent.style.display === "block") {
-                            dropdownContent.style.display = "none";
-                        } else {
-                            dropdownContent.style.display = "block";
-                        }
-                    }
-                </script>
-
-            </nav>
-            <div class="body">
-
-            </div>
-        </div>
-
+  <header>
+    <div class="group">
+      <a class="profile" href="profil.php"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+          <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+        </svg></a>
     </div>
-    <footer>
-        <p>E-SERVICES © Copyright 2024 - Développée par BELLA Fatima Zohra & AMMARA Abderrahmane</p>
-    </footer>
+
+
+    <!-- <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success searchButton" type="submit">Search</button>
+      </form> -->
+
+
+
+  </header>
+
+
+
+
+
+  <nav id="sidebar">
+    <div class="imgcontainer">
+      <img class="logo" src="../public/images/logo-ensah.png" alt="ensah">
+    </div>
+    <ul class="nav-list">
+      <li class="active">
+        <a href="index.php" aria-current="page">
+          <div class="group"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+              <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+            </svg>Acceuille</div>
+          <div class="arrow-left"></div>
+        </a>
+      </li>
+      <li>
+        <a href="empTmps/empTmps.php">
+          <div class="group">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+              <path d="M320-400q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm160 0q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm160 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z" />
+            </svg>Emploi du temps
+          </div>
+          <div class="arrow-left"></div>
+        </a>
+      </li>
+      <li>
+        <a href="affichage/affichage.php">
+          <div class="group"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+              <path d="M360-120q-33 0-56.5-23.5T280-200v-400q0-33 23.5-56.5T360-680h400q33 0 56.5 23.5T840-600v400q0 33-23.5 56.5T760-120H360Zm0-400h400v-80H360v80Zm160 160h80v-80h-80v80Zm0 160h80v-80h-80v80ZM360-360h80v-80h-80v80Zm320 0h80v-80h-80v80ZM360-200h80v-80h-80v80Zm320 0h80v-80h-80v80Zm-480-80q-33 0-56.5-23.5T120-360v-400q0-33 23.5-56.5T200-840h400q33 0 56.5 23.5T680-760v40h-80v-40H200v400h40v80h-40Z" />
+            </svg>Affichage</div>
+          <div class="arrow-left"></div>
+        </a>
+      </li>
+      <li><a href="message.php">
+          <div class="group"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+              <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z" />
+            </svg>Messagerie</div>
+          <div class="arrow-left"></div>
+        </a></li>
+      <li><a href="personnel.php">
+          <div class="group"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+              <path d="M440-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T520-640q0-33-23.5-56.5T440-720q-33 0-56.5 23.5T360-640q0 33 23.5 56.5T440-560ZM884-20 756-148q-21 12-45 20t-51 8q-75 0-127.5-52.5T480-300q0-75 52.5-127.5T660-480q75 0 127.5 52.5T840-300q0 27-8 51t-20 45L940-76l-56 56ZM660-200q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-540 40v-111q0-34 17-63t47-44q51-26 115-44t142-18q-12 18-20.5 38.5T407-359q-60 5-107 20.5T221-306q-10 5-15.5 14.5T200-271v31h207q5 22 13.5 42t20.5 38H120Zm320-480Zm-33 400Z" />
+            </svg>Personnel</div>
+          <div class="arrow-left"></div>
+        </a></li>
+    </ul>
+  </nav>
+  <div class="bodyDiv">
+
+  </div>
 
 </body>
 

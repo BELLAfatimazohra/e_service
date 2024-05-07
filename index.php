@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="loginPage/style.css" />
-    <script src="loginPage/script.js"></script>
+    <link rel="stylesheet" href="images/loginPage/style.css" />
+    <script src="images/loginPage/script.js"></script>
     <title>ENSAH E-Services</title>
 </head>
 
@@ -50,10 +50,10 @@
 
 require_once 'include/database.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-    
+
     $email = $_POST['mail'];
     $password = $_POST['password'];
-    
+
     try {
         $stmt_etudiant = $pdo->prepare("SELECT * FROM etudiant WHERE Email = :email AND Password = :password");
         $stmt_etudiant->execute(['email' => $email, 'password' => $password]);
@@ -76,6 +76,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $result_etudiant['id'];
             header("Location:etudiant/index.php");
             exit;
+        } elseif (($result_professeur) &&  ($result_coordinateur)) {
+
+            session_start();
+
+            $_SESSION['user_type'] = 'coordinateur_prof';
+            $_SESSION['user_id'] = $result_professeur['id'];
+
+            header("Location:coordinateur_prof/index.php");
+            exit;
         } elseif ($result_professeur) {
 
             session_start();
@@ -84,15 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $result_professeur['id'];
 
             header("Location:professeur/index.php");
-            exit;
-        } elseif ($result_coordinateur) {
-
-            session_start();
-
-            $_SESSION['user_type'] = 'coordinateur';
-            $_SESSION['user_id'] = $result_coordinateur['id'];
-
-            header("Location:coordinateur/index.php");
             exit;
         } elseif ($result_chef_departement) {
 
@@ -107,8 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
             echo "Email ou mot de passe incorrect.";
         }
-    }
-    catch (PDOException $e) {
+    } catch (PDOException $e) {
         echo "Erreur de connexion : " . $e->getMessage();
     }
 }

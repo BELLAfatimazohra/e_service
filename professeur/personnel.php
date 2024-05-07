@@ -34,7 +34,7 @@ try {
     ?>
     <script>
         // Sélectionnez la div .body
-        var bodyDiv = document.querySelector('.body');
+        var bodyDiv = document.querySelector('.bodyDiv');
 
         // Ajoutez votre propre contenu à la div .body
         bodyDiv.innerHTML = `

@@ -42,7 +42,7 @@ CREATE TABLE `actualites` (
 
 INSERT INTO `actualites` (`id`, `titre`, `image_url`, `description`, `date_actualite`, `url_lien`) VALUES
 (3, 'webinaire', 'https://ensah.ma/images/newsIcon/avis.png', ' Université Abdelmalek Essaâdi organise un webinaire sous le thème : REPENSER L EAU EN TERRITOIRE URBAIN.', '2024-04-02', 'https://ensah.ma/apps/eservices/internal/members/common/newsDetails.php?idNews=2601'),
-(4, 'Nouvelle exposition d\'art contemporain', 'https://ensah.ma/images/newsIcon/avis.png', '\r\nHuawei Ramadan Masterclass 2024 - Invitation des étudiants au webinaire de bienvenue.', '2024-04-03', 'https://ensah.ma/apps/eservices/internal/members/common/newsDetails.php?idNews=2600'),
+(4, 'Nouvelle exposition d\art contemporain', 'https://ensah.ma/images/newsIcon/avis.png', '\r\nHuawei Ramadan Masterclass 2024 - Invitation des étudiants au webinaire de bienvenue.', '2024-04-03', 'https://ensah.ma/apps/eservices/internal/members/common/newsDetails.php?idNews=2600'),
 (5, 'Opportunité de Stage', 'https://ensah.ma/images/newsIcon/avis.png', 'Rappel : Opportunité de Stage d Été chez Oracle Morocco RD Center.', '2024-04-01', 'https://ensah.ma/apps/eservices/internal/members/common/newsDetails.php?idNews=2599');
 
 -- --------------------------------------------------------
@@ -194,7 +194,7 @@ CREATE TABLE `message_prof` (
 
 INSERT INTO `message_prof` (`id`, `id_prof`, `id_filiere`, `message`, `titre`, `date_message`) VALUES
 (1, 1, 1, 'test', 'test', '2024-04-27'),
-(2, 1, 1, 'ikjo;\'j', 'iojio;jm', '2024-04-28'),
+(2, 1, 1, 'ikjo;\j', 'iojio;jm', '2024-04-28'),
 (3, 1, 1, 'test', 'test', '2024-04-28'),
 (4, 1, 1, 'testtt', 'test', '2024-04-28'),
 (5, 1, 1, 'jj', 'j', '2024-05-01'),

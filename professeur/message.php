@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message</title>
     
-    <link rel="stylesheet" href="../professeur/assets/message.css">
+    <link rel="stylesheet" href="assets/message.css">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
 </head>
 <body>
     <?php
     session_start();
     if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
-        include '../include/nav_cote.php'; 
+        include 'assets/include/sidebarProf.php'; 
     } else {
         
         header("Location: index.php");
@@ -20,7 +21,7 @@
     ?>
 
     <script>
-        var bodyDiv = document.querySelector('.body');
+        var bodyDiv = document.querySelector('.bodyDiv');
         
         bodyDiv.innerHTML = `
         <h1>Page de messages</h1>
@@ -31,6 +32,15 @@
             <button class="no-button" type="submit">Consulter la liste des messages</button>
         </form>
         `;
+
+        document.querySelectorAll("li").forEach(function(li) {
+            if(li.classList.contains("active")){
+                li.classList.remove("active");
+            }
+        });
+
+        document.querySelector(".liMessage").classList.add("active");
+        
     </script>
 </body>
 </html>

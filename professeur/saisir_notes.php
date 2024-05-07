@@ -42,17 +42,46 @@ try {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $notes = $_POST['notes'];
-    $remarques = $_POST['remarques'];
+$remarques = $_POST['remarques'];
 
-    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
-    $file = fopen($filename, "w");
-    fwrite($file, "Nom                           Prenom                              Note                              Remarque\n");
-    foreach ($students as $student) {
-        $note = $notes[$student['id']] ?? '';
-        $remarque = $remarques[$student['id']] ?? '';
-        fwrite($file, $student['nom']  . "               " .    $student['prenom'] . "              "    . $note .     "                            " . $remarque . "\n");
-    }
-    fclose($file);
+// Construct the filename using details from the form
+$filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
+
+// Open the file in write mode
+$file = fopen($filename, "w");
+
+// Check if file was opened successfully
+if ($file === false) {
+    die('Unable to open file for writing');
+}
+
+// Define the header row
+$headers = ['Nom', 'Prenom', 'Note', 'Remarque'];
+
+// Write the headers to the CSV
+fputcsv($file, $headers);
+
+// Loop through each student to get their data
+foreach ($students as $student) {
+    // Retrieve the note and remarque, handle missing data with null coalescing operator
+    $note = $notes[$student['id']] ?? '';
+    $remarque = $remarques[$student['id']] ?? '';
+
+    // Array of data to write to the CSV file
+    $data = [
+        $student['nom'],
+        $student['prenom'],
+        $note,
+        $remarque
+    ];
+
+    // Write the data to the CSV file
+    fputcsv($file, $data);
+}
+
+// Close the file
+fclose($file);
+
     // Téléchargement du fichier
     header("Content-disposition: attachment; filename=$filename");
     header("Content-type: application/csv");

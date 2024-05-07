@@ -88,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             header("Location:professeur/index.php");
             exit;
         } else {
-
             echo "Email ou mot de passe incorrect.";
         }
     } catch (PDOException $e) {

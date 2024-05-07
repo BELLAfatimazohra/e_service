@@ -344,7 +344,6 @@
                     <form>
                         <input type="text" id="searchInput" placeholder="Rechercher..." name="search">
                         <button type="button" onclick="highlightSearch()"><i class="fas fa-search"></i></button>
-
                     </form>
                 </div>
                 <div class="dropdown">

@@ -8,6 +8,25 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     exit;
 }
 ?>
+<?php
+session_start();
+
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
+    header("Location: index.php");
+    exit;
+}
+$userId = $_SESSION['user_id'];
+
+require_once "../include/database.php";
+
+try {
+    $stmt_filieres = $pdo->prepare("SELECT DISTINCT f.id, f.Nom_filiere FROM module m INNER JOIN filiere f ON m.id_filiere = f.id WHERE m.id_prof = :id_prof");
+    $stmt_filieres->execute(['id_prof' => $userId]);
+    $filieres = $stmt_filieres->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +55,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
         </div>
         <div class="options">
             <div class="col1">
-                
+
                 <a class="opt" href="message.php"><button class="btn2"> Messages<svg class="btnsvg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                             <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z" />
                         </svg></button></a> <br>
@@ -85,15 +104,15 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
                 <a class="url_act" href="https://ensah.ma/apps/eservices/internal/members/common/newsDetails.php"> <i class="fas fa-chevron-right"></i> Lire plus d'actualités</a>
             </div>
 
-            
-        <div class="filiere-list">
-            <h2>Liste des filières enseignées</h2>
-            <ul>
-                <?php foreach ($filieres as $filiere) : ?>
-                    <a href="module.php?filiere_id=<?php echo $filiere['id']; ?>"><?php echo $filiere['Nom_filiere']; ?></a>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+
+            <div class="filiere-list">
+                <h2>Liste des filières enseignées</h2>
+                <ul>
+                    <?php foreach ($filieres as $filiere) : ?>
+                        <a href="module.php?filiere_id=<?php echo $filiere['id']; ?>"><?php echo $filiere['Nom_filiere']; ?></a>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
 
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
     header("Location: index.php");
     exit;
 }
@@ -34,6 +34,7 @@ try {
     $stmt_students->execute(['filiere_id' => $module_info['id_filiere']]);
     $students = $stmt_students->fetchAll(PDO::FETCH_ASSOC);
 
+    // Si des données ont été envoyées via le formulaire
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $notes = $_POST['notes'];
         $remarques = $_POST['remarques'];
@@ -49,18 +50,18 @@ try {
             die('Impossible d\'ouvrir le fichier pour l\'écriture');
         }
 
-        // En-tête du fichier CSV
+        // En-tête du fichier XLS
         $headers = ['Nom', 'Prenom', 'Note', 'Remarque'];
 
-        // Écriture de l'en-tête dans le fichier CSV
+        // Écriture de l'en-tête dans le fichier XLS
         fputcsv($file, $headers);
 
-        // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier CSV
+        // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier XLS
         foreach ($students as $student) {
             $note = $notes[$student['id']] ?? ''; // Récupération de la note
             $remarque = $remarques[$student['id']] ?? ''; // Récupération de la remarque
 
-            // Données à écrire dans le fichier CSV
+            // Données à écrire dans le fichier XLS
             $data = [
                 $student['nom'],
                 $student['prenom'],
@@ -68,7 +69,7 @@ try {
                 $remarque
             ];
 
-            // Écriture des données dans le fichier CSV
+            // Écriture des données dans le fichier XLS
             fputcsv($file, $data);
         }
 
@@ -121,7 +122,7 @@ try {
 
 <body>
     <?php
-    include '../include/nav_cote.php';
+    include '../include/nav_cote_corr.php';
     ?>
     <script>
         // Sélectionnez la div .body
@@ -129,7 +130,7 @@ try {
 
         // Ajoutez votre propre contenu à la div .body
         bodyDiv.innerHTML = `
-        <h1>Saisir les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
+        <h1>Modifier les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
     <form method="POST">
         <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
         <table>
@@ -146,8 +147,8 @@ try {
                     <tr>
                         <td><?php echo $student['nom']; ?></td>
                         <td><?php echo $student['prenom']; ?></td>
-                        <td><input type="number" name="notes[<?php echo $student['id']; ?>]" min="0" max="20"></td>
-                        <td><input type="text" name="remarques[<?php echo $student['id']; ?>]"></td>
+                        <td><input type="number" name="notes[<?php echo $student['id']; ?>]" min="0" max="20" value="<?php echo isset($notes[$student['id']]) ? $notes[$student['id']] : ''; ?>"></td>
+                        <td><input type="text" name="remarques[<?php echo $student['id']; ?>]" value="<?php echo isset($remarques[$student['id']]) ? $remarques[$student['id']] : ''; ?>"></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

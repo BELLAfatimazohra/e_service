@@ -20,18 +20,20 @@
     }
     ?>
 
-    <script>
-        var bodyDiv = document.querySelector('.bodyDiv');
-        
-        bodyDiv.innerHTML = `
-        <h1>Page de messages</h1>
+    
+        <div class="bodyDiv">
+                    <h1>Page de messages</h1>
         <form action="envoyer_message.php" method="POST">
             <button class="no-button" type="submit">Envoyer un message</button>
         </form>
         <form action="liste_message.php" method="GET">
             <button class="no-button" type="submit">Consulter la liste des messages</button>
         </form>
-        `;
+        </div>
+        
+        
+
+        <script>
 
         document.querySelectorAll("li").forEach(function(li) {
             if(li.classList.contains("active")){

@@ -36,12 +36,12 @@ try {
     $filiere_info = $stmt_filiere_info->fetch(PDO::FETCH_ASSOC);
 
     // Construire le nom du fichier CSV
-    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
+    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
 
     // Vérifier si le fichier CSV existe
     if (file_exists($filename)) {
         // Définir les en-têtes HTTP pour le téléchargement
-        header('Content-Type: application/xls');
+        header('Content-Type: application/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         header('Pragma: no-cache');
 

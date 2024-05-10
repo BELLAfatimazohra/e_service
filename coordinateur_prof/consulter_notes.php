@@ -31,7 +31,7 @@ try {
     $filiere_info = $stmt_filiere_info->fetch(PDO::FETCH_ASSOC);
 
 
-    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
+    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
 
 
     if (file_exists($filename)) {
@@ -81,6 +81,13 @@ try {
     <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
     <button type="submit">Télécharger les notes</button>
+</form>
+
+<form action="confirmation_notes.php" method="POST">
+    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+    <button type="submit">Validate input</button>
 </form>
 
 

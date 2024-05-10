@@ -39,7 +39,7 @@ try {
         $remarques = $_POST['remarques'];
 
         // Création du nom de fichier
-        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
+        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
 
         // Ouverture du fichier en mode écriture
         $file = fopen($filename, "w");
@@ -49,11 +49,9 @@ try {
             die('Impossible d\'ouvrir le fichier pour l\'écriture');
         }
 
-        // En-tête du fichier CSV
-        $headers = ['Nom', 'Prenom', 'Note', 'Remarque'];
 
-        // Écriture de l'en-tête dans le fichier CSV
-        fputcsv($file, $headers);
+
+
 
         // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier CSV
         foreach ($students as $student) {

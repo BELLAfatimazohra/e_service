@@ -31,7 +31,7 @@ session_start();
         <div class="informations-professeur">
 
             <?php
-
+            $_SESSION['user_type'] = 'coordinateur_prof';
             if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
 
                 $userId = $_SESSION['user_id'];

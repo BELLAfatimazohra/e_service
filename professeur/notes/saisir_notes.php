@@ -42,36 +42,33 @@ try {
         $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
 
         // Ouverture du fichier en mode écriture
-        $file = fopen($filename, "w");
+            $file = fopen($filename, "w");
 
-        // Vérification si l'ouverture du fichier a réussi
-        if ($file === false) {
-            die('Impossible d\'ouvrir le fichier pour l\'écriture');
-        }
+            // Vérification si l'ouverture du fichier a réussi
+            if ($file === false) {
+                die('Impossible d\'ouvrir le fichier pour l\'écriture');
+            }
+
+            // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier CSV
+            foreach ($students as $student) {
+                $note = $notes[$student['id']] ?? ''; // Récupération de la note
+                $remarque = $remarques[$student['id']] ?? ''; // Récupération de la remarque
+
+                // Données à écrire dans le fichier CSV
+                $data = [
+                    $student['nom'],
+                    $student['prenom'],
+                    $note,
+                    $remarque
+                ];
+                // Écriture des données dans le fichier CSV
+                fputcsv($file, $data);
+            }
+            // Fermeture du fichier
+            fclose($file);
+        
 
 
-
-
-
-        // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier CSV
-        foreach ($students as $student) {
-            $note = $notes[$student['id']] ?? ''; // Récupération de la note
-            $remarque = $remarques[$student['id']] ?? ''; // Récupération de la remarque
-
-            // Données à écrire dans le fichier CSV
-            $data = [
-                $student['nom'],
-                $student['prenom'],
-                $note,
-                $remarque
-            ];
-
-            // Écriture des données dans le fichier CSV
-            fputcsv($file, $data);
-        }
-
-        // Fermeture du fichier
-        fclose($file);
 
         echo "Les notes ont été sauvegardées avec succès dans le fichier $filename.";
     }

@@ -38,11 +38,9 @@ echo $_SESSION['user_type'] ."11";
         </div>
         <div class="options">
             <div class="col1">
-                <button class="btn1"><i class="fas fa-book"></i><a class="opt" href="filiere.php"> Modules</a></button><br>
                 <button class="btn2"><i class="fas fa-envelope"></i><a class="opt" href="message.php"> Messages</a> </button><br>
-                <button class="btn3"><i class="fas fa-upload"></i><a class="opt" href="cours.php">Importer Cours</a> </button><br>
-                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi_du_temps.php"> Gerer emploi du Temps</a> </button><br>
-                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi.php"> Gerer les Modules</a> </button>
+                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi_du_temps\choisir_filiere_consulter_emploi.php"> Gerer emploi du Temps</a> </button><br>
+                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="Gestion_modules\choisir_filiere.php"> Gerer les Modules</a> </button>
             </div>
             <!-- Partie HTML de votre page -->
             <div class="col2">

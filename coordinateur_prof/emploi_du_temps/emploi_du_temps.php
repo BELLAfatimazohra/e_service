@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['user_type'] = 'coordinateur_prof';
+
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
     $userId = $_SESSION['user_id'];
 } else {
@@ -14,6 +16,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../include/sidebarCoor.css">
     <title>Emploi du Temps</title>
     <style>
         .container {
@@ -51,15 +54,15 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 </head>
 
 <body>
-    <?php include '../../include/nav_cote_corr.php'; ?>
-
-    <div class="container">
+    <?php include '../include/sidebarCoor.php'; ?>
+<div class="bodyDiv">    <div class="container">
         <h1>Emploi du Temps</h1>
         <div class="buttons">
             <a href="choisir_filiere_consulter_emploi.php">Consulter Emploi du Temps</a>
             <a href="creer_emploi_du_temps.php">Créer un Emploi du Temps</a>
         </div>
-    </div>
+    </div></div>
+
 </body>
 
 </html>

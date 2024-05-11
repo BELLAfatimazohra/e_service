@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['user_type'] = 'coordinateur_prof';
 
 // Vérifier si l'utilisateur est connecté en tant que coordinateur
 if (isset($_SESSION['user_id']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {

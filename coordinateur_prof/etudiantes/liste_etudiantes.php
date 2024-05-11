@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['user_type'] = 'coordinateur_prof';
 
 // Vérifiez si l'utilisateur est connecté et a le bon type d'utilisateur
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {

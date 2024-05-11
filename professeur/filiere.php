@@ -1,11 +1,12 @@
 <?php
 session_start();
 
+echo $_SESSION['user_type'];
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php"); 
     exit;
 }
-$userId = $_SESSION['user_id'];
+
 
 require_once "../include/database.php";
 
@@ -25,6 +26,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../professeur/assets/index.css">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
     
     <title>Acceuil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -60,7 +62,7 @@ try {
 
 <body>
 <?php
- include '../include/nav_cote.php'; 
+ include 'assets/include/sidebarProf.php'; 
 
 ?>
 <script>

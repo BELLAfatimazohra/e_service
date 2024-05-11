@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $stmt_chef_departement = $pdo->prepare("SELECT * FROM chef_departement WHERE Email = :email AND Password = :password");
         $stmt_chef_departement->execute(['email' => $email, 'password' => $password]);
         $result_chef_departement = $stmt_chef_departement->fetch(PDO::FETCH_ASSOC);
-        // Vérifie si une ligne a été retournée de la table etudiant ou professeur ou les autres .
+        // Vérifie si une ligne a été retournée de la table etudiant ou professeur ou les autres.
         if ($result_etudiant) {
             session_start();
             $_SESSION['user_type'] = 'etudiant';

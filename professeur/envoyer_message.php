@@ -1,6 +1,5 @@
 <?php
 session_start();
-include '../include/nav_cote.php';
 
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php");
@@ -17,11 +16,13 @@ $professeur_id = $_SESSION['user_id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <link rel="stylesheet" href="../professeur/assets/envoyer_message.css">
     <title>Envoyer un message aux étudiants</title>
 </head>
 
-<body>
+<body><?php
+        include 'assets/include/sidebarProf.php'; ?>
     <div class="bodyDiv">
         <h1>Envoyer un message aux étudiants</h1>
         <form class="message" action="traitement_envoi_email.php" method="POST">

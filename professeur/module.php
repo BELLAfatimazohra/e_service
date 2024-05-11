@@ -1,16 +1,15 @@
 <?php
-// reprend la session 
 session_start();
 
 
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
-    header("Location: index.php"); 
+    header("Location: index.php");
     exit;
 }
 
 
 if (!isset($_GET['filiere_id'])) {
-    header("Location: filiere.php"); 
+    header("Location: filiere.php");
     exit;
 }
 
@@ -21,7 +20,7 @@ $filiereId = $_GET['filiere_id'];
 require_once "../include/database.php";
 
 try {
-   
+
     $stmt_modules = $pdo->prepare("SELECT id, Nom_module FROM module WHERE id_filiere = :filiere_id");
     $stmt_modules->execute(['filiere_id' => $filiereId]);
     $modules = $stmt_modules->fetchAll(PDO::FETCH_ASSOC);
@@ -38,27 +37,27 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../professeur/assets/index.css">
     <link rel="stylesheet" href="../professeur/assets/module.css">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <title>Acceuil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
 </head>
 
 <body>
 
-   
-             <?php  
-include '../include/nav_cote.php';
-             ?>
-             <script>
-      
+
+    <?php
+    include 'assets/include/sidebarProf.php';
+    ?>
+    <script>
         var bodyDiv = document.querySelector('.bodyDiv');
-        
-       
+
+
         bodyDiv.innerHTML = `
         <div class="module-list">
                 <h2>Modules de la filière</h2>
-                <?php foreach ($modules as $module): ?>
+                <?php foreach ($modules as $module) : ?>
                     <form action="../professeur/exam.php" method="GET">
                         <!-- Inclure l'identifiant du module dans l'URL -->
                         <input type="hidden" name="module_id" value="<?php echo $module['id']; ?>">
@@ -68,11 +67,11 @@ include '../include/nav_cote.php';
             </div>
         `;
     </script>
-           
 
 
 
-        </div>
+
+    </div>
     </div>
 
 </body>

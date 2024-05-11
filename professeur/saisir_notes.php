@@ -89,6 +89,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../professeur/assets/note.css">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <title>Saisir les notes</title>
     <style>
         .consulter {
@@ -121,7 +122,7 @@ try {
 
 <body>
     <?php
-    include '../include/nav_cote.php';
+    include 'assets/include/sidebarProf.php';
     ?>
     <script>
         // Sélectionnez la div .body

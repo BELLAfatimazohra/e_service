@@ -47,11 +47,12 @@ try {
             <link rel="stylesheet" href="../professeur/assets/exam.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
             <link rel="stylesheet" href="../professeur/assets/consulter_notes.css">
+            <link rel="stylesheet" href="assets/include/sidebarProf.css">
 
         </head>
 
         <body>
-            <?php include '../include/nav_cote.php'; ?>
+            <?php include 'assets/include/sidebarProf.php'; ?>
             <script>
                 var bodyDiv = document.querySelector('.bodyDiv');
 

@@ -7,12 +7,18 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     header("Location: index.php");
     exit;
 }
+
+echo $_SESSION['user_type'] ."13";
 ?>
 <?php
-
-$email = $_POST['email'];
+if($email&&$password){
+    $email = $_POST['email'];
 $password = $_POST['password'];
+}
+
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
+    
+echo $_SESSION['user_type'] ."verif";
     header("Location: index.php");
     exit;
 }
@@ -122,12 +128,10 @@ try {
 
         if ($result_coordinateur) {
 
-
             $_SESSION['user_type'] = 'coordinateur_prof';
             $_SESSION['user_id'] = $result_professeur['id'];
 
-            echo "            <a href='../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>
-           ";
+            echo "<a href='../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>";
             exit;
         }
         ?>

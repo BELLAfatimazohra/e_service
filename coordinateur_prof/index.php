@@ -3,7 +3,7 @@
 session_start();
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
-$_SESSION['user_type'] = 'coordinateur_prof'; 
+$_SESSION['user_type'] = 'coordinateur_prof';
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
     $userId = $_SESSION['user_id'];
 } else {
@@ -86,7 +86,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 
     </div>
     <form action="../professeur/index.php" method="post">
-    <?php $_SESSION['user_type'] = 'professeur'; ?>
+        <?php $_SESSION['user_type'] = 'professeur'; ?>
         <input type="hidden" name="email" value="<?php echo $email; ?>">
         <input type="hidden" name="password" value="<?php echo $password; ?>">
         <button type="submit" class="changer">Accéder à la zone prof</button>

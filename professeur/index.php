@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo $_SESSION['user_type'];
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     $userId = $_SESSION['user_id'];
 } else {
@@ -124,8 +125,7 @@ try {
 
 
             $_SESSION['user_type'] = 'coordinateur_prof';
-            $_SESSION['user_id'] = $result_professeur['id'];
-
+            $_SESSION['user_id'] = $result_coordinateur['id'];
             echo "            <a href='../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>
            ";
             exit;

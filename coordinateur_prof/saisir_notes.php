@@ -49,11 +49,9 @@ try {
             die('Impossible d\'ouvrir le fichier pour l\'écriture');
         }
 
-        // En-tête du fichier CSV
-        $headers = ['Nom', 'Prenom', 'Note', 'Remarque'];
 
-        // Écriture de l'en-tête dans le fichier CSV
-        fputcsv($file, $headers);
+
+
 
         // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier CSV
         foreach ($students as $student) {

@@ -20,7 +20,7 @@ session_start();
 
 <body>
     <?php
-    include '../include/nav_cote.php';
+    include 'include/SidebarProf.php';
     ?>
     <script>
         var bodyDiv = document.querySelector('.bodyDiv');

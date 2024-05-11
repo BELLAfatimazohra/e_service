@@ -88,6 +88,8 @@ try {
     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
     <button type="submit">Valider les notes</button>
 </form>
+
+
        `;
             </script>
 

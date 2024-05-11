@@ -27,10 +27,11 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Personnels </title>
     <link rel="stylesheet" href="../professeur/assets/personnel.css">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
 </head>
 <body>
 <?php
-    include '../include/nav_cote.php';
+    include 'assets/include/sidebarProf.php';
     ?>
     <script>
         // Sélectionnez la div .body

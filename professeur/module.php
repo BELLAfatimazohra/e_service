@@ -1,5 +1,4 @@
 <?php
-// reprend la session 
 session_start();
 
 
@@ -38,6 +37,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../professeur/assets/index.css">
     <link rel="stylesheet" href="../professeur/assets/module.css">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <title>Acceuil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -46,11 +46,12 @@ try {
 
 <body>
 
-
-    <?php
-    include '../include/nav_cote.php';
-    ?>
-    <script>
+   
+             <?php  
+include '../include/nav_cote.php';
+             ?>
+             <script>
+      
         var bodyDiv = document.querySelector('.bodyDiv');
 
 

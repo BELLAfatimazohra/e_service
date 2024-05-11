@@ -39,7 +39,7 @@ try {
         $remarques = $_POST['remarques'];
 
         // Création du nom de fichier
-        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
+        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
 
         // Ouverture du fichier en mode écriture
         $file = fopen($filename, "w");
@@ -124,10 +124,7 @@ try {
     include '../include/nav_cote_corr.php';
     ?>
     <script>
-        // Sélectionnez la div .body
         var bodyDiv = document.querySelector('.bodyDiv');
-
-        // Ajoutez votre propre contenu à la div .body
         bodyDiv.innerHTML = `
         <h1>Saisir les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
     <form method="POST">

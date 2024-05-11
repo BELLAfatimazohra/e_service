@@ -56,7 +56,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     <div class="container">
         <h1>Emploi du Temps</h1>
         <div class="buttons">
-            <a href="consulter_emploi_du_temps.php">Consulter Emploi du Temps</a>
+            <a href="choisir_filiere_consulter_emploi.php">Consulter Emploi du Temps</a>
             <a href="creer_emploi_du_temps.php">Créer un Emploi du Temps</a>
         </div>
     </div>

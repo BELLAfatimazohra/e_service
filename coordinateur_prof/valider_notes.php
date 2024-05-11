@@ -5,7 +5,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type'])) {
     header("Location: index.php");
     exit;
 }
-
 require_once '../include/database.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -50,8 +49,6 @@ try {
     $coordinateur_prenom = $coordinateur_info['Prenom'];
     $coordinateur_nom_complet = $coordinateur_info['Nom'] . ' ' . $coordinateur_info['Prenom'];
 
-
-
     // Récupérer l'email du professeur connecté
     $stmt_email = $pdo->prepare("SELECT Email , Nom,Prenom FROM professeur WHERE id = :user_id");
     $stmt_email->execute(['user_id' => $user_id]);
@@ -70,11 +67,11 @@ try {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'bellafatimazahrae@gmail.com'; // Remplacez par votre adresse e-mail
-    $mail->Password = 'frra jjmc fxjg rxdp'; // Remplacez par votre mot de passe
+    $mail->Username = 'bellafatimazahrae@gmail.com'; 
+    $mail->Password = 'frra jjmc fxjg rxdp'; 
 
     $mail->Port = 587;
-    $mail->setFrom('bellafatimazahrae@gmail.com', 'BELLA Fatima Zohra'); // Remplacez par votre adresse e-mail et votre nom
+    $mail->setFrom('bellafatimazahrae@gmail.com', 'BELLA Fatima Zohra');
     $mail->addAddress($coordinateur_email, $coordinateur_nom_complet);
     $mail->addReplyTo($prof_email, $prof_nom_complet);
     $mail->isHTML(true);

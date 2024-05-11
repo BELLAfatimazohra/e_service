@@ -9,22 +9,15 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_p
 $coordinateur_id = $_SESSION['user_id'];
 
 include '../../include/database.php';
-
-// Récupérer les filières pour lesquelles le coordinateur est responsable
 $stmt = $pdo->prepare("SELECT DISTINCT id, CONCAT(Nom_filiere, ' ', annee) AS Nom_filiere_annee FROM filiere WHERE id_coordinateur = :coordinateur_id");
 $stmt->execute(['coordinateur_id' => $coordinateur_id]);
 $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Récupérer l'id de la filière sélectionnée
     $id_filiere = $_GET['filiere'];
-
-    // Récupérer les modules de la filière sélectionnée
     $stmt_modules = $pdo->prepare("SELECT id, Nom_module FROM module WHERE id_filiere = :id_filiere");
     $stmt_modules->execute(['id_filiere' => $id_filiere]);
     $modules = $stmt_modules->fetchAll(PDO::FETCH_ASSOC);
-
-    // Récupérer tous les professeurs disponibles
     $stmt_professeurs = $pdo->prepare("SELECT id, Nom ,Prenom FROM professeur WHERE id_filiere =  $id_filiere ");
     $stmt_professeurs->execute();
     $professeurs = $stmt_professeurs->fetchAll(PDO::FETCH_ASSOC);

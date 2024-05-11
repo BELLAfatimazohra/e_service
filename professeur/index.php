@@ -10,7 +10,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
 ?>
 <?php
 session_start();
-
+$email = $_POST['email'];
+$password = $_POST['password'];
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php");
     exit;
@@ -112,7 +113,24 @@ try {
                 </ul>
             </div>
         </div>
+        <?php
 
+
+        $stmt_coordinateur = $pdo->prepare("SELECT * FROM coordinateur WHERE Email = :email AND Password = :password");
+        $stmt_coordinateur->execute(['email' => $email, 'password' => $password]);
+        $result_coordinateur = $stmt_coordinateur->fetch(PDO::FETCH_ASSOC);
+
+        if ($result_coordinateur) {
+
+
+            $_SESSION['user_type'] = 'coordinateur_prof';
+            $_SESSION['user_id'] = $result_professeur['id'];
+
+            echo "            <a href='../../../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>
+           ";
+            exit;
+        }
+        ?>
 
 
 
@@ -123,7 +141,7 @@ try {
 
 
     <footer>
-    E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
+        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
     </footer>
 
 </body>

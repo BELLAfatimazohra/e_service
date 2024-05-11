@@ -5,7 +5,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type'])) {
     header("Location: index.php");
     exit;
 }
-
 require_once '../include/database.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -49,8 +48,6 @@ try {
     $coordinateur_nom = $coordinateur_info['Nom'];
     $coordinateur_prenom = $coordinateur_info['Prenom'];
     $coordinateur_nom_complet = $coordinateur_info['Nom'] . ' ' . $coordinateur_info['Prenom'];
-
-
 
     // Récupérer l'email du professeur connecté
     $stmt_email = $pdo->prepare("SELECT Email , Nom,Prenom FROM professeur WHERE id = :user_id");

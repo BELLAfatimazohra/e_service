@@ -8,19 +8,18 @@
     <title>Acceuil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
 </head>
 
 <body>
-<?php
- include '../include/nav_cote_corr.php'; 
+    <?php
+    include '../include/nav_cote_corr.php';
 
-?>
-<script>
-       
+    ?>
+    <script>
         var bodyDiv = document.querySelector('.bodyDiv');
-        
-        
+
+
         bodyDiv.innerHTML = `
         <div class="title_guide">
                 <h1>Guides</h1>
@@ -68,7 +67,7 @@
             </div>
         `;
     </script>
-    
+
 </body>
 
 </html>

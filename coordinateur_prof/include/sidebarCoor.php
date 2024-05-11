@@ -1,42 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+ 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="sidebarCoor.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>e-Service</title>
-</head>
 
-<body>
-    <header>
-        <div class="groupnav">
-            <button class="messages"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
-                    <path d="M149-135q-39.05 0-66.525-27.475Q55-189.95 55-229v-502q0-39.463 27.475-67.231Q109.95-826 149-826h662q39.463 0 67.231 27.769Q906-770.463 906-731v502q0 39.05-27.769 66.525Q850.463-135 811-135H149Zm331-295L149-653v424h662v-424L480-430Zm0-83 327-218H154l326 218ZM149-653v-78 502-424Z" />
-                </svg></button>
-            <button class="notification"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                    <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" />
-                </svg></button>
-            <button class="profile"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                    <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
-                </svg></button>
-        </div>
-        <div class="dropdownProfile">
-            <a href="./profil.php"><i class="fas fa-user"></i>
-                <div>Profil</div>
-            </a>
-            <a href="../professeur/se_deconnecter.php"><i class="fas fa-sign-out-alt"></i>
-                <div>Se déconnecter </div>
-            </a>
-            <a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i>
-                <div>Changer mot de passe</div>
-            </a>
+ <!DOCTYPE html>
+ <html lang="en">
 
-        </div>
-    </header>
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="sidebarCoor.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+     <title>e-Service</title>
+ </head>
+
+ <body>
+     <header>
+         <div class="groupnav">
+             <button class="messages"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                     <path d="M149-135q-39.05 0-66.525-27.475Q55-189.95 55-229v-502q0-39.463 27.475-67.231Q109.95-826 149-826h662q39.463 0 67.231 27.769Q906-770.463 906-731v502q0 39.05-27.769 66.525Q850.463-135 811-135H149Zm331-295L149-653v424h662v-424L480-430Zm0-83 327-218H154l326 218ZM149-653v-78 502-424Z" />
+                 </svg></button>
+             <button class="notification"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                     <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" />
+                 </svg></button>
+             <button class="profile"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                     <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+                 </svg></button>
+         </div>
+         <div class="dropdownProfile">
+             <a href="./profil.php"><i class="fas fa-user"></i>
+                 <div>Profil</div>
+             </a>
+             <a href="../professeur/se_deconnecter.php"><i class="fas fa-sign-out-alt"></i>
+                 <div>Se déconnecter </div>
+             </a>
+             <a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i>
+                 <div>Changer mot de passe</div>
+             </a>
+
+         </div>
+
+        
+
+     </header>
 
 
     <div id="overlay" style="display: none;"></div>
@@ -102,37 +109,37 @@
     </nav>
 
 
-    <script>
-        let profile = document.querySelector(".profile");
-        let profileDropdown = document.querySelector(".dropdownProfile");
+     <script>
+         let profile = document.querySelector(".profile");
+         let profileDropdown = document.querySelector(".dropdownProfile");
 
-        profile.addEventListener("click", () => {
-            profileDropdown.classList.toggle("show");
-        });
+         profile.addEventListener("click", () => {
+             profileDropdown.classList.toggle("show");
+         });
 
-        let showHide = document.getElementById("hideNav");
-        let overlay = document.getElementById("overlay");
-        showHide.addEventListener("click", () => {
-            document.getElementById("sidebar").classList.toggle("sideBar");
-
-
-            if (document.getElementById("sidebar").classList.contains("sideBar")) {
-                showHide.style.rotate = "-180deg";
-                overlay.style.display = "block";
-            } else {
-                showHide.style.rotate = "0deg";
-                overlay.style.display = "none";
-            }
-        })
+         let showHide = document.getElementById("hideNav");
+         let overlay = document.getElementById("overlay");
+         showHide.addEventListener("click", () => {
+             document.getElementById("sidebar").classList.toggle("sideBar");
 
 
-        overlay.addEventListener("click", () => {
-            showHide.style.rotate = "0deg";
-            overlay.style.display = "none";
-            document.getElementById("sidebar").classList.remove("sideBar")
-        })
-    </script>
+             if (document.getElementById("sidebar").classList.contains("sideBar")) {
+                 showHide.style.rotate = "-180deg";
+                 overlay.style.display = "block";
+             } else {
+                 showHide.style.rotate = "0deg";
+                 overlay.style.display = "none";
+             }
+         })
 
-</body>
 
-</html>
+         overlay.addEventListener("click", () => {
+             showHide.style.rotate = "0deg";
+             overlay.style.display = "none";
+             document.getElementById("sidebar").classList.remove("sideBar")
+         })
+     </script>
+
+ </body>
+
+ </html>

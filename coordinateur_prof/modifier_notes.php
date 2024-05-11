@@ -8,75 +8,39 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_p
 
 require_once '../include/database.php';
 
-if (!isset($_GET['exam_id'])) {
+if (!isset($_POST['exam_id']) || !isset($_POST['module_id']) || !isset($_POST['filiere_id'])) {
     header("Location: erreur.php");
     exit;
 }
 
-$exam_id = $_GET['exam_id'];
+$exam_id = $_POST['exam_id'];
 
 try {
     $stmt_exam_info = $pdo->prepare("SELECT type, pourcentage, id_module FROM exam WHERE id = :exam_id");
     $stmt_exam_info->execute(['exam_id' => $exam_id]);
     $exam_info = $stmt_exam_info->fetch(PDO::FETCH_ASSOC);
 
-    // Récupérer le nom du module et l'ID de la filière
     $stmt_module_info = $pdo->prepare("SELECT Nom_module, id_filiere FROM module WHERE id = :module_id");
     $stmt_module_info->execute(['module_id' => $exam_info['id_module']]);
     $module_info = $stmt_module_info->fetch(PDO::FETCH_ASSOC);
 
-    // Récupérer le nom de la filière et l'année
     $stmt_filiere_info = $pdo->prepare("SELECT Nom_filiere, annee FROM filiere WHERE id = :filiere_id");
     $stmt_filiere_info->execute(['filiere_id' => $module_info['id_filiere']]);
     $filiere_info = $stmt_filiere_info->fetch(PDO::FETCH_ASSOC);
 
-    $stmt_students = $pdo->prepare("SELECT id, nom, prenom FROM etudiant WHERE id_filiere = :filiere_id");
+    $stmt_students = $pdo->prepare("SELECT id, Nom, Prenom FROM etudiant WHERE id_filiere = :filiere_id");
     $stmt_students->execute(['filiere_id' => $module_info['id_filiere']]);
     $students = $stmt_students->fetchAll(PDO::FETCH_ASSOC);
-
-    // Si des données ont été envoyées via le formulaire
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $notes = $_POST['notes'];
-        $remarques = $_POST['remarques'];
-
-        // Création du nom de fichier
-        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
-
-        // Ouverture du fichier en mode écriture
-        $file = fopen($filename, "w");
-
-        // Vérification si l'ouverture du fichier a réussi
-        if ($file === false) {
-            die('Impossible d\'ouvrir le fichier pour l\'écriture');
+    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
+    $notes = [];
+    if (file_exists($filename)) {
+        if (($handle = fopen($filename, "r")) !== FALSE) {
+            fgetcsv($handle);
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $notes[$data[0]] = ['note' => $data[2], 'remarque' => $data[3]];
+            }
+            fclose($handle);
         }
-
-        // En-tête du fichier XLS
-        $headers = ['Nom', 'Prenom', 'Note', 'Remarque'];
-
-        // Écriture de l'en-tête dans le fichier XLS
-        fputcsv($file, $headers);
-
-        // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier XLS
-        foreach ($students as $student) {
-            $note = $notes[$student['id']] ?? ''; // Récupération de la note
-            $remarque = $remarques[$student['id']] ?? ''; // Récupération de la remarque
-
-            // Données à écrire dans le fichier XLS
-            $data = [
-                $student['nom'],
-                $student['prenom'],
-                $note,
-                $remarque
-            ];
-
-            // Écriture des données dans le fichier XLS
-            fputcsv($file, $data);
-        }
-
-        // Fermeture du fichier
-        fclose($file);
-
-        echo "Les notes ont été sauvegardées avec succès dans le fichier $filename.";
     }
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
@@ -121,16 +85,10 @@ try {
 </head>
 
 <body>
-    <?php
-    include '../include/nav_cote_corr.php';
-    ?>
-    <script>
-        // Sélectionnez la div .body
-        var bodyDiv = document.querySelector('.bodyDiv');
 
-        // Ajoutez votre propre contenu à la div .body
-        bodyDiv.innerHTML = `
-        <h1>Modifier les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
+
+
+    <h1>Modifier les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
     <form method="POST">
         <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
         <table>
@@ -145,23 +103,18 @@ try {
             <tbody>
                 <?php foreach ($students as $student) : ?>
                     <tr>
-                        <td><?php echo $student['nom']; ?></td>
-                        <td><?php echo $student['prenom']; ?></td>
-                        <td><input type="number" name="notes[<?php echo $student['id']; ?>]" min="0" max="20" value="<?php echo isset($notes[$student['id']]) ? $notes[$student['id']] : ''; ?>"></td>
-                        <td><input type="text" name="remarques[<?php echo $student['id']; ?>]" value="<?php echo isset($remarques[$student['id']]) ? $remarques[$student['id']] : ''; ?>"></td>
+                        <td><?php echo $student['Nom']; ?></td>
+                        <td><?php echo $student['Prenom']; ?></td>
+                        <td><input type="number" name="notes[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['note'] ?? ''; ?>" min="0" max="20"></td>
+                        <td><input type="text" name="remarques[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['remarque'] ?? ''; ?>"></td>
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <button type="submit"> Sauvegarder</button>
-        <button class="consulter">
-            <a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">
-                Consulter les Notes
-            </a>
-        </button>
+        <button type="submit">Sauvegarder</button>
+        <button class="consulter"><a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">Consulter les Notes</a></button>
     </form>
-        `;
-    </script>
 
 </body>
 

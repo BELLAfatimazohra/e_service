@@ -122,10 +122,7 @@ try {
     include '../include/nav_cote_corr.php';
     ?>
     <script>
-        // Sélectionnez la div .body
         var bodyDiv = document.querySelector('.bodyDiv');
-
-        // Ajoutez votre propre contenu à la div .body
         bodyDiv.innerHTML = `
         <h1>Saisir les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
     <form method="POST">

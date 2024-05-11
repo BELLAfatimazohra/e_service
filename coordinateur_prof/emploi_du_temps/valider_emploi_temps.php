@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
     exit;
 }
 
-require_once '../include/database.php';
+require_once '../../include/database.php';
 
 // Vérifier si les données POST ont été envoyées depuis le formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filiere_id = $_GET['filiere_id'];
 
     // Requête SQL pour récupérer le nom de la filière
-    $sql_filiere_name = "SELECT Nom_filiere FROM filiere WHERE id = :filiere_id";
+    $sql_filiere_name = "SELECT Nom_filiere ,annee FROM filiere WHERE id = :filiere_id";
     $stmt_filiere_name = $pdo->prepare($sql_filiere_name);
     $stmt_filiere_name->bindParam(':filiere_id', $filiere_id, PDO::PARAM_INT);
     $stmt_filiere_name->execute();
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom_salle = $_POST['salle'];
 
     // Utiliser le nom de la filière pour construire le nom de la table
-    $nom_table = 'emploi_temps_' . strtolower(str_replace(' ', '_', $filiere['Nom_filiere']));
+    $nom_table = 'emploi_temps_' . strtolower(str_replace(' ', '_', $filiere['Nom_filiere'])) . '_' . $filiere['annee'];
 
     // Créer la table s'il n'existe pas déjà
     $sql_create_table = "CREATE TABLE IF NOT EXISTS $nom_table (
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Rediriger vers une page de succès ou une autre page après l'insertion
-    header("Location: succes.php");
+    header("Location: emploi_du_temps.php");
     exit;
 } else {
     // Rediriger vers une page d'erreur si les données POST ne sont pas envoyées

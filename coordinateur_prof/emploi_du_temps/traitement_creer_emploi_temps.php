@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
     exit;
 }
 
-require_once '../include/database.php';
+require_once '../../include/database.php';
 
 // Vérifier si le paramètre 'id' est présent dans l'URL
 if (!isset($_GET['filiere_id'])) {
@@ -68,7 +68,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
 </head>
 
 <body>
-    <?php include '../include/nav_cote_corr.php'; ?>
+    <?php include '../../include/nav_cote_corr.php'; ?>
     <script>
         var bodyDiv = document.querySelector('.bodyDiv');
 
@@ -144,6 +144,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
         </tbody>
     </table>
     <button type="submit">Valider</button>
+    
 </form>
 
     `;

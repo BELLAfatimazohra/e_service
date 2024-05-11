@@ -1,3 +1,16 @@
+<?php
+session_start();
+include '../include/nav_cote.php';
+
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
+    header("Location: index.php");
+    exit;
+}
+
+$professeur_id = $_SESSION['user_id'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 

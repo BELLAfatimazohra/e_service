@@ -195,7 +195,6 @@
   
   .logo {
     height: 3rem;
-    width: fit-content;
   }
   .imgcontainer::after,
   .nav-list::after {

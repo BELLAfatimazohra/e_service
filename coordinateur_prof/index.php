@@ -85,13 +85,19 @@ echo $_SESSION['user_type'] ."11";
 
 
 
+        <?php 
+        $_SESSION['user_type'] = 'professeur';
+        $_SESSION["email"]= $email;
+        $_SESSION["password"]= $password;
+        ?>
+        <a href="../professeur/index.php">
+        <button class="changer">Accéder à la zone prof</button></a>
+
+
+
+
     </div>
-    <form action="../professeur/index.php" method="post">
-        <?php $_SESSION['user_type'] = 'professeur'; ?>
-        <input type="hidden" name="email" value="<?php echo $email; ?>">
-        <input type="hidden" name="password" value="<?php echo $password; ?>">
-        <button type="submit" class="changer">Accéder à la zone prof</button>
-    </form>
+
 
 
 

@@ -1,6 +1,5 @@
 <?php
 session_start();
-echo $_SESSION['user_type'];
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     $userId = $_SESSION['user_id'];
 } else {
@@ -9,20 +8,22 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     exit;
 }
 
-echo $_SESSION['user_type'] ."13";
 ?>
 <?php
-if($email&&$password){
-    $email = $_POST['email'];
-$password = $_POST['password'];
-}
+
+$email = $_SESSION['email'];
+$password = $_SESSION['password'];
+
+echo $password. "13";
+
 
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
-    
-echo $_SESSION['user_type'] ."verif";
+
+    echo $_SESSION['user_type'] . "verif";
     header("Location: index.php");
     exit;
 }
+
 $userId = $_SESSION['user_id'];
 
 require_once "../include/database.php";
@@ -78,7 +79,7 @@ try {
                     <h1 class="h1-act"> <i class="fas fa-bell"></i> Actualites</h1>
                     <hr>
                     <?php
-                    require_once '../include/database.php';
+                    include '../include/database.php';
                     try {
                         // Requête SQL pour récupérer les actualités
                         $sql = "SELECT * FROM actualites";
@@ -126,10 +127,12 @@ try {
         $stmt_coordinateur = $pdo->prepare("SELECT * FROM coordinateur WHERE Email = :email AND Password = :password");
         $stmt_coordinateur->execute(['email' => $email, 'password' => $password]);
         $result_coordinateur = $stmt_coordinateur->fetch(PDO::FETCH_ASSOC);
-
+        $stmt_professeur = $pdo->prepare("SELECT * FROM professeur WHERE Email = :email AND Password = :password");
+        $stmt_professeur->execute(['email' => $email, 'password' => $password]);
+        $result_professeur = $stmt_professeur->fetch(PDO::FETCH_ASSOC);
         if ($result_coordinateur) {
 
-            $_SESSION['user_type'] = 'coordinateur_prof';
+            $_SESSION['user_type'] = 'professeur';
             $_SESSION['user_id'] = $result_professeur['id'];
 
             echo "<a href='../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>";

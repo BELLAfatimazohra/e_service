@@ -8,15 +8,12 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_p
     exit;
 }
 
-
 if (!isset($_GET['filiere_id'])) {
     header("Location: filiere.php"); 
     exit;
 }
 
-
 $filiereId = $_GET['filiere_id'];
-
 
 require_once "../include/database.php";
 

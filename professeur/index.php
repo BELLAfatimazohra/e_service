@@ -1,6 +1,5 @@
 <?php
 session_start();
-echo $_SESSION['user_type'];
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     $userId = $_SESSION['user_id'];
 } else {
@@ -13,10 +12,12 @@ $password = $_SESSION['password'];
 echo $_SESSION['user_type'] . "13";
 ?>
 <?php
-if ($email  &&  $password) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-}
+
+$email = $_SESSION['email'];
+$password = $_SESSION['password'];
+
+echo $password. "13";
+
 
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
 
@@ -24,6 +25,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php");
     exit;
 }
+
 $userId = $_SESSION['user_id'];
 
 include "../include/database.php";
@@ -79,7 +81,7 @@ try {
                     <h1 class="h1-act"> <i class="fas fa-bell"></i> Actualites</h1>
                     <hr>
                     <?php
-                    require_once '../include/database.php';
+                    include '../include/database.php';
                     try {
                         // Requête SQL pour récupérer les actualités
                         $sql = "SELECT * FROM actualites";

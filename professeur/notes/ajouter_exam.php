@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once '../include/database.php';
     $type = $_POST['type'];
     $pourcentage = $_POST['pourcentage'];
-    $id_module = $_GET['module_id']; 
+    $id_module = $_GET['module_id'];
     $id_prof = $_SESSION['user_id'];
     $stmt = $pdo->prepare("INSERT INTO exam (type, pourcentage, id_module, id_prof) VALUES (:type, :pourcentage, :id_module, :id_prof)");
     $stmt->execute(['type' => $type, 'pourcentage' => $pourcentage, 'id_module' => $id_module, 'id_prof' => $id_prof]);
@@ -32,33 +32,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../professeur/assets/ajouter_exam.css">
     <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+
 </head>
 
 <body>
     <?php
-    include 'assets/include/sidebarProf.php';
+    include '../assets/include/sidebarProf.php';
     ?>
-    <script>
-        var bodyDiv = document.querySelector('.bodyDiv');
-        bodyDiv.innerHTML = `
+    <div class="">
         <div class="form-container">
-        <h1 style="text-align: center; color: #333;">Ajouter un Examen</h1>
-        <form action="" method="post">
-            <input type="hidden" name="id_module" value="<?php echo $_GET['module_id']; ?>">
-            <div class="form-group">
-                <label for="type">Type:</label>
-                <input type="text" id="type" name="type" required>
-            </div>
-            <div class="form-group">
-                <label for="pourcentage">Pourcentage:</label>
-                <input type="text" id="pourcentage" name="pourcentage" required>
-            </div>
-            <button class="submit-button" type="submit">Ajouter</button>
-        </form>
+            <h1 style="text-align: center; color: #333;">Ajouter un Examen</h1>
+            <form action="" method="post">
+                <input type="hidden" name="id_module" value="<?php echo $_GET['module_id']; ?>">
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <input type="text" id="type" name="type" required>
+                </div>
+                <div class="form-group">
+                    <label for="pourcentage">Pourcentage:</label>
+                    <input type="text" id="pourcentage" name="pourcentage" required>
+                </div>
+                <button class="submit-button" type="submit">Ajouter</button>
+            </form>
+        </div>
     </div>
-        `;
-    </script>
+
+
 
 </body>
 

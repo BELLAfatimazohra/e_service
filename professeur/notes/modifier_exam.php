@@ -11,7 +11,7 @@ if (!isset($_GET['exam_id'])) {
 }
 
 try {
-    require_once '../include/database.php';
+    require_once '../../include/database.php';
 } catch (PDOException $e) {
     echo "Erreur de connexion à la base de données : " . $e->getMessage();
     exit;
@@ -63,26 +63,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-<?php
-    include 'assets/include/sidebarProf.php';
+    <?php
+    include '../assets/include/sidebarProf.php';
     ?>
-    <script>
-        var bodyDiv = document.querySelector('.bodyDiv');
-        bodyDiv.innerHTML = `
+    <div class="bodyDiv">
         <div class="form-container">
-        <h1>Modifier un Examen</h1>
-        <form action="" method="post">
-            <label for="type">Type:</label>
-            <input type="text" id="type" name="type" class="inpuut" value="<?php echo $exam['type']; ?>" required><br><br>
-            <label for="pourcentage">Pourcentage:</label>
-            <input type="text" id="pourcentage" name="pourcentage"  class="inpuut" value="<?php echo $exam['pourcentage']; ?>" required><br><br>
-            <button type="submit">Modifier</button>
-        </form>
+            <h1>Modifier un Examen</h1>
+            <form action="" method="post">
+                <label for="type">Type:</label>
+                <input type="text" id="type" name="type" class="inpuut" value="<?php echo $exam['type']; ?>" required><br><br>
+                <label for="pourcentage">Pourcentage:</label>
+                <input type="text" id="pourcentage" name="pourcentage" class="inpuut" value="<?php echo $exam['pourcentage']; ?>" required><br><br>
+                <button type="submit">Modifier</button>
+            </form>
+        </div>
     </div>
-        `;
-    </script>
-  
-    
+
+
+
 </body>
 
 </html>

@@ -10,7 +10,7 @@ if (!isset($_GET['exam_id'])) {
     header("Location: erreur.php");
     exit;
 }
-include '../include/database.php';
+include '../../include/database.php';
 $exam_id = $_GET['exam_id'];
 
 try {

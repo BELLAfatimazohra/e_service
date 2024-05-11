@@ -17,7 +17,7 @@ if (!isset($_GET['filiere_id'])) {
 $filiereId = $_GET['filiere_id'];
 
 
-require_once "../include/database.php";
+require_once "../../include/database.php";
 
 try {
 
@@ -46,28 +46,22 @@ try {
 
 <body>
 
-   
-             <?php  
-include '../include/nav_cote.php';
-             ?>
-             <script>
-      
-        var bodyDiv = document.querySelector('.bodyDiv');
 
+    <?php
+    include '../assets/include/sidebarProf.php';
+    ?>
+    <div class="bodyDiv">div class="module-list">
+        <h2>Modules de la filière</h2>
+        <?php foreach ($modules as $module) : ?>
+            <form action="../professeur/exam.php" method="GET">
+                <!-- Inclure l'identifiant du module dans l'URL -->
+                <input type="hidden" name="module_id" value="<?php echo $module['id']; ?>">
+                <button type="submit" class="module-button"><?php echo $module['Nom_module']; ?></button>
+            </form>
+        <?php endforeach; ?>
+    </div>
+    </div>
 
-        bodyDiv.innerHTML = `
-        <div class="module-list">
-                <h2>Modules de la filière</h2>
-                <?php foreach ($modules as $module) : ?>
-                    <form action="../professeur/exam.php" method="GET">
-                        <!-- Inclure l'identifiant du module dans l'URL -->
-                        <input type="hidden" name="module_id" value="<?php echo $module['id']; ?>">
-                        <button type="submit" class="module-button"><?php echo $module['Nom_module']; ?></button>
-                    </form>
-                <?php endforeach; ?>
-            </div>
-        `;
-    </script>
 
 
 

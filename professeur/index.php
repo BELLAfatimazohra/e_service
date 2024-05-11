@@ -9,7 +9,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
 }
 ?>
 <?php
-session_start();
 $email = $_POST['email'];
 $password = $_POST['password'];
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {

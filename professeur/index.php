@@ -7,7 +7,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     header("Location: index.php");
     exit;
 }
-
+$email = $_SESSION['email'];
+$password = $_SESSION['password'];
+echo $_SESSION['user_type'] . "13";
 ?>
 <?php
 
@@ -26,7 +28,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
 
 $userId = $_SESSION['user_id'];
 
-require_once "../include/database.php";
+include "../include/database.php";
 
 try {
     $stmt_filieres = $pdo->prepare("SELECT DISTINCT f.id, f.Nom_filiere FROM module m INNER JOIN filiere f ON m.id_filiere = f.id WHERE m.id_prof = :id_prof");

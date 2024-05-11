@@ -19,7 +19,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-     
+
     </style>
 </head>
 
@@ -40,8 +40,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
                     <button class="btn1"><i class="fas fa-book"></i><a class="opt" href="filiere.php"> Modules</a></button><br>
                     <button class="btn2"><i class="fas fa-envelope"></i><a class="opt" href="message.php"> Messages</a> </button><br>
                     <button class="btn3"><i class="fas fa-upload"></i><a class="opt" href="cours.php">Importer Cours</a> </button><br>
-                    <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi_du_temps.php"> Gerer emploi du Temps</a> </button><br>
-                    <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi.php"> Gerer les Modules</a> </button>
+                    <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="./emploi_du_temps/emploi_du_temps.php"> Gerer emploi du Temps</a> </button><br>
+                    <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="./Gestion_modules/choisir_filiere.php"> Gerer les Modules</a> </button>
                 </div>
                 <!-- Partie HTML de votre page -->
                 <div class="col2">
@@ -87,7 +87,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     </script>
 
 
-    
+
 </body>
 
 </html>

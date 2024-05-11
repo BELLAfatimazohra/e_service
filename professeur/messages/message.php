@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message</title>
     
-    <link rel="stylesheet" href="assets/message.css">
-    <link rel="stylesheet" href="assets/include/sidebarProf.css">
+    <link rel="stylesheet" href="../assets/message.css">
+    <link rel="stylesheet" href="../assets/include/sidebarProf.css">
 </head>
 <body>
     <?php
     session_start();
     if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
-        include 'assets/include/sidebarProf.php'; 
+        include '../assets/include/sidebarProf.php'; 
     } else {
         
         header("Location: index.php");

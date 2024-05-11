@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php");
     exit;
 }
@@ -25,7 +25,7 @@ if (isset($_GET['delete_exam_id'])) {
     try {
         $stmt_delete_exam = $pdo->prepare("DELETE FROM exam WHERE id = :exam_id AND id_module = :id_module AND id_prof = :id_prof");
         $stmt_delete_exam->execute(['exam_id' => $delete_exam_id, 'id_module' => $id_module_clique, 'id_prof' => $id_prof_connecte]);
-        
+
         header("Location: exam.php?module_id=" . $id_module_clique);
         exit;
     } catch (PDOException $e) {
@@ -49,57 +49,52 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="../professeur/assets/exam.css">
+    <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <title>Liste des Examens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
-<?php
-        include '../include/nav_cote_corr.php';
-        ?>
-    <script>
-       
-        var bodyDiv = document.querySelector('.bodyDiv');
+    <?php
+    include './assets/include/sidebarProf.php';
+    ?>
 
-        bodyDiv.innerHTML = `
+
+    <div class="">
         <div class="module-list">
-        <h2>Liste des Exams</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Type d'examen</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($exams as $exam) : ?>
+            <h2>Liste des Exams</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>
-                            <a href="saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
-                                <?php echo $exam['type']; ?> - <?php echo $exam['pourcentage']; ?>%
-                            </a>
-                        </td>
-                        <td>
-                            <a href="modifier_exam.php?exam_id=<?php echo $exam['id']; ?>">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="exam.php?module_id=<?php echo $id_module_clique; ?>&delete_exam_id=<?php echo $exam['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cet examen ?');">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
+                        <th>Type d'examen</th>
+                        <th>Options</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <!-- Bouton pour ajouter -->
-        <a href="ajouter_exam.php?module_id=<?php echo $_GET['module_id']; ?>">
-            <i class="fas fa-plus"></i>
-        </a>
-    </div>
-        `;
-    </script> 
+                </thead>
+                <tbody>
+                    <?php foreach ($exams as $exam) : ?>
+                        <tr>
+                            <td>
+                                <a href="notes/saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
+                                    <?php echo $exam['type']; ?> - <?php echo $exam['pourcentage']; ?>%
+                                </a>
+                            </td>
+                            <td>
+                                <a href="modifier_exam.php?exam_id=<?php echo $exam['id']; ?>">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="exam.php?module_id=<?php echo $id_module_clique; ?>&delete_exam_id=<?php echo $exam['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cet examen ?');">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <!-- Bouton pour ajouter -->
+            <a href="ajouter_exam.php?module_id=<?php echo $_GET['module_id']; ?>">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
 </body>
 
 </html>
-
-

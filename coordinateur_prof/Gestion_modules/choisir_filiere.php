@@ -80,7 +80,7 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <option value="<?php echo $filiere['id']; ?>"><?php echo htmlspecialchars($filiere['Nom_filiere_annee']); ?></option>
                     <?php endforeach; ?>
                 </select>
-                <button type="submit">Afficher la liste des étudiants</button>
+                <button type="submit">Affecter les modules</button>
             </form>
         </div>
     </div>

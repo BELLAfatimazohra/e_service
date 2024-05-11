@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message</title>
 
-    <link rel="stylesheet" href="../professeur/assets/message.css">
-    <link rel="stylesheet" href="include/sidebarCoor.css">
+    <link rel="stylesheet" href="../../professeur/assets/message.css">
+    <link rel="stylesheet" href="../include/sidebarCoor.css">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
     session_start();
     $_SESSION['user_type'] = 'coordinateur_prof';
     if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
-        include 'include/sidebarCoor.php';
+        include '../include/sidebarCoor.php';
     } else {
 
         header("Location: index.php");

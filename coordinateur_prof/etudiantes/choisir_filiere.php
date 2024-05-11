@@ -19,6 +19,7 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Choix de Filière</title>
+    <link rel="stylesheet" href="../include//sidebarCoor.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,7 +72,7 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <?php include '../../include/nav_cote_corr.php'; ?>
+    <?php include '../include/sidebarCoor.php'; ?>
     <div class="bodyDiv">
         <div class="change">
             <form action="liste_etudiantes.php" method="get">

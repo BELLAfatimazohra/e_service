@@ -28,35 +28,33 @@ if (isset($_GET['filiere'])) {
 <head>
     <meta charset="UTF-8">
     <title>Liste des Modules pour ce filiere </title>
+    <link rel="stylesheet" href="../include/sidebarCoor.css">
 </head>
 
 <body>
     <?php
-    include '../../include/nav_cote_corr.php';
+    include '../include/sidebarCoor.php';
 
     ?>
-    <script>
-        var bodyDiv = document.querySelector('.bodyDiv');
-
-
-        bodyDiv.innerHTML = `
+    <div class="">
         <h1>Liste des Modules de la Filière</h1>
-    <table border="2">
-        <tr>
-            <th>Nom</th>
-           
-           
-        </tr>
-        <?php foreach ($etudiants as $etudiant) : ?>
+        <table border="2">
             <tr>
-                <td><?= htmlspecialchars($etudiant['Nom_module']) ?></td>
-               
-                
+                <th>Nom</th>
+
+
             </tr>
-        <?php endforeach; ?>
-    </table>
-        `;
-    </script>
+            <?php foreach ($etudiants as $etudiant) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($etudiant['Nom_module']) ?></td>
+
+
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div> bodyDiv
+
+
 
 </body>
 

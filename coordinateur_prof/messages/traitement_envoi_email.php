@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] != 'POST') {
 }
 
 
-include '../include/database.php';
+include '../../include/database.php';
 
 $filiere_annee = $_POST['filiere_annee'] ?? '';
 $titre = $_POST['titre'] ?? '';

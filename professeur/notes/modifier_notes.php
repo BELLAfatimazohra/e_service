@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php");
     exit;
 }
 
-require_once '../include/database.php';
+require_once '../../include/database.php';
 
 if (!isset($_POST['exam_id']) || !isset($_POST['module_id']) || !isset($_POST['filiere_id'])) {
     header("Location: erreur.php");
@@ -54,6 +54,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../professeur/assets/note.css">
+    <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <title>Saisir les notes</title>
     <style>
         .consulter {

@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     exit;
 }
 
-require_once '../include/database.php';
+require_once '../../include/database.php';
 
 if (!isset($_GET['exam_id'])) {
     header("Location: erreur.php");
@@ -39,7 +39,7 @@ try {
         $remarques = $_POST['remarques'];
 
         // Création du nom de fichier
-        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".xls";
+        $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
 
         // Ouverture du fichier en mode écriture
         $file = fopen($filename, "w");
@@ -49,11 +49,9 @@ try {
             die('Impossible d\'ouvrir le fichier pour l\'écriture');
         }
 
-        // En-tête du fichier CSV
-        $headers = ['Nom', 'Prenom', 'Note', 'Remarque'];
 
-        // Écriture de l'en-tête dans le fichier CSV
-        fputcsv($file, $headers);
+
+
 
         // Boucle sur les étudiants pour écrire leurs notes et remarques dans le fichier CSV
         foreach ($students as $student) {
@@ -89,7 +87,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../professeur/assets/note.css">
-    <link rel="stylesheet" href="assets/include/sidebarProf.css">
+    <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <title>Saisir les notes</title>
     <style>
         .consulter {
@@ -122,13 +120,10 @@ try {
 
 <body>
     <?php
-    include 'assets/include/sidebarProf.php';
+    include '../assets/include/sidebarProf.php';
     ?>
     <script>
-        // Sélectionnez la div .body
         var bodyDiv = document.querySelector('.bodyDiv');
-
-        // Ajoutez votre propre contenu à la div .body
         bodyDiv.innerHTML = `
         <h1>Saisir les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
     <form method="POST">

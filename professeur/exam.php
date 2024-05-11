@@ -76,7 +76,7 @@ try {
                 <?php foreach ($exams as $exam) : ?>
                     <tr>
                         <td>
-                            <a href="saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
+                            <a href="notes/saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
                                 <?php echo $exam['type']; ?> - <?php echo $exam['pourcentage']; ?>%
                             </a>
                         </td>

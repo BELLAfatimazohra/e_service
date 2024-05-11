@@ -2,7 +2,7 @@
 session_start();
 
 
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
     header("Location: index.php");
     exit;
 }
@@ -12,7 +12,7 @@ if (!isset($_POST['exam_id']) || !isset($_POST['module_id']) || !isset($_POST['f
     exit;
 }
 
-include '../include/database.php';
+include '../../include/database.php';
 
 $exam_id = $_POST['exam_id'];
 $module_id = $_POST['module_id'];

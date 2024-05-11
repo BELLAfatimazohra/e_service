@@ -70,11 +70,11 @@ try {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'bellafatimazahrae@gmail.com'; // Remplacez par votre adresse e-mail
-    $mail->Password = 'frra jjmc fxjg rxdp'; // Remplacez par votre mot de passe
+    $mail->Username = $prof_email; 
+    $mail->Password = 'frra jjmc fxjg rxdp'; 
 
     $mail->Port = 587;
-    $mail->setFrom('bellafatimazahrae@gmail.com', 'BELLA Fatima Zohra'); // Remplacez par votre adresse e-mail et votre nom
+    $mail->setFrom($prof_email, $prof_nom_complet); 
     $mail->addAddress($coordinateur_email, $coordinateur_nom_complet);
     $mail->addReplyTo($prof_email, $prof_nom_complet);
     $mail->isHTML(true);

@@ -19,6 +19,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages envoyés</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="include/sidebarCoor.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,7 +66,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <?php
- include '../include/nav_cote_corr.php'; 
+ include 'include/sidebarCoor.php'; 
 
 ?>
 <script>

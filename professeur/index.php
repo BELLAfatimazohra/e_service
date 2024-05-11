@@ -9,7 +9,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
 }
 ?>
 <?php
-session_start();
+
 $email = $_POST['email'];
 $password = $_POST['password'];
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
@@ -126,7 +126,7 @@ try {
             $_SESSION['user_type'] = 'coordinateur_prof';
             $_SESSION['user_id'] = $result_professeur['id'];
 
-            echo "            <a href='../../../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>
+            echo "            <a href='../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>
            ";
             exit;
         }

@@ -79,10 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         } elseif (($result_professeur) &&  ($result_coordinateur)) {
 
             session_start();
-            $_SESSION['email'] = $result_coordinateur['Email'];
-            $_SESSION['password'] = $result_coordinateur['Password'];
+            $_SESSION['email'] = $result_professeur['Email'];
+            $_SESSION['password'] = $result_professeur['Password'];
             $_SESSION['user_type'] = 'coordinateur_prof';
-            $_SESSION['user_id'] = $result_coordinateur['id'];
+            $_SESSION['user_id'] = $result_professeur['id'];
 
             header("Location:coordinateur_prof/index.php");
             exit;

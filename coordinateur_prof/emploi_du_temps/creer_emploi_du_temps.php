@@ -4,7 +4,7 @@ $_SESSION['user_type'] = 'coordinateur_prof';
 
 // Vérifier si l'utilisateur est connecté en tant que coordinateur
 if (isset($_SESSION['user_id']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
-    include '../../include/nav_cote_corr.php';
+    include '../include/sidebarCoor.php';
 } else {
     // Rediriger vers la page d'index si l'utilisateur n'est pas connecté ou s'il n'est pas un coordinateur
     header("Location: index.php");
@@ -34,6 +34,7 @@ $filiereRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../include/sidebarCoor.css">
     <title>Emploi du Temps</title>
     <style>
         .container {
@@ -94,21 +95,19 @@ $filiereRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <script>
-        var bodyDiv = document.querySelector('.bodyDiv');
+    <div class="bodyDiv">
+        <form action="traitement_creer_emploi_temps.php" method="get">
+            <label for="filiere_id">Choisir une filière :</label>
+            <select name="filiere_id" id="filiere_id">
+                <?php foreach ($filiereRows as $filiere) : ?>
+                    <option value="<?php echo $filiere['id']; ?>"><?php echo $filiere['NomAnnee']; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit">Créer l'emploi du temps</button>
+        </form>
+    </div>
 
-        bodyDiv.innerHTML = `
-    <form action="traitement_creer_emploi_temps.php" method="get">
-        <label for="filiere_id">Choisir une filière :</label>
-        <select name="filiere_id" id="filiere_id">
-            <?php foreach ($filiereRows as $filiere) : ?>
-                <option value="<?php echo $filiere['id']; ?>"><?php echo $filiere['NomAnnee']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <button type="submit">Créer l'emploi du temps</button>
-    </form>
-    `;
-    </script>
+
 </body>
 
 </html>

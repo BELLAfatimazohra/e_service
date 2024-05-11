@@ -47,52 +47,49 @@ try {
             <link rel="stylesheet" href="../professeur/assets/exam.css">
             <link rel="stylesheet" href="../assets/include/sidebarProf.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-            <link rel="stylesheet" href="../professeur/assets/consulter_notes.css">
+            <link rel="stylesheet" href="../assets/consulter_notes.css">
 
         </head>
 
         <body>
             <?php include '../assets/include/sidebarProf.php'; ?>
-            <script>
-                var bodyDiv = document.querySelector('.bodyDiv');
+            <div class="bodyDiv">
+                <h1>Les notes des etudiants sont :</h1>
+                <table>
+                    <?php
+                    $file = fopen($filename, "r");
+                    while (($data = fgetcsv($file))) {
+                        echo "<tr>";
+                        foreach ($data as $value) {
+                            echo "<td>$value</td>";
+                        }
+                        echo "</tr>";
+                    }
+                    fclose($file);
+                    ?>
+                </table><br>
+                <form action="modifier_notes.php" method="POST">
+                    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+                    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+                    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+                    <button type="submit">Modifier les notes</button>
+                </form>
+                <form action="telecharger_notes.php" method="POST">
+                    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+                    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+                    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+                    <button type="submit">Télécharger les notes</button>
+                </form>
+                <form action="valider_notes.php" method="POST">
+                    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+                    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+                    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+                    <button type="submit">Valider les notes</button>
+                </form>
 
-                bodyDiv.innerHTML = `
-       <h1>Les notes des etudiants sont  :</h1>
-    <table>
-        <?php
-        $file = fopen($filename, "r");
-        while (($data = fgetcsv($file))) {
-            echo "<tr>";
-            foreach ($data as $value) {
-                echo "<td>$value</td>";
-            }
-            echo "</tr>";
-        }
-        fclose($file);
-        ?>
-    </table><br>
-<form action="modifier_notes.php" method="POST">
-    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
-    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-    <button type="submit">Modifier les notes</button>
-</form>
-<form action="telecharger_notes.php" method="POST">
-    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
-    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-    <button type="submit">Télécharger les notes</button>
-</form>
-<form action="valider_notes.php" method="POST">
-    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
-    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-    <button type="submit">Valider les notes</button>
-</form>
+            </div>
 
 
-       `;
-            </script>
 
 
         </body>

@@ -53,7 +53,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../professeur/assets/note.css">
+    <link rel="stylesheet" href="../assets/note.css">
     <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <title>Saisir les notes</title>
     <style>
@@ -86,36 +86,39 @@ try {
 </head>
 
 <body>
-
-
-
-    <h1>Modifier les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
-    <form method="POST">
-        <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Note</th>
-                    <th>Remarque</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($students as $student) : ?>
+    <?php
+    include '../assets/include/sidebarProf.php'
+    ?>
+    <div class="bodyDiv">
+        <h1>Modifier les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
+        <form method="POST">
+            <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo $student['Nom']; ?></td>
-                        <td><?php echo $student['Prenom']; ?></td>
-                        <td><input type="number" name="notes[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['note'] ?? ''; ?>" min="0" max="20"></td>
-                        <td><input type="text" name="remarques[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['remarque'] ?? ''; ?>"></td>
-
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Note</th>
+                        <th>Remarque</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <button type="submit">Sauvegarder</button>
-        <button class="consulter"><a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">Consulter les Notes</a></button>
-    </form>
+                </thead>
+                <tbody>
+                    <?php foreach ($students as $student) : ?>
+                        <tr>
+                            <td><?php echo $student['Nom']; ?></td>
+                            <td><?php echo $student['Prenom']; ?></td>
+                            <td><input type="number" name="notes[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['note'] ?? ''; ?>" min="0" max="20"></td>
+                            <td><input type="text" name="remarques[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['remarque'] ?? ''; ?>"></td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <button type="submit">Sauvegarder</button>
+            <button class="consulter"><a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">Consulter les Notes</a></button>
+        </form>
+    </div>
+
 
 </body>
 

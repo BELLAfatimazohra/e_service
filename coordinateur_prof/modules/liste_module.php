@@ -36,23 +36,25 @@ if (isset($_GET['filiere'])) {
     include '../include/sidebarCoor.php';
 
     ?>
-    <div class="">
-        <h1>Liste des Modules de la Filière</h1>
-        <table border="2">
-            <tr>
-                <th>Nom</th>
-
-
-            </tr>
-            <?php foreach ($etudiants as $etudiant) : ?>
+    <div class="bodyDiv">
+        <div class="">
+            <h1>Liste des Modules de la Filière</h1>
+            <table border="2">
                 <tr>
-                    <td><?= htmlspecialchars($etudiant['Nom_module']) ?></td>
+                    <th>Nom</th>
 
 
                 </tr>
-            <?php endforeach; ?>
-        </table>
-    </div> bodyDiv
+                <?php foreach ($etudiants as $etudiant) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($etudiant['Nom_module']) ?></td>
+
+
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
 
 
 

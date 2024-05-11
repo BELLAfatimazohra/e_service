@@ -58,9 +58,7 @@ try {
     <?php
     include './assets/include/sidebarProf.php';
     ?>
-
-
-    <div class="">
+<div class="bodyDiv"> <div class="">
         <div class="module-list">
             <h2>Liste des Exams</h2>
             <table>
@@ -94,7 +92,9 @@ try {
             <a href="ajouter_exam.php?module_id=<?php echo $_GET['module_id']; ?>">
                 <i class="fas fa-plus"></i>
             </a>
-        </div>
+        </div></div>
+
+   
 </body>
 
 </html>

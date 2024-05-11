@@ -11,7 +11,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     header("Location: index.php");
     exit;
 }
-echo $_SESSION['user_type'] ."11";
+echo $_SESSION['user_type'] . "11";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +39,7 @@ echo $_SESSION['user_type'] ."11";
         <div class="options">
             <div class="col1">
                 <button class="btn2"><i class="fas fa-envelope"></i><a class="opt" href="messages/message.php"> Messages</a> </button><br>
-                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi_du_temps\choisir_filiere_consulter_emploi.php"> Gerer emploi du Temps</a> </button><br>
+                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi_du_temps\emploi_du_temps.php"> Gerer emploi du Temps</a> </button><br>
                 <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="Gestion_modules\choisir_filiere.php"> Gerer les Modules</a> </button>
             </div>
             <!-- Partie HTML de votre page -->
@@ -83,13 +83,13 @@ echo $_SESSION['user_type'] ."11";
 
 
 
-        <?php 
+        <?php
         $_SESSION['user_type'] = 'professeur';
-        $_SESSION["email"]= $email;
-        $_SESSION["password"]= $password;
+        $_SESSION["email"] = $email;
+        $_SESSION["password"] = $password;
         ?>
         <a href="../professeur/index.php">
-        <button class="changer">Accéder à la zone prof</button></a>
+            <button class="changer">Accéder à la zone prof</button></a>
 
 
 

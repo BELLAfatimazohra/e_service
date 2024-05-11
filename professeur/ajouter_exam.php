@@ -30,15 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un Examen</title>
     <link rel="stylesheet" href="../professeur/assets/ajouter_exam.css">
-    <link rel="stylesheet" href="assets/include/sidebarProf.css">
+    <link rel="stylesheet" href="./assets/include/sidebarProf.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 
 <body>
     <?php
-    include '../assets/include/sidebarProf.php';
+    include './assets/include/sidebarProf.php';
     ?>
+
     <div class="">
         <div class="form-container">
             <h1 style="text-align: center; color: #333;">Ajouter un Examen</h1>

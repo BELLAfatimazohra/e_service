@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'professeur') {
     exit;
 }
 require_once '../../include/database.php';
-$stmt = $pdo->prepare("SELECT m.*, f.Nom_filiere FROM message_prof m
+$stmt = $pdo->prepare("SELECT m.*,CONCAT(f.Nom_filiere, ' ', f.annee)AS filiere_annee  FROM message_prof m
                       JOIN filiere f ON m.id_filiere = f.id
                       WHERE m.id_prof = ?");
 $stmt->execute([$_SESSION['user_id']]);
@@ -21,7 +21,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Messages envoyés</title>
     <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <link rel="stylesheet" href="../assets/">
-   
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -82,7 +82,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tr>
             <?php foreach ($messages as $message) : ?>
                 <tr>
-                    <td><?php echo $message['Nom_filiere']; ?></td>
+                    <td><?php echo $message['filiere_annee']; ?></td>
                     <td><?php echo $message['date_message']; ?></td>
                     <td><?php echo $message['titre']; ?></td>
                     <td><?php echo $message['message']; ?></td>

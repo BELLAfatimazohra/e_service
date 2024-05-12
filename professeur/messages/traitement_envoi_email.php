@@ -1,95 +1,91 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] != 'POST') {
-    header('Location: login.php'); 
+    header('Location: login.php');
     exit;
 }
 
+require '../../include/database.php';
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/SMTP.php';
 
-include '../include/database.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 $filiere_annee = $_POST['filiere_annee'] ?? '';
 $titre = $_POST['titre'] ?? '';
 $message = $_POST['message'] ?? '';
 
-
 list($nom_filiere, $annee) = explode(' ', $filiere_annee, 2);
 
-
-$stmt = $pdo->prepare("SELECT id FROM filiere WHERE Nom_filiere = :nom_filiere");
-$stmt->execute(['nom_filiere' => $nom_filiere]);
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$id_filiere = $row['id'] ?? null;
-
-
 try {
-    $stmt = $pdo->prepare("SELECT Email FROM etudiant WHERE id_filiere IN (SELECT id FROM filiere WHERE Nom_filiere = :Nom_filiere AND annee = :annee)");
-    $stmt->execute(['Nom_filiere' => $nom_filiere, 'annee' => $annee]);
+    $pdo->beginTransaction();
+
+    $stmt = $pdo->prepare("SELECT id FROM filiere WHERE Nom_filiere = :nom_filiere AND annee = :annee");
+    $stmt->execute(['nom_filiere' => $nom_filiere, 'annee' => $annee]);
+    $filiere = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$filiere) {
+        throw new Exception("Filière introuvable.");
+    }
+
+    $id_filiere = $filiere['id'];
+    $stmt = $pdo->prepare("SELECT Email FROM etudiant WHERE id_filiere = :id_filiere");
+    $stmt->execute(['id_filiere' => $id_filiere]);
     $emails = $stmt->fetchAll(PDO::FETCH_COLUMN);
-} catch (PDOException $e) {
-    die("Erreur lors de la récupération des adresses email: " . $e->getMessage());
-}
 
+    if (!$emails) {
+        throw new Exception("Aucun étudiant trouvé pour cette filière.");
+    }
 
-if (empty($emails)) {
-    echo "Aucun étudiant trouvé pour cette filière.";
-    exit;
-}
+    // Récupération des informations du professeur
+    $stmt_prof = $pdo->prepare("SELECT Nom, Prenom, Email FROM professeur WHERE id = :id");
+    $stmt_prof->execute(['id' => $_SESSION['user_id']]);
+    $professeur = $stmt_prof->fetch(PDO::FETCH_ASSOC);
 
+    if (!$professeur) {
+        throw new Exception("Informations du professeur introuvables.");
+    }
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-$mail = new PHPMailer(true);
-
-try {
-   
+    // Création de l'objet PHPMailer
+    $mail = new PHPMailer(true);
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com'; 
+    $mail->Host = 'smtp.gmail.com'; // Remplacez par votre serveur SMTP
     $mail->SMTPAuth = true;
-    $mail->Username = 'bellafatimazahrae@gmail.com'; 
-    $mail->Password = 'gbzc ncfx pyhm glir'; 
+    $mail->Username = 'bellafatimazahrae@gmail.com'; // Remplacez par votre adresse email
+    $mail->Password = 'bsth dhnq koxy goib'; // Remplacez par votre mot de passe
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
-   
-    $mail->setFrom('bellafatimazahrae@gmail.com', 'BELLA Fatima Zohra');
+    // Définition de l'expéditeur et de la réponse
+    $mail->setFrom($professeur['Email'], $professeur['Nom'] . ' ' . $professeur['Prenom']);
+    $mail->addReplyTo($professeur['Email'], $professeur['Nom'] . ' ' . $professeur['Prenom']);
 
-   
-    $mail->addReplyTo('bellafatimazahrae@gmail.com', 'Bella Fatima Zohra');
-
-    // Destinataires
+    // Ajout des destinataires (étudiants)
     foreach ($emails as $email) {
         $mail->addAddress($email);
     }
 
-    // Contenu
+    // Paramètres du message
     $mail->isHTML(true);
     $mail->Subject = $titre;
     $mail->Body    = $message;
 
+    // Envoi du message
     $mail->send();
-    echo 'Message envoyé avec succès.';
-} catch (Exception $e) {
-    echo "Message non envoyé. Erreur: {$mail->ErrorInfo}";
-}
 
-
-$id_prof = $_SESSION['user_id']; 
-$date_message = date('Y-m-d H:i:s'); 
-
-
-try {
+    // Enregistrement du message dans la base de données
+    $id_prof = $_SESSION['user_id'];
+    $date_message = date('Y-m-d H:i:s');
     $stmt = $pdo->prepare("INSERT INTO message_prof (id_prof, id_filiere, message, titre, date_message) VALUES (?, ?, ?, ?, ?)");
     $stmt->execute([$id_prof, $id_filiere, $message, $titre, $date_message]);
-   
-    echo "Message envoyé avec succès.";
-} catch (PDOException $e) {
-   
-    echo "Erreur lors de l'envoi du message : " . $e->getMessage();
+
+    $pdo->commit();
+
+    echo "Message envoyé et enregistré avec succès.";
+} catch (Exception $e) {
+    $pdo->rollBack();
+    echo "Erreur: " . $e->getMessage();
 }
-?>

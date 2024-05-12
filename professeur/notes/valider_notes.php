@@ -67,11 +67,11 @@ try {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = $prof_email; 
-    $mail->Password = 'frra jjmc fxjg rxdp'; 
+    $mail->Username = 'bellafatimazahrae@gmail.com';
+    $mail->Password = 'bsth dhnq koxy goib';
 
     $mail->Port = 587;
-    $mail->setFrom($prof_email, $prof_nom_complet); 
+    $mail->setFrom($prof_email, $prof_nom_complet);
     $mail->addAddress($coordinateur_email, $coordinateur_nom_complet);
     $mail->addReplyTo($prof_email, $prof_nom_complet);
     $mail->isHTML(true);

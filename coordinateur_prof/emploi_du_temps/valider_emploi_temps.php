@@ -57,32 +57,32 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $heures = ['08:00 - 10:00', '10:00 - 12:00', '14:00 - 16:00', '16:00 - 18:00'];
 
     // Boucler sur les jours
-    foreach ($jours as $jour) {
-        // Boucler sur les heures
-        foreach ($heures as $heure) {
-            // Boucler sur les données récupérées pour insérer dans la base de données
-            foreach ($module_ids as $key => $module_id) {
-                // Récupérer les données spécifiques à cette combinaison de jour et d'heure
-                $prof_id = $prof_ids[$key];
-                $bloc = $blocs[$key];
-                $type_cour = $type_cours[$key];
-                $nom_salle = $nom_salles[$key];
-               
-                // Requête SQL pour récupérer le nom du module
+    // Assuming we have a correct array structure
+    foreach ($jours as $jour_index => $jour) {
+        foreach ($heures as $heure_index => $heure) {
+            $array_index = $jour_index * count($heures) + $heure_index; 
+            if (isset($module_ids[$array_index])) {
+                $module_id = $module_ids[$array_index];
+                $prof_id = $prof_ids[$array_index];
+                $bloc = $blocs[$array_index];
+                $type_cour = $type_cours[$array_index];
+                $nom_salle = $nom_salles[$array_index];
+
+                // Fetch module name
                 $sql_module_name = "SELECT Nom_module FROM module WHERE id = :module_id";
                 $stmt_module_name = $pdo->prepare($sql_module_name);
                 $stmt_module_name->bindParam(':module_id', $module_id, PDO::PARAM_INT);
                 $stmt_module_name->execute();
                 $module_name = $stmt_module_name->fetchColumn();
 
-                // Requête SQL pour récupérer le nom du professeur
+                // Fetch professor name
                 $sql_prof_name = "SELECT CONCAT(Nom, ' ', Prenom) AS Nom_prof FROM professeur WHERE id = :prof_id";
                 $stmt_prof_name = $pdo->prepare($sql_prof_name);
                 $stmt_prof_name->bindParam(':prof_id', $prof_id, PDO::PARAM_INT);
                 $stmt_prof_name->execute();
                 $prof_name = $stmt_prof_name->fetchColumn();
 
-                // Exécuter l'insertion dans la table
+                // Insert into the timetable table
                 $sql_insert = "INSERT INTO $nom_table (Nom_prof, nom_jour, Nom_salle, temps, type_sceance, bloc, id_filiere, Nom_module) VALUES (:Nom_prof, :nom_jour, :Nom_salle, :temps, :type_sceance, :bloc, :id_filiere, :Nom_module)";
                 $stmt_insert = $pdo->prepare($sql_insert);
                 $stmt_insert->execute([

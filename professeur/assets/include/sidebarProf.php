@@ -28,7 +28,7 @@
             <a href="../professeur/profil.php"><i class="fas fa-user"></i>
                 <div>Profil</div>
             </a>
-            <a href="../professeur/se_deconnecter.php"><i class="fas fa-sign-out-alt"></i>
+            <a href="../../se_deconnecter.php"><i class="fas fa-sign-out-alt"></i>
                 <div>Se déconnecter </div>
             </a>
             <a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i>

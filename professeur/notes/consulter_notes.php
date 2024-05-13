@@ -58,6 +58,9 @@ try {
                 <table>
                     <?php
                     $file = fopen($filename, "r");
+                    echo "<tr>";
+                    echo "<th>ID</th><th>Student ID</th><th>Score</th><th>Remarks</th>";
+                    echo "</tr>";
                     while (($data = fgetcsv($file))) {
                         echo "<tr>";
                         foreach ($data as $value) {

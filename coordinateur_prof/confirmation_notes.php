@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,46 +9,38 @@
 </head>
 
 <body>
-    <?php session_start();
-    include 'include/sidebarCoor.php'; ?>
-    <div class="bodyDiv">
+    <?php
+    session_start();
+    include 'include/sidebarCoor.php';
+    include "../include/database.php";
+    ?>
+    <div class="bodyDiv"> 
         <?php
+        try {
+            $sql = "SELECT * FROM notes_provisoire";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            echo "<h1>Notes en attente</h1>";
 
-
-
-
-        if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
-
-            header("Location: index.php");
-            exit;
+            if ($results) {
+                echo "<div>";
+                foreach ($results as $result) {
+                    // Each button is inside its own form
+                    echo "<form action='consulter_note.php' method='post'>";
+                    echo "<input type='hidden' name='nom_exam' value='{$result["nom_exam"]}'><input type='hidden' name='exam_id' value='{$result["exam_id"]}'> <div class='consulter'> ". htmlspecialchars(str_replace("_", " ", $result["nom_exam"])). "</div>"  ;
+                    echo "<button type='submit'>" ."consulter" ."</button>";
+                    echo "</form>";
+                }
+                echo "</div>";
+            } else {
+                echo "No data found in notes_provisoire.";
+            }
+        } catch (PDOException $e) {
+            echo "Error retrieving data: " . $e->getMessage();
         }
-        include '../include/database.php';
-
-        $exam_id = $_POST['exam_id'];
-        $module_id = $_POST['module_id'];
-        $filiere_id = $_POST['filiere_id'];
-        $stmt_exam_info = $pdo->prepare("SELECT type FROM exam WHERE id = :exam_id");
-        $stmt_exam_info->execute(['exam_id' => $exam_id]);
-        $exam_info = $stmt_exam_info->fetch(PDO::FETCH_ASSOC);
-
-        // Récupérer les informations sur le module
-        $stmt_module_info = $pdo->prepare("SELECT Nom_module FROM module WHERE id = :module_id");
-        $stmt_module_info->execute(['module_id' => $module_id]);
-        $module_info = $stmt_module_info->fetch(PDO::FETCH_ASSOC);
-
-        // Récupérer les informations sur la filière
-        $stmt_filiere_info = $pdo->prepare("SELECT Nom_filiere, annee FROM filiere WHERE id = :filiere_id");
-        $stmt_filiere_info->execute(['filiere_id' => $filiere_id]);
-        $filiere_info = $stmt_filiere_info->fetch(PDO::FETCH_ASSOC);
-
-
-
-        echo "nouvel affichage en attente de validtion <br>" . strtolower($exam_info['type']). "<br>" . strtolower($module_info['Nom_module']). "<br>" . strtolower($filiere_info['Nom_filiere']). " " . $filiere_info['annee'];
-
-
         ?>
     </div>
 </body>
-
 </html>

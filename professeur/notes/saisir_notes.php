@@ -56,6 +56,7 @@ try {
 
             // Données à écrire dans le fichier CSV
             $data = [
+                $student['id'],
                 $student['nom'],
                 $student['prenom'],
                 $note,

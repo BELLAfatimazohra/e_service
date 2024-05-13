@@ -125,7 +125,6 @@ try {
         </div>
         <?php
 
-
         $stmt_coordinateur = $pdo->prepare("SELECT * FROM coordinateur WHERE Email = :email AND Password = :password");
         $stmt_coordinateur->execute(['email' => $email, 'password' => $password]);
         $result_coordinateur = $stmt_coordinateur->fetch(PDO::FETCH_ASSOC);
@@ -139,7 +138,7 @@ try {
 
             echo "<a href='../coordinateur_prof/index.php'><button class='changer'>acceder zone coordinateur</button></a>";
             exit;
-        }
+        }   
         ?>
 
 

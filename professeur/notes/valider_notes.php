@@ -22,22 +22,23 @@ $exam_id = $_POST['exam_id'];
 $module_id = $_POST['module_id'];
 $filiere_id = $_POST['filiere_id'];
 $user_id = $_SESSION['user_id'];
+function fetchInfo($pdo, $placeholder, $value, $query)
+{
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$placeholder => $value]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 try {
-    // Récupérer les informations sur l'examen
-    $stmt_exam_info = $pdo->prepare("SELECT type, id_module FROM exam WHERE id = :exam_id");
-    $stmt_exam_info->execute(['exam_id' => $exam_id]);
-    $exam_info = $stmt_exam_info->fetch(PDO::FETCH_ASSOC);
 
-    // Récupérer le nom du module
-    $stmt_module_info = $pdo->prepare("SELECT Nom_module FROM module WHERE id = :module_id");
-    $stmt_module_info->execute(['module_id' => $module_id]);
-    $module_info = $stmt_module_info->fetch(PDO::FETCH_ASSOC);
 
-    // Récupérer le nom de la filière et l'e-mail du coordinateur
-    $stmt_filiere_info = $pdo->prepare("SELECT Nom_filiere, id_coordinateur FROM filiere WHERE id = :filiere_id");
-    $stmt_filiere_info->execute(['filiere_id' => $filiere_id]);
-    $filiere_info = $stmt_filiere_info->fetch(PDO::FETCH_ASSOC);
+
+
+
+
+    $exam_info = fetchInfo($pdo, 'exam_id', $exam_id, "SELECT type, id_module FROM exam WHERE id = :exam_id");
+    $module_info = fetchInfo($pdo, 'module_id', $module_id, "SELECT Nom_module FROM module WHERE id = :module_id");
+    $filiere_info = fetchInfo($pdo, 'filiere_id', $filiere_id, "SELECT Nom_filiere, id_coordinateur, annee FROM filiere WHERE id = :filiere_id");
 
     // Récupérer l'e-mail du coordinateur
     $coordinateur_id = $filiere_info['id_coordinateur'];
@@ -60,18 +61,94 @@ try {
 
     // Préparer le contenu de l'e-mail
     $subject = "Validation des notes pour l'examen {$exam_info['type']}";
-    $message = "Les notes pour l'examen {$exam_info['type']} du module {$module_info['Nom_module']} ont été validées pour la filière {$filiere_info['Nom_filiere']}.";
+    $message = "Les notes pour l'examen {$exam_info['type']} du module {$module_info['Nom_module']} pour la filière {$filiere_info['Nom_filiere']} sont pretes.";
+
+
+
+    
+
+    $table_name = "{$exam_info['type']}_{$module_info['Nom_module']}_{$filiere_info['Nom_filiere']}";
+    $table_name = str_replace(" ", "_", $table_name); 
+    $table_name = strtolower($table_name);
+    echo $table_name;
+
+    $sql = "CREATE TABLE {$table_name} (
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        id_etudiant INT(6) UNSIGNED,
+        note_value FLOAT,
+        remarque VARCHAR(255)
+    )";
+    $pdo->exec($sql);
+
+    $student_info = fetchInfo($pdo, 'filiere_id', $filiere_id, "SELECT id FROM etudiant WHERE id_filiere = :filiere_id");
+
+    $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
+
+    $csvFile = $filename;
+
+    try {
+        if (($handle = fopen($csvFile, "r")) !== FALSE) {
+            
+
+            $sql = "INSERT INTO {$table_name} (id_etudiant, note_value, remarque) VALUES (:id_etudiant, :note_value, :remarque)";
+            $stmt = $pdo->prepare($sql);
+
+            // Bind parameters
+            $stmt->bindParam(':id_etudiant', $id_etudiant);
+            $stmt->bindParam(':note_value', $note_value);
+            $stmt->bindParam(':remarque', $remarque);
+
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $id_etudiant = $data[0];
+                // Extract note value and remark from CSV
+                $note_value = $data[3];
+                $remarque = $data[4];
+
+                // Execute the SQL statement to insert data
+                $stmt->execute();
+            }
+
+            // Close CSV file
+            fclose($handle);
+        }
+        try {
+            $sql_insert_table_name = "INSERT INTO notes_provisoire (exam_id, nom_exam) VALUES (:exam_id, :nom_exam)";
+            $stmt_insert_table_name = $pdo->prepare($sql_insert_table_name);
+            
+            // Bind parameters
+            $stmt_insert_table_name->bindParam(':exam_id', $exam_id);
+            $stmt_insert_table_name->bindParam(':nom_exam', $table_name);
+            
+            // Execute the SQL statement
+            $stmt_insert_table_name->execute();
+            
+            echo "Table name and exam details inserted into note_provisoire table successfully";
+        } catch (PDOException $e) {
+            // Handle any errors that occur during the execution of the SQL statement
+            echo "Error inserting table name: " . $e->getMessage();
+        }
+        
+        echo "Data inserted successfully";
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
+
+
+
+
+
 
     // Envoi de l'e-mail
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = $prof_email; 
-    $mail->Password = 'frra jjmc fxjg rxdp'; 
+    $mail->Username = "e.service.ensah@gmail.com";
+    $mail->Password = 'bjtp ifey envd koar';
 
     $mail->Port = 587;
-    $mail->setFrom($prof_email, $prof_nom_complet); 
+    $mail->setFrom($prof_email, $prof_nom_complet);
     $mail->addAddress($coordinateur_email, $coordinateur_nom_complet);
     $mail->addReplyTo($prof_email, $prof_nom_complet);
     $mail->isHTML(true);

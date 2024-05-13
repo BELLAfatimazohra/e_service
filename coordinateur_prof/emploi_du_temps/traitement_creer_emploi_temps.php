@@ -75,7 +75,8 @@ $types_cours = ['TD', 'TP', 'Cours'];
         <div class="bodyDiv"></div>
         <h1>Créer Emploi du Temps pour <?php echo $filiere['Nom_filiere']; ?></h1>
 
-        <form action="valider_emploi_temps.php?filiere_id=<?php echo $filiere_id; ?>" method="post">
+        <form action="valider_emploi_temps.php" method="get">
+            <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
             <table>
                 <thead>
                     <tr>
@@ -91,7 +92,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
                 <tbody>
                     <?php
                     // Heures de travail
-                    $heures = ['08:00 - 10:00', '10:00 - 12:00', '12:00 - 14:00', '14:00 - 16:00', '16:00 - 18:00'];
+                    $heures = ['08:00 - 10:00', '10:00 - 12:00', '14:00 - 16:00', '16:00 - 18:00'];
 
                     // Jours de la semaine
                     $jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
@@ -102,35 +103,35 @@ $types_cours = ['TD', 'TP', 'Cours'];
                         foreach ($jours as $jour) {
                             echo "<td>";
                             // Dropdown des modules
-                            echo "<select name='module'>";
+                            echo "<select name='module[]'>";
                             foreach ($modules as $module) {
                                 echo "<option value='{$module['id']}'>{$module['Nom_module']}</option>";
                             }
                             echo "</select>";
 
                             // Dropdown des professeurs
-                            echo "<select name='prof'>";
+                            echo "<select name='prof[]'>";
                             foreach ($profs as $prof) {
                                 echo "<option value='{$prof['id']}'>{$prof['Nom']} {$prof['Prenom']}</option>";
                             }
                             echo "</select>";
 
                             // Dropdown des salles
-                            echo "<select name='salle'>";
+                            echo "<select name='salle[]'>";
                             foreach ($salles as $salle) {
                                 echo "<option value='$salle'>$salle</option>";
                             }
                             echo "</select>";
 
                             // Dropdown des blocs
-                            echo "<select name='bloc'>";
+                            echo "<select name='bloc[]'>";
                             foreach ($blocs as $bloc) {
                                 echo "<option value='$bloc'>$bloc</option>";
                             }
                             echo "</select>";
 
                             // Dropdown des types de cours
-                            echo "<select name='type_cours'>";
+                            echo "<select name='type_cours[]'>";
                             foreach ($types_cours as $type_cours) {
                                 echo "<option value='$type_cours'>$type_cours</option>";
                             }

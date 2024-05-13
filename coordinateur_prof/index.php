@@ -11,7 +11,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     header("Location: index.php");
     exit;
 }
-echo $_SESSION['user_type'] . "11";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

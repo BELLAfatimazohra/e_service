@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
 require_once "../include/database.php";
 
 try {
-    $stmt_filieres = $pdo->prepare("SELECT DISTINCT f.id, f.Nom_filiere FROM module m INNER JOIN filiere f ON m.id_filiere = f.id WHERE m.id_prof = :id_prof");
+    $stmt_filieres = $pdo->prepare("SELECT DISTINCT f.id, f.Nom_filiere ,f.annee FROM module m INNER JOIN filiere f ON m.id_filiere = f.id WHERE m.id_prof = :id_prof");
     $stmt_filieres->execute(['id_prof' => $userId]);
     $filieres = $stmt_filieres->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -74,7 +74,9 @@ try {
             <h2>Liste des filières enseignées</h2>
             <ul>
                 <?php foreach ($filieres as $filiere) : ?>
-                    <a href="javascript:void(0);" onclick="window.location.href='module.php?filiere_id=<?php echo $filiere['id']; ?>'"><?php echo $filiere['Nom_filiere']; ?></a>
+                    <a href="javascript:void(0);" onclick="window.location.href='module.php?filiere_id=<?php echo $filiere['id']; ?>'">
+                        <?php echo $filiere['Nom_filiere'] . ' ' . $filiere['annee']; ?>
+                    </a>
                 <?php endforeach; ?>
             </ul>
         </div>

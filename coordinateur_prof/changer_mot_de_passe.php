@@ -1,11 +1,11 @@
 <?php
 session_start();
-
+$_SESSION['user_type'] = 'coordinateur_prof';
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
     header("Location: index.php");
     exit;
 }
- 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset($_POST['nouveau_mdp']) && isset($_POST['confirmer_mdp'])) {
 
     $ancien_mdp = $_POST['ancien_mdp'];
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
         exit;
     }
 
-    require_once '../include/database.php';
+    require_once './include/database.php';
 
 
     $userId = $_SESSION['user_id'];
@@ -27,21 +27,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
         $stmt->execute(['id' => $userId]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      
+
         if ($row && $ancien_mdp === $row['Password']) {
 
             $stmt = $pdo->prepare("UPDATE professeur SET Password = :password WHERE id = :id");
-          
+
             $stmt->execute(['password' => $nouveau_mdp, 'id' => $userId]);
 
             header("Location: ../professeur/confirmation.php");
             exit;
         } else {
-          
+
             echo "L'ancien mot de passe est incorrect.";
         }
     } catch (PDOException $e) {
-      
+
         echo "Erreur lors de la modification du mot de passe : " . $e->getMessage();
     }
 }
@@ -54,12 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../professeur/assets/index.css">
+    <link rel="stylesheet" href="./include/sidebarCoor.css">
     <link rel="stylesheet" href="../professeur/assets/changer_mot_de_passe.css">
     <title>Acceuil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-       
         .col1 hr.transparent-line {
             border: none;
 
@@ -198,37 +198,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
 </head>
 
 <body>
-<?php
-     
-     include '../include/nav_cote_corr.php'; 
-     ?>
- <script>
-         
-         var bodyDiv = document.querySelector('.bodyDiv');
-         
-         bodyDiv.innerHTML = `
-         <div class="change">
-                <h2>  <i class="fas fa-key"></i> Changer le mot de passe</h2>
-                <hr>
-                <h3>Règles du mot de passe:</h3>
-                <p>- Le nombre de caractères du mot de passe doit être entre 10 et 40. <br>
-                    - Le mot de passe doit contenir au moins un chiffre. <br>
-                    - Le mot de passe doit contenir au moins un caractère majuscule. <br>
-                    - Le mot de passe doit contenir au moins un symbole. <br>
-                    Le mot de passe doit contenir au moins un caractère majuscule.</p>
-                <form action="changer_mot_de_passe.php" method="post">
-                    <label for="ancien_mdp">Ancien mot de passe :</label>
-                    <input type="password" id="ancien_mdp" name="ancien_mdp" required><br><br>
-                    <label for="nouveau_mdp">Nouveau mot de passe :</label>
-                    <input type="password" id="nouveau_mdp" name="nouveau_mdp" required><br><br>
-                    <label for="confirmer_mdp">Confirmer le nouveau mot de passe :</label>
-                    <input type="password" id="confirmer_mdp" name="confirmer_mdp" required><br><br>
-                    <input type="submit" value="Modifier le mot de passe">
-                    <a href="../professeur/index.php"><button type="button">Annuler</button></a>
-                </form>
-         `;
-     </script>
-     
+    <?php
+
+    include './include/sidebarCoor.php';
+    ?>
+    <div class="bodyDiv">
+        <div class="change">
+            <h2> <i class="fas fa-key"></i> Changer le mot de passe</h2>
+            <hr>
+            <h3>Règles du mot de passe:</h3>
+            <p>- Le nombre de caractères du mot de passe doit être entre 10 et 40. <br>
+                - Le mot de passe doit contenir au moins un chiffre. <br>
+                - Le mot de passe doit contenir au moins un caractère majuscule. <br>
+                - Le mot de passe doit contenir au moins un symbole. <br>
+                Le mot de passe doit contenir au moins un caractère majuscule.</p>
+            <form action="changer_mot_de_passe.php" method="post">
+                <label for="ancien_mdp">Ancien mot de passe :</label>
+                <input type="password" id="ancien_mdp" name="ancien_mdp" required><br><br>
+                <label for="nouveau_mdp">Nouveau mot de passe :</label>
+                <input type="password" id="nouveau_mdp" name="nouveau_mdp" required><br><br>
+                <label for="confirmer_mdp">Confirmer le nouveau mot de passe :</label>
+                <input type="password" id="confirmer_mdp" name="confirmer_mdp" required><br><br>
+                <input type="submit" value="Modifier le mot de passe">
+                <a href="../professeur/index.php"><button type="button">Annuler</button></a>
+            </form>
+        </div>
+
+
 
 </body>
 

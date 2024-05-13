@@ -7,16 +7,13 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
     header("Location: index.php");
     exit;
 }
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-echo $_SESSION['user_type'] . "13";
+
+
 ?>
 <?php
 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
 
-echo $password . "13";
+
 
 
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {

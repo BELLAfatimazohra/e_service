@@ -14,7 +14,6 @@
     include 'include/sidebarCoor.php';
     include "../include/database.php";
     $user_id = $_SESSION["user_id"];
-    echo $user_id;
     $sql = "SELECT id_filiere FROM coordinateur WHERE id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $user_id, PDO::PARAM_INT); 

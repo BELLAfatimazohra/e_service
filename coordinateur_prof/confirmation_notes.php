@@ -13,12 +13,26 @@
     session_start();
     include 'include/sidebarCoor.php';
     include "../include/database.php";
+    $user_id = $_SESSION["user_id"];
+    echo $user_id;
+    $sql = "SELECT id_filiere FROM coordinateur WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $user_id, PDO::PARAM_INT); 
+    $stmt->execute();
+    $result_filiere = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
     ?>
     <div class="bodyDiv"> 
         <?php
         try {
-            $sql = "SELECT * FROM notes_provisoire";
+            $sql = "SELECT np.*
+            FROM notes_provisoire np
+            JOIN exam e ON np.exam_id = e.id
+            JOIN module m ON e.id_module = m.id
+            WHERE m.id_filiere = :filiere_id;
+            ";
             $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':filiere_id', $user_id, PDO::PARAM_INT); 
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

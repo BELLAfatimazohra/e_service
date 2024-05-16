@@ -48,6 +48,7 @@ try {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
             <link rel="stylesheet" href="../assets/consulter_notes.css">
             <link rel="stylesheet" href="../assets/exam.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
         </head>
 
@@ -95,16 +96,39 @@ try {
                     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
                     <button type="submit">Télécharger les notes</button>
                 </form>
-                <form action="valider_notes.php" method="POST">
+                <form action="valider_notes.php" method="POST" id="valider_notes">
                     <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                     <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
                     <button type="submit">Valider les notes</button>
+                <div id="success-message" style="display: none;">Notes validated successfully!</div>
                 </form>
 
-                `;
-            </script>
 
+
+
+                `;
+                $(document).ready(function() {
+                    $('#valider_notes').submit(function(event) {
+                        event.preventDefault(); 
+
+                        var formData = $(this).serialize(); 
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'valider_notes.php',
+                            data: formData,
+                            success: function(response) {
+                                $('#success-message').show(); 
+                                $('#valider_notes')[0].reset(); 
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
+                });
+            </script>
 
 
 

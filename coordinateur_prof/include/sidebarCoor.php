@@ -31,7 +31,7 @@
              <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/coordinateur_prof/se_deconnecter.php'"><i class="fas fa-sign-out-alt"></i>
                  <div>Se déconnecter </div>
              </a>
-             <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/coordinateur_prof/changer_mot_de_passe.php'"><i class="fas fa-sign-out-alt"></i><i class="fas fa-lock"></i>
+             <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/coordinateur_prof/changer_mot_de_passe.php'"><i class="fas fa-lock"></i>
                  <div>Changer mot de passe</div>
              </a>
 

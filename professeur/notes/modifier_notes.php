@@ -33,15 +33,18 @@ try {
     $students = $stmt_students->fetchAll(PDO::FETCH_ASSOC);
     $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
     $notes = [];
-    if (file_exists($filename)) {
-        if (($handle = fopen($filename, "r")) !== FALSE) {
-            fgetcsv($handle);
-            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                $notes[$data[0]] = ['note' => $data[2], 'remarque' => $data[3]];
-            }
-            fclose($handle);
+
+    if (($handle = fopen($filename, "r")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $id = $data[0];
+            $noteValue = $data[3];
+            $remark = $data[4];
+
+            $notes[$id] = ['note' => $noteValue, 'remarque' => $remark];
         }
+        fclose($handle);
     }
+    var_dump($notes);
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
 }
@@ -82,6 +85,7 @@ try {
         .consulter:hover {
             background-color: #0056b3;
         }
+        table{color: black;}
     </style>
 </head>
 
@@ -89,7 +93,18 @@ try {
     <?php
     include '../assets/include/sidebarProf.php'
     ?>
-    <div class="bodyDiv">
+    <script>
+        // Select all elements with the class 'bodyDiv'
+        var bodyDivs = document.querySelectorAll('.bodyDiv');
+
+        // Loop through all elements and remove each one except the last
+        for (var i = 0; i < bodyDivs.length - 1; i++) {
+            bodyDivs[i].parentNode.removeChild(bodyDivs[i]);
+        }
+
+        // Now that only the last bodyDiv remains, you can modify its innerHTML
+        var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
+        lastBodyDiv.innerHTML = `
         <h1>Modifier les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
         <form method="POST">
             <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
@@ -107,17 +122,17 @@ try {
                         <tr>
                             <td><?php echo $student['Nom']; ?></td>
                             <td><?php echo $student['Prenom']; ?></td>
-                            <td><input type="number" name="notes[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['note'] ?? ''; ?>" min="0" max="20"></td>
-                            <td><input type="text" name="remarques[<?php echo $student['id']; ?>]" value="<?php echo $notes[$student['id']]['remarque'] ?? ''; ?>"></td>
-
+                            <td><input type="number" name="notes[<?php echo $student['id']; ?>]" value="<?php echo htmlspecialchars($notes[$student['id']]['note'] ?? ''); ?>" min="0" max="20"></td>
+                            <td><input type="text" name="remarques[<?php echo $student['id']; ?>]" value="<?php echo htmlspecialchars($notes[$student['id']]['remarque'] ?? ''); ?>"></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
             <button type="submit">Sauvegarder</button>
             <button class="consulter"><a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">Consulter les Notes</a></button>
         </form>
-    </div>
+        `; </script>
 
 
 </body>

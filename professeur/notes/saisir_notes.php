@@ -69,9 +69,6 @@ try {
         fclose($file);
 
 
-
-
-        echo "Les notes ont été sauvegardées avec succès dans le fichier $filename.";
     }
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
@@ -121,8 +118,17 @@ try {
     include '../assets/include/sidebarProf.php';
     ?>
     <script>
-        var bodyDiv = document.querySelector('.bodyDiv');
-        bodyDiv.innerHTML = `
+// Select all elements with the class 'bodyDiv'
+var bodyDivs = document.querySelectorAll('.bodyDiv');
+
+// Loop through all elements and remove each one except the last
+for (var i = 0; i < bodyDivs.length - 1; i++) {
+    bodyDivs[i].parentNode.removeChild(bodyDivs[i]);
+}
+
+// Now that only the last bodyDiv remains, you can modify its innerHTML
+var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
+lastBodyDiv.innerHTML =  `
         <h1>Saisir les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
     <form method="POST">
         <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">

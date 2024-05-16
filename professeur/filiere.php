@@ -75,7 +75,7 @@ try {
             <ul>
                 <?php foreach ($filieres as $filiere) : ?>
                     <a href="javascript:void(0);" onclick="window.location.href='module.php?filiere_id=<?php echo $filiere['id']; ?>'">
-                        <?php echo $filiere['Nom_filiere'] . ' ' . $filiere['annee']; ?>
+                        <?php echo $filiere['Nom_filiere'] . " " . $filiere['annee']; ?>
                     </a>
                 <?php endforeach; ?>
             </ul>

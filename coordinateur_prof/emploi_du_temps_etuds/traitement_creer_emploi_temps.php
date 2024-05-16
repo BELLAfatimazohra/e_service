@@ -80,13 +80,12 @@ $types_cours = ['TD', 'TP', 'Cours'];
             <table>
                 <thead>
                     <tr>
-                        <th>Heures</th>
-                        <th>Lundi</th>
-                        <th>Mardi</th>
-                        <th>Mercredi</th>
-                        <th>Jeudi</th>
-                        <th>Vendredi</th>
-                        <th>Samedi</th>
+                        <th></th>
+                        <th>08:00 - 10:00</th>
+                        <th>10:00 - 12:00</th>
+                        <th>14:00 - 16:00</th>
+                        <th>16:00 - 18:00</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -97,10 +96,10 @@ $types_cours = ['TD', 'TP', 'Cours'];
                     // Jours de la semaine
                     $jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
-                    foreach ($heures as $heure) {
+                    foreach ($jours as $jour) {
                         echo "<tr>";
-                        echo "<td>$heure</td>";
-                        foreach ($jours as $jour) {
+                        echo "<td>$jour</td>";
+                        foreach ($heures as $heure) {
                             echo "<td>";
                             // Dropdown des modules
                             echo "<select name='module[]'>";

@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <?php
-    include '../assets/include/sidebarProf.php';
+    include 'assets/include/sidebarProf.php';
     ?>
     <div class="bodyDiv">
         <div class="form-container">

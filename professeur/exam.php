@@ -88,7 +88,7 @@ try {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <!-- Bouton pour ajouter -->
+         
             <a href="ajouter_exam.php?module_id=<?php echo $_GET['module_id']; ?>">
                 <i class="fas fa-plus"></i>
             </a>

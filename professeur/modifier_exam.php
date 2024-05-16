@@ -11,7 +11,7 @@ if (!isset($_GET['exam_id'])) {
 }
 
 try {
-    require_once '../../include/database.php';
+    require_once '../include/database.php';
 } catch (PDOException $e) {
     echo "Erreur de connexion à la base de données : " . $e->getMessage();
     exit;

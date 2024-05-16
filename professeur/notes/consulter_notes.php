@@ -32,7 +32,7 @@ try {
 
 
     $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
-
+    echo $filename;
 
     if (file_exists($filename)) {
 ?>
@@ -44,22 +44,35 @@ try {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Contenu du fichier CSV</title>
-            <link rel="stylesheet" href="../professeur/assets/exam.css">
             <link rel="stylesheet" href="../assets/include/sidebarProf.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
             <link rel="stylesheet" href="../assets/consulter_notes.css">
+            <link rel="stylesheet" href="../assets/exam.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
         </head>
 
         <body>
             <?php include '../assets/include/sidebarProf.php'; ?>
-            <div class="bodyDiv">
+
+            <script>
+                // Select all elements with the class 'bodyDiv'
+                var bodyDivs = document.querySelectorAll('.bodyDiv');
+
+                // Loop through all elements and remove each one except the last
+                for (var i = 0; i < bodyDivs.length - 1; i++) {
+                    bodyDivs[i].parentNode.removeChild(bodyDivs[i]);
+                }
+
+                // Now that only the last bodyDiv remains, you can modify its innerHTML
+                var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
+                lastBodyDiv.innerHTML = `
                 <h1>Les notes des etudiants sont :</h1>
                 <table>
                     <?php
                     $file = fopen($filename, "r");
                     echo "<tr>";
-                    echo "<th>ID</th><th>Student ID</th><th>Score</th><th>Remarks</th>";
+                    echo "<th>ID</th><th>First name</th><th>Last Name</th><th>Score</th><th>Remarks</th>";
                     echo "</tr>";
                     while (($data = fgetcsv($file))) {
                         echo "<tr>";
@@ -83,15 +96,39 @@ try {
                     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
                     <button type="submit">Télécharger les notes</button>
                 </form>
-                <form action="valider_notes.php" method="POST">
+                <form action="valider_notes.php" method="POST" id="valider_notes">
                     <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                     <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
                     <button type="submit">Valider les notes</button>
+                <div id="success-message" style="display: none;">Notes validated successfully!</div>
                 </form>
 
-            </div>
 
+
+
+                `;
+                $(document).ready(function() {
+                    $('#valider_notes').submit(function(event) {
+                        event.preventDefault(); 
+
+                        var formData = $(this).serialize(); 
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'valider_notes.php',
+                            data: formData,
+                            success: function(response) {
+                                $('#success-message').show(); 
+                                $('#valider_notes')[0].reset(); 
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
+                });
+            </script>
 
 
 

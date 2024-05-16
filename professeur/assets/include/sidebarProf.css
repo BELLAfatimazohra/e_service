@@ -14,11 +14,21 @@
 ::-webkit-scrollbar {
   display: none;
 }
+.bodyDiv {
+  color: black;
+  margin: 6rem 3rem 0rem 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  z-index: 0;
+}
 
 body {
   font-size: 1rem;
   background: var(--body-bg);
   height: 100vh;
+  color: white;
 }
 .sideBarHidden,
 .sidebar {
@@ -182,7 +192,6 @@ body {
 
 .logo {
   height: 3rem;
-  width: fit-content;
 }
 .imgcontainer::after,
 .nav-list::after {

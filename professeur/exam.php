@@ -48,53 +48,131 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../professeur/assets/exam.css">
+    <link rel="stylesheet" href="assets/exam.css">
     <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <title>Liste des Examens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .module-list {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .module-list h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .module-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .module-list table th,
+        .module-list table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .module-list table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .module-list table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .module-list table tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .module-list a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+      
+        .module-list a .fas {
+            margin-right: 5px;
+        }
+
+        .module-list a .fa-plus {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .module-list a .fa-plus:hover {
+            background-color: #0056b3;
+        }
+
+        .fa-edit {
+            color: #28a745;
+            margin-right: 10px;
+        }
+
+        .fa-trash {
+            color: #dc3545;
+        }
+    </style>
 </head>
 
 <body>
     <?php
     include './assets/include/sidebarProf.php';
     ?>
-<div class="bodyDiv"> <div class="">
-        <div class="module-list">
-            <h2>Liste des Exams</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Type d'examen</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($exams as $exam) : ?>
+    <div class="bodyDiv">
+        <div class="">
+            <div class="module-list">
+                <h2>Liste des Exams</h2>
+                <table>
+                    <thead>
                         <tr>
-                            <td>
-                                <a href="notes/saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
-                                    <?php echo $exam['type']; ?> - <?php echo $exam['pourcentage']; ?>%
-                                </a>
-                            </td>
-                            <td>
-                                <a href="modifier_exam.php?exam_id=<?php echo $exam['id']; ?>">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="exam.php?module_id=<?php echo $id_module_clique; ?>&delete_exam_id=<?php echo $exam['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cet examen ?');">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
+                            <th>Type d'examen</th>
+                            <th>Options</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-         
-            <a href="ajouter_exam.php?module_id=<?php echo $_GET['module_id']; ?>">
-                <i class="fas fa-plus"></i>
-            </a>
-        </div></div>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($exams as $exam) : ?>
+                            <tr>
+                                <td>
+                                    <a href="notes/saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
+                                        <?php echo $exam['type']; ?> - <?php echo $exam['pourcentage']; ?>%
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="modifier_exam.php?exam_id=<?php echo $exam['id']; ?>">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="exam.php?module_id=<?php echo $id_module_clique; ?>&delete_exam_id=<?php echo $exam['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cet examen ?');">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
 
-   
+                <a href="ajouter_exam.php?module_id=<?php echo $_GET['module_id']; ?>">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+
+
 </body>
 
 </html>

@@ -6,9 +6,9 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_p
     exit;
 }
 
-$coordinateur_id = $_SESSION['user_id'];  
+$coordinateur_id = $_SESSION['user_id'];
 
-require_once '../../include/database.php';  
+require_once '../../include/database.php';
 
 ?>
 
@@ -21,6 +21,76 @@ require_once '../../include/database.php';
     <link rel="stylesheet" href="../../professeur/assets/envoyer_message.css">
     <link rel="stylesheet" href="../include/sidebarCoor.css">
     <title>Envoyer un message aux étudiants</title>
+    <style>
+        .bodyDiv {
+            padding: 20px;
+            max-width: 800px;
+            margin: 40px auto;
+            margin-top: 80px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form.message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        select,
+        input.input,
+        textarea {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button.button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button.button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button.button:active {
+            background-color: #003f7f;
+            transform: scale(1);
+        }
+    </style>
 </head>
 
 <body>

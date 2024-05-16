@@ -49,7 +49,138 @@ try {
             <link rel="stylesheet" href="../assets/consulter_notes.css">
             <link rel="stylesheet" href="../assets/exam.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <style>
+                h1 {
+                    color: #333;
+                    text-align: center;
+                    margin: 20px 0;
+                    margin-top: 50px;
+                }
 
+                .bodyDiv {
+                    padding: 20px;
+                    max-width: 900px;
+                    margin: 0 auto;
+                    background-color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+
+                table {
+                    width: 100%;
+
+                    margin-bottom: 20px;
+                }
+
+                th,
+                td {
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                }
+
+                th {
+                    background-color: #f8f8f8;
+                    color: #333;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+
+                form {
+                    display: inline;
+                }
+
+                .btnnn {
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    transition: background-color 0.4s;
+
+                    margin-bottom: -16px;
+                    margin-left: 320px;
+
+
+
+                }
+
+                .btnn {
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    transition: background-color 0.4s;
+                    margin-top: -68px;
+                    margin-left: 500px;
+
+
+                }
+
+                .btn {
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    transition: background-color 0.4s;
+                    margin-top: -100px;
+                    margin-left: 700px;
+
+
+                }
+
+                .btn:hover {
+                    background-color: #0056b3;
+                }
+
+                .btnn:hover {
+                    background-color: #0056b3;
+                }
+
+                .btnnn:hover {
+                    background-color: #0056b3;
+                }
+
+                .btnn a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                .btnnn a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                .btn a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                #success-message {
+                    color: green;
+                    font-weight: bold;
+                    text-align: center;
+                    margin-top: 20px;
+                }
+
+                .consulter {
+                    background-color: #28a745;
+                }
+
+                .consulter:hover {
+                    background-color: #218838;
+                }
+            </style>
         </head>
 
         <body>
@@ -83,24 +214,24 @@ try {
                     }
                     fclose($file);
                     ?>
-                </table><br>
+                </table>
                 <form action="modifier_notes.php" method="POST">
                     <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                     <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                    <button type="submit">Modifier les notes</button>
+                    <button  class="btnnn" type="submit">Modifier les notes</button>
                 </form>
                 <form action="telecharger_notes.php" method="POST">
                     <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                     <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                    <button type="submit">Télécharger les notes</button>
+                    <button  class="btnn" type="submit">Télécharger les notes</button>
                 </form>
                 <form action="valider_notes.php" method="POST" id="valider_notes">
                     <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                     <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                     <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                    <button type="submit">Valider les notes</button>
+                    <button class="btn" type="submit">Valider les notes</button>
                 <div id="success-message" style="display: none;">Notes validated successfully!</div>
                 </form>
 
@@ -110,17 +241,17 @@ try {
                 `;
                 $(document).ready(function() {
                     $('#valider_notes').submit(function(event) {
-                        event.preventDefault(); 
+                        event.preventDefault();
 
-                        var formData = $(this).serialize(); 
+                        var formData = $(this).serialize();
 
                         $.ajax({
                             type: 'POST',
                             url: 'valider_notes.php',
                             data: formData,
                             success: function(response) {
-                                $('#success-message').show(); 
-                                $('#valider_notes')[0].reset(); 
+                                $('#success-message').show();
+                                $('#valider_notes')[0].reset();
                             },
                             error: function(xhr, status, error) {
                                 console.error(xhr.responseText);

@@ -19,49 +19,62 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     <link rel="stylesheet" href="../include/sidebarCoor.css">
     <title>Emploi du Temps</title>
     <style>
-        .container {
+        .bodyDiv {
+            padding: 70px;
             max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 40px auto;
+            margin-top: 100px;
+            background-color: whitesmoke;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            text-align: center;
         }
 
         h1 {
-            font-size: 24px;
-            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
         }
 
         .buttons {
             display: flex;
-            justify-content: center;
-            margin-top: 20px;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
 
         .buttons a {
-            display: inline-block;
-            margin: 0 10px;
+            display: block;
             padding: 10px 20px;
+            margin: 10px;
             background-color: #007bff;
-            color: #fff;
+            color: white;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .buttons a:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
     </style>
 </head>
 
 <body>
     <?php include '../include/sidebarCoor.php'; ?>
-<div class="bodyDiv">    <div class="container">
-        <h1>Emploi du Temps</h1>
-        <div class="buttons">
-            <a href="choisir_filiere_consulter_emploi.php">Consulter Emploi du Temps</a>
-            <a href="creer_emploi_du_temps.php">Créer un Emploi du Temps</a>
+    <div class="bodyDiv">
+        <div class="container">
+            <h1>Emploi du Temps</h1>
+            <div class="buttons">
+                <a href="choisir_filiere_consulter_emploi.php">Consulter Emploi du Temps</a>
+                <a href="creer_emploi_du_temps.php">Créer un Emploi du Temps</a>
+            </div>
         </div>
-    </div></div>
+    </div>
 
 </body>
 

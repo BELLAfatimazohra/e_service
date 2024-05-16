@@ -113,7 +113,131 @@ try {
     <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <title>Modifier les notes</title>
     <style>
-        /* Ajoutez des styles CSS ici */
+        h1 {
+            color: #333;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bodyDiv {
+            padding-top: 30px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 60px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            padding-top: 50px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .modifier {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background-color 0.4s;
+            margin: 10px 5px 0 0;
+        }
+
+        .modifier:hover {
+            background-color: #0056b3;
+        }
+
+        .modifier a {
+            color: white;
+            text-decoration: none;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+
+            gap: 10px;
+
+        }
+
+        #success-message {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .consulter {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background-color 0.4s;
+            margin: 10px 5px 0 0;
+        }
+
+        .consulter a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .consulter:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -131,7 +255,7 @@ try {
         // Now that only the last bodyDiv remains, you can modify its innerHTML
         var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
         lastBodyDiv.innerHTML = `
-        <h1>Modifier les notes pour l'examen <?php echo htmlspecialchars($exam_info['type']); ?></h1>
+        <h1>Modifier les notes pour le <?php echo htmlspecialchars($exam_info['type']); ?></h1>
         <form method="POST">
             <input type="hidden" name="exam_id" value="<?php echo htmlspecialchars($exam_id); ?>">
             <table>
@@ -153,7 +277,7 @@ try {
                 </tbody>
             </table>
 
-            <button type="submit">Modifier</button>
+            <button class="modifier" type="submit">Modifier</button>
             <button class="consulter"><a href="consulter_notes.php?exam_id=<?php echo htmlspecialchars($exam_id); ?>&module_id=<?php echo htmlspecialchars($exam_info['id_module']); ?>&filiere_id=<?php echo htmlspecialchars($module_info['id_filiere']); ?>">Consulter les Notes</a></button>
         </form>
 

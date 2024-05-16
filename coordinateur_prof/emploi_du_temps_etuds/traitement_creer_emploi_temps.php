@@ -22,7 +22,7 @@ if (!isset($_GET['filiere_id'])) {
 $filiere_id = $_GET['filiere_id'];
 
 // Requête SQL pour récupérer le nom de la filière
-$sql_filiere = "SELECT Nom_filiere FROM filiere WHERE id = :filiere_id";
+$sql_filiere = "SELECT Nom_filiere ,annee FROM filiere WHERE id = :filiere_id";
 $stmt_filiere = $pdo->prepare($sql_filiere);
 $stmt_filiere->bindParam(':filiere_id', $filiere_id, PDO::PARAM_INT);
 $stmt_filiere->execute();
@@ -67,13 +67,84 @@ $types_cours = ['TD', 'TP', 'Cours'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../include/sidebarCoor.css">
     <title>Créer Emploi du Temps</title>
+
+    <style>
+        .bodyDiv {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .valider {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .valider:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 
 <body>
     <?php include '../include/sidebarCoor.php'; ?>
     <div class="bodyDiv">
         <div class="bodyDiv"></div>
-        <h1>Créer Emploi du Temps pour <?php echo $filiere['Nom_filiere']; ?></h1>
+        <h1>Créer Emploi du Temps pour <?php echo $filiere['Nom_filiere'] . "_" . $filiere['annee']; ?></h1>
 
         <form action="valider_emploi_temps.php" method="get">
             <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
@@ -143,7 +214,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
                     ?>
                 </tbody>
             </table>
-            <button type="submit">Valider</button>
+            <button class="valider" type="submit">Valider</button>
 
         </form>
     </div>

@@ -138,13 +138,14 @@ try {
             border: none;
             color: white;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
-            transition: background-color 0.4s;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        button.sauvegarder button.consulter:hover {
+        button.sauvegarder :hover {
             background-color: #0056b3;
+            transform: scale(1.1);
         }
 
         button.sauvegarder a {
@@ -163,9 +164,9 @@ try {
             border: none;
             color: white;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
-            transition: background-color 0.4s;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         button.consulter:hover {

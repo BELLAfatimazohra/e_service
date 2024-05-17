@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'bellafatimazahrae@gmail.com'; // il faut crerr un compte et fait le adresse email de il dans ca 
-        $mail->Password = 'kmfx shfu hpwo nqgi';
+        $mail->Password = 'udrt vdly tvcs auim';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 

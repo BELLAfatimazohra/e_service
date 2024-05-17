@@ -52,7 +52,7 @@ function sendNewPasswordByEmail($email, $password)
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'bellafatimazahrae@gmail.com';
-        $mail->Password   = 'onaj oofv rboc stez';
+        $mail->Password   = 'udrt vdly tvcs auim';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
 
@@ -83,30 +83,21 @@ function sendNewPasswordByEmail($email, $password)
 
 <body>
 
-    <?php
-    include 'include/nav_cote.php';
-    ?>
-    <script>
-        var bodyDiv = document.querySelector('.bodyDiv');
 
-        bodyDiv.innerHTML = `
-        <main>
-    <div style="max-width: 400px; margin: 0 auto;">
-        <h2 style="text-align: center; margin-bottom: 20px;">Réinitialisation de mot de passe</h2>
-        <form action="" method="post">
-            <div style="margin-bottom: 20px;">
-                <label for="email" style="display: block; margin-bottom: 5px;">Adresse e-mail :</label>
-                <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
-            </div>
-            <div style="text-align: center;">
-                <input type="submit" name="reset_password" value="Réinitialiser le mot de passe" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-            </div>
-        </form>
-    </div>
-</main>
-
-        `;
-    </script>
+    <main>
+        <div style="max-width: 400px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 20px;">Réinitialisation de mot de passe</h2>
+            <form action="" method="post">
+                <div style="margin-bottom: 20px;">
+                    <label for="email" style="display: block; margin-bottom: 5px;">Adresse e-mail :</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+                <div style="text-align: center;">
+                    <input type="submit" name="reset_password" value="Réinitialiser le mot de passe" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                </div>
+            </form>
+        </div>
+    </main>
 
 </body>
 

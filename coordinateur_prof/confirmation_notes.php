@@ -1,7 +1,8 @@
 <?php
 
-    session_start();
-    include "../include/database.php";
+session_start();
+
+include "../include/database.php";
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
     header("Location: index.php");
     exit;
@@ -11,12 +12,17 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="include/sidebarCoor.css">
     <title>Document</title>
-    <style>.bodyDiv{color: black;}</style>
+    <style>
+        .bodyDiv {
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,12 +31,12 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
     $user_id = $_SESSION["user_id"];
     $sql = "SELECT id_filiere FROM coordinateur WHERE id = :id";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id', $user_id, PDO::PARAM_INT); 
+    $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
     $result_filiere = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     ?>
-    <div class="bodyDiv"> 
+    <div class="bodyDiv">
         <?php
         try {
             $sql = "SELECT np.*
@@ -40,7 +46,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
             WHERE m.id_filiere = :filiere_id;
             ";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':filiere_id', $user_id, PDO::PARAM_INT); 
+            $stmt->bindParam(':filiere_id', $user_id, PDO::PARAM_INT);
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -50,8 +56,8 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
                 echo "<div>";
                 foreach ($results as $result) {
                     echo "<form action='consulter_note.php' method='post'>";
-                    echo "<input type='hidden' name='nom_exam' value='{$result["nom_exam"]}'><input type='hidden' name='exam_id' value='{$result["exam_id"]}'> <div class='consulter'> ". htmlspecialchars(str_replace("_", " ", $result["nom_exam"])). "</div>"  ;
-                    echo "<button type='submit'>" ."consulter" ."</button>";
+                    echo "<input type='hidden' name='nom_exam' value='{$result["nom_exam"]}'><input type='hidden' name='exam_id' value='{$result["exam_id"]}'> <div class='consulter'> " . htmlspecialchars(str_replace("_", " ", $result["nom_exam"])) . "</div>";
+                    echo "<button type='submit'>" . "consulter" . "</button>";
                     echo "</form>";
                 }
                 echo "</div>";
@@ -64,4 +70,5 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
         ?>
     </div>
 </body>
+
 </html>

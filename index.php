@@ -1,9 +1,3 @@
-
-<?php
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') 
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +7,19 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     <link rel="stylesheet" href="images/loginPage/style.css" />
     <script src="images/loginPage/script.js"></script>
     <title>ENSAH E-Services</title>
+    <style>
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .forgot-password {
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,7 +52,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
                 <br /><br />
                 <hr />
             </form>
-            <a href="forget_pass.php">Forget Your Password?</a>
+            <a class="forgot-password" href="forget_pass.php">Mot de passe oublie ?</a>
         </section>
     </main>
 </body>
@@ -112,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             exit;
         } else {
 
-            echo "Email ou mot de passe incorrect.";
+            echo '<div class="error-message">Email ou mot de passe incorrect.</div>';
         }
     } catch (PDOException $e) {
         echo "Erreur de connexion : " . $e->getMessage();

@@ -16,7 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
         exit;
     }
 
-    require_once './include/database.php';
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=ensah_eservice', 'root', '');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        echo "Erreur de connexion : " . $e->getMessage();
+    }
 
 
     $userId = $_SESSION['user_id'];

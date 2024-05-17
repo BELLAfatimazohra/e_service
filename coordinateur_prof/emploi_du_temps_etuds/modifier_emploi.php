@@ -74,9 +74,11 @@ $types_cours = ['TD', 'TP', 'Cours'];
             background-color: #f9f9f9;
             margin: 0;
             padding: 0;
+            padding-left: 70px;
         }
 
         .bodyDiv {
+            padding-left: 60px;
             padding: 20px;
             max-width: 1200px;
             margin: 40px auto;
@@ -129,7 +131,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
             border-radius: 4px;
         }
 
-        button {
+        .modifier {
             display: block;
             width: 200px;
             margin: 20px auto;
@@ -143,7 +145,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        button:hover {
+        .modifier:hover {
             background-color: #0056b3;
             transform: scale(1.05);
         }
@@ -224,7 +226,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
                     ?>
                 </tbody>
             </table>
-            <button type="submit">Modifier</button>
+            <button class="modifier" type="submit">Modifier</button>
 
         </form>
     </div>

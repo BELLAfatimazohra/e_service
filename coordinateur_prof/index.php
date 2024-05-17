@@ -39,7 +39,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
         <div class="options">
             <div class="col1">
                 <button class="btn2"><i class="fas fa-envelope"></i><a class="opt" href="messages/message.php"> Messages</a> </button><br>
-                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="choisir_etu_prof_emploi.php"> Gerer emploi du Temps</a> </button><br>
+                <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="emploi_du_temps_etuds/emploi_du_temps.php"> Gerer emploi du Temps</a> </button><br>
                 <button class="btn4"><i class="fas fa-calendar-alt"></i> <a class="opt" href="Gestion_modules\choisir_filiere.php"> Gerer les Modules</a> </button>
             </div>
             <!-- Partie HTML de votre page -->

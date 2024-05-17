@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur')) {
     header("Location: login.php");
     exit;
 }
@@ -15,8 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
         echo "Les nouveaux mots de passe ne correspondent pas.";
         exit;
     }
-
-    require_once '../include/database.php';
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=ensah_eservice', 'root', '');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        echo "Erreur de connexion : " . $e->getMessage();
+    }
 
 
     $userId = $_SESSION['user_id'];
@@ -52,26 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../professeur/assets/index.css">
+
     <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <link rel="stylesheet" href="../professeur/assets/changer_mot_de_passe.css">
     <title>Acceuil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .col1 hr.transparent-line {
-            border: none;
-
-            height: 1px;
-
-            background-color: transparent;
-
-        }
-
-        .bienvenue button {
-            width: 150px;
-            margin-left: 80px;
-        }
+        
 
         .change {
             width: 50%;
@@ -221,7 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
                 <label for="confirmer_mdp">Confirmer le nouveau mot de passe :</label>
                 <input type="password" id="confirmer_mdp" name="confirmer_mdp" required><br><br>
                 <input type="submit" value="Modifier le mot de passe">
-                <a href="../professeur/index.php"><button type="button">Annuler</button></a>
+                <a href="../professeur/index.php"><button  type="button">Annuler</button></a>
             </form>
         </div>
 

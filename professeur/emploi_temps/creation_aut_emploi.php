@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$_SESSION['user_type'] = 'professeur';
 // Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type'])) {
     header("Location: index.php");
@@ -110,7 +110,7 @@ if (isset($professeur_info['Nom']) && isset($professeur_info['Prenom'])) {
 <head>
     <meta charset="UTF-8">
     <title>Emploi du temps du professeur</title>
-
+    <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <style>
         table {
             width: 100%;
@@ -131,9 +131,11 @@ if (isset($professeur_info['Nom']) && isset($professeur_info['Prenom'])) {
 </head>
 
 <body>
-
+    <?php
+    include "../assets/include/sidebarProf.php"
+    ?>
     <div class="bodyDiv">
-        <h2>Emploi du temps de <?php echo $prof_nom; ?></h2>
+        <h2>Votre emploi du temps </h2>
 
         <?php if (isset($emploi_prof_matrice)) : ?>
             <table>
@@ -159,7 +161,9 @@ if (isset($professeur_info['Nom']) && isset($professeur_info['Prenom'])) {
                         <?php endforeach; ?>
                     </tr>
                 <?php endforeach; ?>
+
             </table>
+            <p>NB : Votre emploi emploi du temps sera change et vous serez notifie par tous changements</p>
         <?php else : ?>
             <p>Aucun cours n'est prévu pour le professeur <?php echo $prof_nom; ?> dans l'emploi du temps.</p>
         <?php endif; ?>

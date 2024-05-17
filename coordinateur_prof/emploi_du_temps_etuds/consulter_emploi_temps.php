@@ -102,7 +102,7 @@ if (isset($_GET['filiere_id'])) {
             font-weight: bold;
         }
 
-        button {
+        .modi {
             display: block;
             width: 100%;
             max-width: 300px;
@@ -117,7 +117,7 @@ if (isset($_GET['filiere_id'])) {
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        button:hover {
+        .modi:hover {
             background-color: #0056b3;
             transform: scale(1.05);
         }
@@ -179,7 +179,7 @@ if (isset($_GET['filiere_id'])) {
     </div>
     <form action="modifier_emploi.php" method="GET">
         <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-        <button type="submit">Modifier l'emploi du temps</button>
+        <button class="modi" type="submit">Modifier l'emploi du temps</button>
     </form>
 </body>
 

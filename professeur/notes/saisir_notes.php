@@ -1,8 +1,7 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
-    header("Location: index.php");
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+    header("Location: login.php");
     exit;
 }
 
@@ -177,7 +176,7 @@ try {
 
 <body>
     <?php
-    include '../assets/include/sidebarProf.php';
+    include_once '../assets/include/sidebarProf.php';
     ?>
     <script>
         // Select all elements with the class 'bodyDiv'

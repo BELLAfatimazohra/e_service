@@ -69,6 +69,7 @@
     session_start();
     $_SESSION['user_type'] = 'coordinateur_prof';
     if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
+        include '../../include/database.php';
         include '../include/sidebarCoor.php';
     } else {
 

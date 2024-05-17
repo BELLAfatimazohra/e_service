@@ -1,17 +1,16 @@
 <?php
 session_start();
-$_SESSION['user_type'] = 'coordinateur_prof';
 
 // Vérifier si l'utilisateur est connecté en tant que coordinateur
 if (isset($_SESSION['user_id']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
-    include '../include/sidebarCoor.php';
+require_once '../../include/database.php';
+    include_once '../include/sidebarCoor.php';
 } else {
     // Rediriger vers la page d'index si l'utilisateur n'est pas connecté ou s'il n'est pas un coordinateur
     header("Location: index.php");
     exit;
 }
 
-require_once '../../include/database.php';
 
 // Récupérer l'identifiant du coordinateur connecté
 $coordinateurId = $_SESSION['user_id'];

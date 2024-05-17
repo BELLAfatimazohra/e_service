@@ -1,3 +1,13 @@
+
+<?php
+session_start();
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+    header("Location: index.php");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,14 +20,8 @@
 </head>
 <body>
     <?php
-    session_start();
-    if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
-        include '../assets/include/sidebarProf.php'; 
-    } else {
-        
-        header("Location: index.php");
-        exit;
-    }
+        require_once '../../include/database.php';
+        include_once '../assets/include/sidebarProf.php'; 
     ?>
 
     
@@ -30,9 +34,6 @@
             <button class="no-button" type="submit">Consulter la liste des messages</button>
         </form>
         </div>
-        
-        
-
         <script>
 
         document.querySelectorAll("li").forEach(function(li) {

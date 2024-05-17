@@ -1,7 +1,9 @@
 <?php
-
-// Démarrer la session / reprend la session qui est deja existe 
 session_start();
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+    header("Location: login.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +29,6 @@ session_start();
         <div class="informations-professeur">
             <?php
 
-            if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
 
                 $userId = $_SESSION['user_id'];
                 require_once '../include/database.php';
@@ -135,11 +136,7 @@ session_start();
 
                     echo "Erreur de connexion : " . $e->getMessage();
                 }
-            } else {
-
-                header("Location: professeur/index.php");
-                exit;
-            }
+            
 ?>
     </div>
     </div>

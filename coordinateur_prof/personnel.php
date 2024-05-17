@@ -30,7 +30,7 @@ try {
 </head>
 <body>
 <?php
-    include '../include/nav_cote_corr.php';
+    include 'include/sidebarCoor.php';
     ?>
     <script>
         // Sélectionnez la div .body

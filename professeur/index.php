@@ -1,31 +1,14 @@
 <?php
 session_start();
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
-    $userId = $_SESSION['user_id'];
-} else {
 
-    header("Location: index.php");
-    exit;
-}
-
-
-?>
-<?php
-
-
-
-
-
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
-
-    echo $_SESSION['user_type'] . "verif";
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
     header("Location: index.php");
     exit;
 }
 
 $userId = $_SESSION['user_id'];
 
-include "../include/database.php";
+require_once "../include/database.php";
 
 try {
     $stmt_filieres = $pdo->prepare("SELECT DISTINCT f.id, f.Nom_filiere FROM module m INNER JOIN filiere f ON m.id_filiere = f.id WHERE m.id_prof = :id_prof");
@@ -50,12 +33,10 @@ try {
 <body>
 
     <?php
-    include 'assets/include/sidebarProf.php';
+    include_once 'assets/include/sidebarProf.php';
     ?>
-
-    <div class="bodyDiv">
-
-
+    <script>
+document.querySelector(".bodyDiv").innerHTML =  `
         <div class="bienvenue">
             <h1>Bienvenue sur la plateforme e-Services</h1>
         </div>
@@ -122,8 +103,7 @@ try {
         </div>
 
 
-
-    </div>
+        `; </script>
 
 
     <footer>

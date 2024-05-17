@@ -229,8 +229,9 @@ li svg {
 header {
   position: fixed;
   top: 0;
+  color: rgb(0, 0, 0);
   padding: 2rem;
-  padding-left: 17rem;
+  padding-left: 11rem;
   padding-right: 4rem;
   width: 100%;
   height: 5rem;
@@ -238,8 +239,35 @@ header {
   box-shadow: 10px 3px 10px rgb(211, 211, 211);
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
+.bonjour{
+  font-weight: 300;
+  font-size: 1.6em;
+}
+.changer{
+  padding: 10px 20px;
+  border: 2px solid #474dcb;
+  border-radius: 15px;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  background-color: var(--nav-bg);
+  overflow: hidden;
+  box-shadow: 5px 5px 2ch rgb(209, 209, 209);
+  margin: 0.3rem 1rem;
+  transition: all 0.2s;
+}
+
+.changer:hover {
+  box-shadow: 0 0 2ch 2px rgb(0,0,0,0.1);
+  background-color: #2229a9;
+  margin: 0;
+  border-color: rgb(47, 56, 159);
+}
+
+
 .groupnav {
   width: 20rem;
   display: flex;
@@ -312,7 +340,7 @@ header {
 
 .dropdownProfile {
   position: absolute;
-  bottom: -200%;
+  bottom: -460%;
   padding: 0.5rem 1rem;
   padding-bottom: 1rem;
   font-size: 1rem;

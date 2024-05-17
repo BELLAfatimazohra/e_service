@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'professeur') {
+
+
+if (!isset($_SESSION['user_type']) || ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: index.php");
     exit;
 }
@@ -22,7 +24,8 @@ $professeur_id = $_SESSION['user_id'];
 </head>
 
 <body><?php
-        include '../assets/include/sidebarProf.php'; ?>
+        require_once '../../include/database.php';
+        include_once '../assets/include/sidebarProf.php'; ?>
     <div class="bodyDiv">
         <h1>Envoyer un message aux étudiants</h1>
         <form class="message" action="traitement_envoi_email.php" method="POST">
@@ -30,7 +33,6 @@ $professeur_id = $_SESSION['user_id'];
             <select name="filiere_annee" id="filiere_annee">
                 <?php
                 try {
-                    require_once '../../include/database.php';
                     $stmt_filieres = $pdo->prepare("SELECT f.Nom_filiere, f.annee FROM filiere f INNER JOIN professeur p ON f.id = p.id_filiere WHERE p.id = :professeur_id");
                     $stmt_filieres->execute(['professeur_id' => $professeur_id]);
                     $filieres = $stmt_filieres->fetchAll(PDO::FETCH_ASSOC);

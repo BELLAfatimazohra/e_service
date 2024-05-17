@@ -2,6 +2,12 @@
 
 // Démarrer la session / reprend la session qui est deja existe 
 session_start();
+
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
+    header("Location: index.php");
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +28,8 @@ session_start();
 
 <body>
     <?php
-    include 'include/sidebarCoor.php';
+                require_once '../include/database.php';
+    include_once 'include/sidebarCoor.php';
     ?>
 
 
@@ -35,7 +42,6 @@ session_start();
             if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
 
                 $userId = $_SESSION['user_id'];
-                require_once '../include/database.php';
 
                 try {
                     $stmt = $pdo->prepare("SELECT * FROM Professeur WHERE id = :id");

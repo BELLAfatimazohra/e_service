@@ -1,3 +1,9 @@
+
+<?php
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') 
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

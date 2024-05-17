@@ -3,11 +3,9 @@
 session_start();
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
-$_SESSION['user_type'] = 'coordinateur_prof';
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
     $userId = $_SESSION['user_id'];
 } else {
-
     header("Location: index.php");
     exit;
 }
@@ -22,12 +20,14 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     <link rel="stylesheet" href="../professeur/assets/index.css">
     <link rel="stylesheet" href="include/sidebarCoor.css">
     <title>Acceuil</title>
+    
 </head>
 
 <body>
 
     <?php
-    include 'include/sidebarCoor.php';
+    require_once '../include/database.php';
+    include_once 'include/sidebarCoor.php';
     ?>
 
 
@@ -48,7 +48,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
                     <h1 class="h1-act"> <i class="fas fa-bell"></i> Actualites</h1>
                     <hr>
                     <?php
-                    require_once '../include/database.php';
                     try {
                         // Requête SQL pour récupérer les actualités
                         $sql = "SELECT * FROM actualites";
@@ -81,15 +80,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
             </div>
         </div>
 
-
-
-        <?php
-        $_SESSION['user_type'] = 'professeur';
-        $_SESSION["email"] = $email;
-        $_SESSION["password"] = $password;
-        ?>
-        <a href="../professeur/index.php">
-            <button class="changer">Accéder à la zone prof</button></a>
 
 
 

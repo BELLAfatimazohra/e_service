@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['user_type'] = 'coordinateur_prof';
 
 // Vérifiez si l'utilisateur est connecté et a le bon type d'utilisateur
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
@@ -29,11 +28,12 @@ if (isset($_GET['filiere'])) {
 <head>
     <meta charset="UTF-8">
     <title>Liste des Étudiants</title>
+    <link rel="stylesheet" href="../include/sidebarCoor.css">
 </head>
 
 <body>
     <?php
-    include '../../include/nav_cote_corr.php';
+    include '../include/sidebarCoor.php';
 
     ?>
     <script>

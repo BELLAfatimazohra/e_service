@@ -1,10 +1,37 @@
+<?php
+
+
+try {
+    $user_id = $_SESSION['user_id'];
+
+    $sql = "SELECT CONCAT(nom, ' ', prenom) AS full_name FROM professeur WHERE id = :user_id";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result) {
+        $nom = $result['full_name'];
+    } else {
+        echo "No user found with user ID $user_id";
+    }
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="sidebarProf.css">
+    <link rel="stylesheet" href="sidebarCoor.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -13,6 +40,17 @@
 
 <body>
     <header>
+        <div class="bonjour">Bonjour! <?php echo "<span class='nom'> $nom</span>"; ?></div>
+        <?php
+        if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === "coordinateur_prof") {
+        ?>
+            <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/coordinateur_prof/index.php'">
+                <button class="changer">Accéder à la zone Coord</button>
+            </a>
+        <?php
+        }
+        ?>
+
         <div class="groupnav">
             <button class="messages"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
                     <path d="M149-135q-39.05 0-66.525-27.475Q55-189.95 55-229v-502q0-39.463 27.475-67.231Q109.95-826 149-826h662q39.463 0 67.231 27.769Q906-770.463 906-731v502q0 39.05-27.769 66.525Q850.463-135 811-135H149Zm331-295L149-653v424h662v-424L480-430Zm0-83 327-218H154l326 218ZM149-653v-78 502-424Z" />
@@ -23,20 +61,20 @@
             <button class="profile"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
                 </svg></button>
-        </div>
-        <div class="dropdownProfile">
-            <a href="../professeur/profil.php"><i class="fas fa-user"></i>
-                <div>Profil</div>
-            </a>
-            <a href="../../se_deconnecter.php"><i class="fas fa-sign-out-alt"></i>
-                <div>Se déconnecter </div>
-            </a>
-            <a href="../professeur/changer_mot_de_passe.php"><i class="fas fa-lock"></i>
-                <div>Changer mot de passe</div>
-            </a>
+            <div class="dropdownProfile">
+                <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/professeur/profil.php'"><i class="fas fa-user"></i>
+                    <div>Profil</div>
+                </a>
+                <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/se_deconnecter.php'"><i class="fas fa-sign-out-alt"></i>
+                    <div>Se déconnecter </div>
+                </a>
+                <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/professeur/changer_mot_de_passe.php'"><i class="fas fa-lock"></i>
+                    <div>Changer mot de passe</div>
+                </a>
 
-
+            </div>
         </div>
+
 
     </header>
 
@@ -47,7 +85,7 @@
                 <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
             </svg></div>
         <div class="imgcontainer">
-            <img class="logo" src="../public/images/logo-ensah.png" alt="ensah">
+            <img class="logo" src="/e_service/public/images/logo-ensah.png" alt="ensah">
         </div>
         <ul class="nav-list">
             <li class="liHome active">

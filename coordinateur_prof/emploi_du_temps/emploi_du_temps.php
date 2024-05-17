@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['user_type'] = 'coordinateur_prof';
 
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
     $userId = $_SESSION['user_id'];
@@ -54,7 +53,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 </head>
 
 <body>
-    <?php include '../include/sidebarCoor.php'; ?>
+    <?php include '../../include/database.php';
+    include '../include/sidebarCoor.php'; ?>
 <div class="bodyDiv">    <div class="container">
         <h1>Emploi du Temps</h1>
         <div class="buttons">

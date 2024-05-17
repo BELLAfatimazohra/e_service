@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         .container {
             max-width: 800px;
+            min-height: 200px;
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
@@ -50,6 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         form {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         label {
@@ -74,41 +78,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             background-color: #0056b3;
         }
     </style>
+    <link rel="stylesheet" href="../include/sidebarCoor.css">
+    <?php include "../include/sidebarCoor.php"; ?>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Affectation des modules aux professeurs</h2>
+    <div class="bodyDiv">
+        <div class="container">
+            <h2>Affectation des modules aux professeurs</h2>
 
 
-        <form action="affectation_module.php" method="post">
-            <?php foreach ($modules as $module) : ?>
-                <label for="prof_<?php echo $module['id']; ?>">Choisir un professeur pour <?php echo $module['Nom_module']; ?>:</label>
-                <select name="prof_<?php echo $module['id']; ?>" id="prof_<?php echo $module['id']; ?>">
-                    <option value="">Sélectionner un professeur</option>
-                    <?php foreach ($professeurs as $professeur) : ?>
-                        <option value="<?php echo $professeur['id']; ?>">
-                            <?php echo $professeur['Nom'] . ' ' . $professeur['Prenom']; ?>
-                        </option>
-                    <?php endforeach; ?>
+            <form action="affectation_module.php" method="post">
+                <?php if (!empty($professeurs) && !empty($modules)) { ?>
+                    <?php foreach ($modules as $module) : ?>
+                        <label for="prof_<?php echo $module['id']; ?>">Choisir un professeur pour <?php echo $module['Nom_module']; ?>:</label>
+                        <select name="prof_<?php echo $module['id']; ?>" id="prof_<?php echo $module['id']; ?>">
+                            <option value="">Sélectionner un professeur</option>
+                            <?php foreach ($professeurs as $professeur) : ?>
+                                <option value="<?php echo $professeur['id']; ?>">
+                                    <?php echo $professeur['Nom'] . ' ' . $professeur['Prenom']; ?>
+                                </option>
+                            <?php endforeach; ?>
 
-                </select>
-            <?php endforeach; ?>
-            <button type="submit">Enregistrer l'affectation</button>
-        </form>
+                        </select>
+                <?php endforeach;
+                } else {
+                    echo "<span>no data found</span>";
+                } ?>
+                <button type="submit">Enregistrer l'affectation</button>
+            </form>
 
+        </div>
     </div>
+
     <script>
+        document.querySelectorAll("li").forEach(function(li) {
+            if (li.classList.contains("active")) {
+                li.classList.remove("active");
+            }
+        });
 
-document.querySelectorAll("li").forEach(function(li) {
-    if(li.classList.contains("active")){
-        li.classList.remove("active");
-    }
-});
-
-document.querySelector(".liModules").classList.add("active");
-
-</script>
+        document.querySelector(".liModules").classList.add("active");
+    </script>
 </body>
 
 </html>

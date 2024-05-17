@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../include/database.php';
+require_once '../include/database.php';
 
 try {
     
@@ -14,7 +14,6 @@ try {
     // Récupération des coordinateurs
     $stmt_coordinateurs = $pdo->query("SELECT email, prenom, nom FROM coordinateur");
     $coordinateurs = $stmt_coordinateurs->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
     die("Erreur lors de la connexion à la base de données : " . $e->getMessage());
 }
@@ -27,13 +26,16 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Personnels </title>
     <link rel="stylesheet" href="../professeur/assets/personnel.css">
+    <link rel="stylesheet" href="include/sidebarCoor.css">
 </head>
 <body>
 <?php
     include 'include/sidebarCoor.php';
     ?>
+    <div class="bodyDiv"></div>
     <script>
         // Sélectionnez la div .body
+
         var bodyDiv = document.querySelector('.bodyDiv');
 
         // Ajoutez votre propre contenu à la div .body

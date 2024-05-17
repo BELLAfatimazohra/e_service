@@ -23,6 +23,9 @@
   z-index: 0;
   color: black;
 }
+table{
+  color: black;
+}
 
 body {
   font-size: 1rem;

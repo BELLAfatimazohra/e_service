@@ -61,7 +61,6 @@ document.querySelector(".bodyDiv").innerHTML =  `
                     <?php
                     include '../include/database.php';
                     try {
-                        // Requête SQL pour récupérer les actualités
                         $sql = "SELECT * FROM actualites";
                         $stmt = $pdo->query($sql);
 

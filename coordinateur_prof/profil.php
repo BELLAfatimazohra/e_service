@@ -164,6 +164,7 @@ document.querySelectorAll("li").forEach(function(li) {
     }
 });
 
+document.querySelector(".liProfil").classList.add("active");
 
 </script>
 </body>

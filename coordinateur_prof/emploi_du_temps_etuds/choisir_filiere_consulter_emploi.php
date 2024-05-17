@@ -97,7 +97,17 @@ $filiereRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <button type="submit">Consulter l'emploi du temps</button>
         </form>
     </div>
+    <script>
 
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liEmp").classList.add("active");
+
+</script>
 
 </body>
 

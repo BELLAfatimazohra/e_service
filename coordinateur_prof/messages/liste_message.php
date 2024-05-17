@@ -89,7 +89,17 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </table>
     </div>
+    <script>
 
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liMessage").classList.add("active");
+
+</script>
 </body>
 
 </html>

@@ -10,19 +10,13 @@
     <link rel="stylesheet" href="../include/sidebarCoor.css">
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
 
         .bodyDiv {
             padding: 20px;
             max-width: 800px;
             margin: 40px auto;
             margin-top: 100px;
-
+background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px #999999;
             text-align: center;
@@ -87,7 +81,17 @@
             <button class="no-button" type="submit">Consulter la liste des messages</button>
         </form>
     </div>
+    <script>
 
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liMessage").classList.add("active");
+
+</script>
 
 
 </body>

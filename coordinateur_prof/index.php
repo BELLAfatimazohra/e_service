@@ -34,7 +34,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
     <div class="bodyDiv">
 
         <div class="bienvenue">
-            <h1>Bienvenue sur la plateforme <br> e-Services</h1>
+            <h1>Bienvenue sur la plateforme e-Services</h1>
         </div>
         <div class="options">
             <div class="col1">
@@ -82,7 +82,17 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 
 
 
+        <script>
 
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liHome").classList.add("active");
+
+</script>
 
     </div>
 

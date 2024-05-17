@@ -112,7 +112,17 @@ if (isset($_GET['filiere_id'])) {
             } ?>
         </table>
     <?php endif; ?>
+    <script>
 
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liEmp").classList.add("active");
+
+</script>
 </body>
 
 </html>

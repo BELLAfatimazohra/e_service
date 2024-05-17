@@ -1,3 +1,24 @@
+
+<?php
+session_start();
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
+    
+    header("Location:coordinateur_prof/index.php");
+}
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
+    
+    header("Location:professeur/index.php");
+}
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'etudiant') {
+    
+    header("Location:etudiant/index.php");
+}
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'chef_departement') {
+    
+    header("Location:chef_departement/index.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

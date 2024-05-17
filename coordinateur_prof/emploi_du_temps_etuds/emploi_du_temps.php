@@ -64,7 +64,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 </head>
 
 <body>
-    <?php include '../include/sidebarCoor.php'; ?>
+    <?php 
+    require_once "../../include/database.php";
+    include '../include/sidebarCoor.php'; ?>
     <div class="bodyDiv">
         <div class="container">
             <h1>Emploi du Temps</h1>
@@ -74,7 +76,17 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
             </div>
         </div>
     </div>
+    <script>
 
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liEmp").classList.add("active");
+
+</script>
 </body>
 
 </html>

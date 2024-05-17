@@ -85,6 +85,20 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </form>
         </div>
     </div>
+
+    <script>
+
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liModules").classList.add("active");
+
+</script>
+
+
 </body>
 
 </html>

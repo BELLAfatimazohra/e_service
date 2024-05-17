@@ -181,6 +181,17 @@ if (isset($_GET['filiere_id'])) {
         <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
         <button class="modi" type="submit">Modifier l'emploi du temps</button>
     </form>
+    <script>
+
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liEmp").classList.add("active");
+
+</script>
 </body>
 
 </html>

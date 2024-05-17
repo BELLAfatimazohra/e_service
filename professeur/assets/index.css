@@ -42,7 +42,7 @@ h1 {
   cursor: pointer;
   color: white;
   font-size: 1.2rem;
-  height: 4rem;
+  height: 6rem;
   text-align: center;
   width: 20rem;
   background-color: var(--nav-bg);
@@ -61,6 +61,7 @@ h1 {
   background-color: #2028c4;
   margin: 0;
   border-color: rgb(47, 56, 159);
+  
 }
 .opt {
   text-decoration: none;
@@ -72,7 +73,7 @@ h1 {
   position: absolute;
   height: fit-content;
   width: 4rem;
-  top: -20%;
+  top: -5%;
   right: 1%;
   opacity: 0.6;
   z-index: -1;
@@ -85,7 +86,7 @@ h1 {
 .btn4:hover .btnsvg {
   opacity: 01;
   right: 71%;
-  top: -10%;
+  top: 0%;
   width: 4.5rem;
 }
 

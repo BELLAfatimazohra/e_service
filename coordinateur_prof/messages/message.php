@@ -87,7 +87,17 @@
             <button class="no-button" type="submit">Consulter la liste des messages</button>
         </form>
     </div>
+    <script>
 
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liMessage").classList.add("active");
+
+</script>
 
 
 </body>

@@ -126,6 +126,17 @@ require_once '../../include/database.php';
             <button class="button" type="submit">Envoyer le message</button>
         </form>
     </div>
+    <script>
+
+document.querySelectorAll("li").forEach(function(li) {
+    if(li.classList.contains("active")){
+        li.classList.remove("active");
+    }
+});
+
+document.querySelector(".liMessage").classList.add("active");
+
+</script>
 </body>
 
 </html>

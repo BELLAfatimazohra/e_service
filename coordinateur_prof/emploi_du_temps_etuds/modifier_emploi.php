@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['user_type'] = 'coordinateur_prof';
 
 // Vérifier si l'utilisateur est connecté en tant que coordinateur
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
@@ -21,7 +22,7 @@ if (!isset($_GET['filiere_id'])) {
 $filiere_id = $_GET['filiere_id'];
 
 // Requête SQL pour récupérer le nom de la filière
-$sql_filiere = "SELECT Nom_filiere FROM filiere WHERE id = :filiere_id";
+$sql_filiere = "SELECT Nom_filiere ,annee  FROM filiere WHERE id = :filiere_id";
 $stmt_filiere = $pdo->prepare($sql_filiere);
 $stmt_filiere->bindParam(':filiere_id', $filiere_id, PDO::PARAM_INT);
 $stmt_filiere->execute();
@@ -65,27 +66,107 @@ $types_cours = ['TD', 'TP', 'Cours'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../include/sidebarCoor.css">
-    <title>Créer Emploi du Temps</title>
+    <title>Modifier Emploi du Temps</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bodyDiv {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 
 <body>
     <?php include '../include/sidebarCoor.php'; ?>
     <div class="bodyDiv">
         <div class="bodyDiv"></div>
-        <h1>Créer Emploi du Temps pour <?php echo $filiere['Nom_filiere']; ?></h1>
+        <h1>Modifier Emploi du Temps pour <?php echo $filiere['Nom_filiere'] . "_" . $filiere['annee']; ?></h1>
 
-        <form action="valider_emploi_temps.php" method="get">
+        <form action="traitement_modification_emploi.php" method="get">
             <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
             <table>
                 <thead>
                     <tr>
-                        <th>Heures</th>
-                        <th>Lundi</th>
-                        <th>Mardi</th>
-                        <th>Mercredi</th>
-                        <th>Jeudi</th>
-                        <th>Vendredi</th>
-                        <th>Samedi</th>
+                        <th></th>
+                        <th>08:00 - 10:00</th>
+                        <th>10:00 - 12:00</th>
+                        <th>14:00 - 16:00</th>
+                        <th>16:00 - 18:00</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -96,10 +177,10 @@ $types_cours = ['TD', 'TP', 'Cours'];
                     // Jours de la semaine
                     $jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
-                    foreach ($heures as $heure) {
+                    foreach ($jours as $jour) {
                         echo "<tr>";
-                        echo "<td>$heure</td>";
-                        foreach ($jours as $jour) {
+                        echo "<td>$jour</td>";
+                        foreach ($heures as $heure) {
                             echo "<td>";
                             // Dropdown des modules
                             echo "<select name='module[]'>";
@@ -143,7 +224,7 @@ $types_cours = ['TD', 'TP', 'Cours'];
                     ?>
                 </tbody>
             </table>
-            <button type="submit">Valider</button>
+            <button type="submit">Modifier</button>
 
         </form>
     </div>

@@ -36,59 +36,51 @@ $filiereRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../include/sidebarCoor.css">
     <title>Emploi du Temps</title>
     <style>
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 30px;
+        .bodyDiv {
+            padding: 80px;
+            max-width: 800px;
+            margin: 40px auto;
+            margin-top: 100px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
+        .bodyDiv form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        form {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .bodyDiv label {
+            font-size: 18px;
             margin-bottom: 10px;
+            color: #333;
         }
 
-        .btn-create {
-            display: inline-block;
+        .bodyDiv select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .bodyDiv button {
             padding: 10px 20px;
             background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
+            border: none;
+            color: white;
+            cursor: pointer;
             border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        .btn-create:hover {
+        .bodyDiv button:hover {
             background-color: #0056b3;
-        }
-
-        .error-message {
-            color: #ff0000;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .success-message {
-            color: #00cc00;
-            font-size: 14px;
-            margin-top: 5px;
+            transform: scale(1.05);
         }
     </style>
 </head>

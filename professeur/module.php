@@ -32,13 +32,55 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../professeur/assets/index.css">
-    <link rel="stylesheet" href="../professeur/assets/module.css">
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="assets/module.css">
     <link rel="stylesheet" href="assets/include/sidebarProf.css">
     <title>Acceuil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        h2 {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 20px;
+            color: #454545;
+        }
 
+        .module-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            background-color: #007BFF;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .module-button:hover {
+            background-color: #0056b3;
+
+            transform: scale(1.1);
+
+        }
+
+        .module-button:active {
+            background-color: #004080;
+
+        }
+
+        form {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,7 +93,7 @@ try {
         <h2>Modules de la filière</h2>
         <?php foreach ($modules as $module) : ?>
             <form action="../professeur/exam.php" method="GET">
-                <!-- Inclure l'identifiant du module dans l'URL -->
+
                 <input type="hidden" name="module_id" value="<?php echo $module['id']; ?>">
                 <button type="submit" class="module-button"><?php echo $module['Nom_module']; ?></button>
             </form>

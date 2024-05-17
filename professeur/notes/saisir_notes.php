@@ -66,8 +66,6 @@ try {
         }
         // Fermeture du fichier
         fclose($file);
-
-
     }
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
@@ -84,29 +82,93 @@ try {
     <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <title>Saisir les notes</title>
     <style>
-        .consulter {
+        .bodyDiv {
+            padding-top: 30px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 60px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            padding-top: 50px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button.sauvegarder {
+            padding: 10px 20px;
             background-color: #007bff;
             border: none;
             color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
             cursor: pointer;
-            border-radius: 8px;
-            transition-duration: 0.4s;
-        }
-
-        .consulter a {
-            text-align: center;
-            text-decoration: none;
-            color: white;
+            border-radius: 10px;
             font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        .consulter:hover {
+        button.sauvegarder :hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        button.sauvegarder a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button.consulter a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button.consulter {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button.consulter:hover {
             background-color: #0056b3;
         }
     </style>
@@ -117,18 +179,18 @@ try {
     include_once '../assets/include/sidebarProf.php';
     ?>
     <script>
-// Select all elements with the class 'bodyDiv'
-var bodyDivs = document.querySelectorAll('.bodyDiv');
+        // Select all elements with the class 'bodyDiv'
+        var bodyDivs = document.querySelectorAll('.bodyDiv');
 
-// Loop through all elements and remove each one except the last
-for (var i = 0; i < bodyDivs.length - 1; i++) {
-    bodyDivs[i].parentNode.removeChild(bodyDivs[i]);
-}
+        // Loop through all elements and remove each one except the last
+        for (var i = 0; i < bodyDivs.length - 1; i++) {
+            bodyDivs[i].parentNode.removeChild(bodyDivs[i]);
+        }
 
-// Now that only the last bodyDiv remains, you can modify its innerHTML
-var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
-lastBodyDiv.innerHTML =  `
-        <h1>Saisir les notes pour l'examen <?php echo $exam_info['type']; ?></h1>
+        // Now that only the last bodyDiv remains, you can modify its innerHTML
+        var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
+        lastBodyDiv.innerHTML = `
+        <h1>Saisir les notes pour le <?php echo $exam_info['type']; ?></h1>
     <form method="POST">
         <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
         <table>
@@ -151,7 +213,7 @@ lastBodyDiv.innerHTML =  `
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <button type="submit"> Sauvegarder</button>
+        <button class="sauvegarder" type="submit"> Sauvegarder</button>
         <button class="consulter">
             <a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">
                 Consulter les Notes

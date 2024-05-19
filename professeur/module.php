@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: login.php");
     exit;
 }
@@ -10,16 +10,18 @@ if (!isset($_GET['filiere_id'])) {
     exit;
 }
 
-
 $filiereId = $_GET['filiere_id'];
-
+$profId = $_SESSION['user_id'];  // ID du professeur connecté
 
 require_once "../include/database.php";
 
 try {
-
-    $stmt_modules = $pdo->prepare("SELECT id, Nom_module FROM module WHERE id_filiere = :filiere_id");
-    $stmt_modules->execute(['filiere_id' => $filiereId]);
+    // Préparer la requête pour filtrer par filière et ID du professeur
+    $stmt_modules = $pdo->prepare("SELECT id, Nom_module FROM module WHERE id_filiere = :filiere_id AND id_prof = :prof_id");
+    $stmt_modules->execute([
+        'filiere_id' => $filiereId,
+        'prof_id' => $profId
+    ]);
     $modules = $stmt_modules->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
@@ -60,21 +62,17 @@ try {
             height: 50px;
             border: none;
             border-radius: 10px;
-
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .module-button:hover {
             background-color: #0056b3;
-
             transform: scale(1.1);
-
         }
 
         .module-button:active {
             background-color: #004080;
-
         }
 
         form {
@@ -84,30 +82,20 @@ try {
 </head>
 
 <body>
-
-
-    <?php
-    include './assets/include/sidebarProf.php';
-    ?>
+    <?php include './assets/include/sidebarProf.php'; ?>
     <div class="bodyDiv">
         <h2>Modules de la filière</h2>
-        <?php foreach ($modules as $module) : ?>
-            <form action="../professeur/exam.php" method="GET">
-
-                <input type="hidden" name="module_id" value="<?php echo $module['id']; ?>">
-                <button type="submit" class="module-button"><?php echo $module['Nom_module']; ?></button>
-            </form>
-        <?php endforeach; ?>
+        <?php if (empty($modules)) : ?>
+            <p style="text-align: center;">Aucun module trouvé pour cette filière.</p>
+        <?php else : ?>
+            <?php foreach ($modules as $module) : ?>
+                <form action="../professeur/exam.php" method="GET">
+                    <input type="hidden" name="module_id" value="<?php echo $module['id']; ?>">
+                    <button type="submit" class="module-button"><?php echo htmlspecialchars($module['Nom_module']); ?></button>
+                </form>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
-    </div>
-
-
-
-
-
-    </div>
-    </div>
-
 </body>
 
 </html>

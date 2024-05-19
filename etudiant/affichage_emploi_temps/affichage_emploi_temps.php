@@ -68,28 +68,93 @@ if ($etudiant_info) {
 <head>
     <meta charset="UTF-8">
     <title>Emploi du temps</title>
+    <link rel="stylesheet" href="../include/sidebarEtud.css">
 
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .bodyDiv {
+            margin-left: 150px;
+            padding: 20px;
+            padding-left: 0px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+
         }
 
         th,
         td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: center;
         }
 
         th {
+            background-color: #3f37c9;
+            color: white;
+        }
+
+        tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .btnn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 9px #999;
+        }
+
+        .btnn:hover {
+            background-color: #3e8e41;
+        }
+
+        .btnn:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #555;
         }
     </style>
 </head>
 
 <body>
-
+    <?php include "../include/sidebarEtud.php"; ?>
     <div class="bodyDiv">
         <h2>Emploi du temps</h2>
 
@@ -133,8 +198,10 @@ if ($etudiant_info) {
                 <?php endforeach;
                 endif; ?>
             </table>
-            <button><a href="telecharger_emploi.php" class="btn btn-primary">Télécharger en PDF</a></button>
-            <p>NB:Vous serez notifié en cas de changements. </p>
+            <div style="text-align: center;">
+                <button class="btnn"><a href="telecharger_emploi.php">Télécharger en PDF</a></button>
+            </div>
+            <p>NB: Vous serez notifié en cas de changements.</p>
         <?php endif; ?>
     </div>
 </body>

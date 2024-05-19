@@ -13,12 +13,12 @@ $stmt = $pdo->prepare("SELECT DISTINCT id, CONCAT(Nom_filiere, ' ', annee) AS No
 $stmt->execute(['coordinateur_id' => $coordinateur_id]);
 $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
     $id_filiere = $_GET['filiere'];
     $stmt_modules = $pdo->prepare("SELECT id, Nom_module FROM module WHERE id_filiere = :id_filiere");
     $stmt_modules->execute(['id_filiere' => $id_filiere]);
     $modules = $stmt_modules->fetchAll(PDO::FETCH_ASSOC);
-    $stmt_professeurs = $pdo->prepare("SELECT id, Nom ,Prenom FROM professeur WHERE id_filiere =  $id_filiere ");
+    $stmt_professeurs = $pdo->prepare("SELECT id, Nom ,Prenom FROM professeur ");
     $stmt_professeurs->execute();
     $professeurs = $stmt_professeurs->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             margin-bottom: 10px;
         }
 
-        button {
+        .enregistrer {
             background-color: #007BFF;
             color: white;
             border: none;
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             cursor: pointer;
         }
 
-        button:hover {
+        .enregistrer:hover {
             background-color: #0056b3;
         }
     </style>
@@ -87,8 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <div class="container">
             <h2>Affectation des modules aux professeurs</h2>
 
-
-            <form action="affectation_module.php" method="post">
+            <form action="enregistrer_affectation.php" method="post">
                 <?php if (!empty($professeurs) && !empty($modules)) { ?>
                     <?php foreach ($modules as $module) : ?>
                         <label for="prof_<?php echo $module['id']; ?>">Choisir un professeur pour <?php echo $module['Nom_module']; ?>:</label>
@@ -99,15 +98,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                     <?php echo $professeur['Nom'] . ' ' . $professeur['Prenom']; ?>
                                 </option>
                             <?php endforeach; ?>
-
                         </select>
-                <?php endforeach;
-                } else {
-                    echo "<span>no data found</span>";
-                } ?>
-                <button type="submit">Enregistrer l'affectation</button>
+                    <?php endforeach; ?>
+                    <button class="enregistrer" type="submit">Enregistrer l'affectation</button>
+                <?php } else { ?>
+                    <span>Aucune donnée trouvée</span>
+                <?php } ?>
             </form>
-
         </div>
     </div>
 

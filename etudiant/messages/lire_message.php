@@ -31,9 +31,6 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
     $titre = $message['titre'];
     $contenu = $message['message'];
     $date_message = $message['date_message'];
-
-    // Vous pouvez également afficher d'autres détails du message, si nécessaire
-
 } else {
     echo "ID du message non spécifié.";
     exit;
@@ -47,15 +44,54 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lire le message</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../include/sidebarEtud.css">
+    <style>
+        .message-details {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .message-details h2 {
+            font-size: 1.5em;
+            color: #495057;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+
+        .message-details p {
+            font-size: 1em;
+            color: #212529;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .message-details p:last-of-type {
+            font-size: 0.9em;
+            color: #888;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Détails du message</h1>
-    <div class="message-details">
-        <h2><?= $titre ?></h2>
-        <p><?= $contenu ?></p>
-        <p>Date du message: <?= $date_message ?></p>
+    <?php
+    include "../include/sidebarEtud.php";
+    ?>
+    <div class="bodyDiv">
+
+        <div class="message-details">
+            <div class="h2">
+                <h2><?= htmlspecialchars($titre) ?></h2>
+            </div>
+            <p><?= nl2br(htmlspecialchars($contenu)) ?></p>
+            <p>Envoye le : <?= htmlspecialchars($date_message) ?></p>
+        </div>
     </div>
 </body>
 

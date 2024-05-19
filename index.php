@@ -1,24 +1,3 @@
-
-<?php
-session_start();
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
-    
-    header("Location:coordinateur_prof/index.php");
-}
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
-    
-    header("Location:professeur/index.php");
-}
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'etudiant') {
-    
-    header("Location:etudiant/index.php");
-}
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'chef_departement') {
-    
-    header("Location:chef_departement/index.php");
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,9 +108,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
             header("Location:professeur/index.php");
             exit;
-        } elseif ($result_chef_departement) {
+        } elseif (($result_professeur) && ($result_chef_departement)) {
 
             session_start();
+            $_SESSION['email'] = $result_chef_departement['Email'];
+            $_SESSION['password'] = $result_chef_departement['Password'];
 
             $_SESSION['user_type'] = 'chef_departement';
             $_SESSION['user_id'] = $result_chef_departement['id'];

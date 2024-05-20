@@ -30,23 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "INSERT INTO professeur (Nom, Prenom, id_filiere, id_departement, email, password) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     if ($stmt->execute([$nom, $prenom, $filiere_id, $id_departement, $email, $hashed_password])) {
-       
+
         $mail = new PHPMailer(true);
         try {
-           
+
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = "bellafatimazahrae@gmail.com"; 
-            $mail->Password = 'ymov vcqb dleo hgqa'; 
+            $mail->Username = "bellafatimazahrae@gmail.com";
+            $mail->Password = 'ymov vcqb dleo hgqa';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-           
+
             $mail->setFrom($chef_email, 'Chef de Département');
             $mail->addAddress($email, "$prenom $nom");
 
-           
+
             $mail->isHTML(true);
             $mail->Subject = 'Bienvenue à notre système';
             $mail->Body = "Bonjour $prenom $nom,<br><br>Vous avez été ajouté en tant que professeur dans notre système. Vous pouvez maintenant vous connecter et consulter votre profil pour modifier vos données personnelles.<br><br>Votre identifiant de connexion :<br> email: $email<br> password: $password <br><br> Cordialement,<br>L'équipe.";

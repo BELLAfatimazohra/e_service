@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
     header("Location: index.php");
     exit;
@@ -112,17 +112,15 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION[
             });
         });
     </script>
-        <script>
+    <script>
+        document.querySelectorAll("li").forEach(function(li) {
+            if (li.classList.contains("active")) {
+                li.classList.remove("active");
+            }
+        });
 
-document.querySelectorAll("li").forEach(function(li) {
-    if(li.classList.contains("active")){
-        li.classList.remove("active");
-    }
-});
-
-document.querySelector(".liNote").classList.add("active");
-
-</script>
+        document.querySelector(".liNote").classList.add("active");
+    </script>
 </body>
 
 </html>

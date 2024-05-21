@@ -111,6 +111,9 @@ $messages_coord = $stmt_messages_coord->fetchAll(PDO::FETCH_ASSOC);
             </a>
         <?php endforeach; ?>
     </div>
+    <footer>
+        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
+    </footer>
 </body>
 
 </html>

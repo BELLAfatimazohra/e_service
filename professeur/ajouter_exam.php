@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: login.php");
     exit;
 }
@@ -105,7 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="hidden" name="id_module" value="<?php echo $_GET['module_id']; ?>">
                 <div class="form-group">
                     <label for="type">Type:</label>
-                    <input type="text" id="type" name="type" required>
+                    <select id="type" name="type" required>
+                        <option value="DS">DS</option>
+                        <option value="DL">DL</option>
+                        <option value="Exam">EXAM</option>
+                        <option value="Projet">Projet</option>
+                    </select>
+
                 </div>
                 <div class="form-group">
                     <label for="pourcentage">Pourcentage:</label>

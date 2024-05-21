@@ -423,3 +423,32 @@ footer {
   color: rgb(110, 110, 110);
   font-weight: 300;
 }
+
+        
+form {
+  display: inline;
+  width: fit-content;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: background-color 0.4s;
+  text-transform: capitalize;
+  max-width: 15rem;
+}
+button{
+  text-transform: capitalize;}
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn a {
+  color: white;
+  text-decoration: none;
+}

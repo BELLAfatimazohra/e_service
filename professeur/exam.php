@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: login.php");
     exit;
 }
@@ -40,6 +40,7 @@ try {
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +101,7 @@ try {
             text-decoration: none;
         }
 
-      
+
         .module-list a .fas {
             margin-right: 5px;
         }
@@ -149,7 +150,7 @@ try {
                         <?php foreach ($exams as $exam) : ?>
                             <tr>
                                 <td>
-                                    <a href="notes/saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
+                                    <a class="check-exam" href="notes/saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
                                         <?php echo $exam['type']; ?> - <?php echo $exam['pourcentage']; ?>%
                                     </a>
                                 </td>
@@ -172,7 +173,36 @@ try {
             </div>
         </div>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.check-exam').on('click', function(event) {
+                    event.preventDefault();
+                    var href = $(this).attr('href');
+                    var urlParams = new URLSearchParams(href.split('?')[1]);
+                    var examId = urlParams.get('exam_id');
 
+                    $.ajax({
+                        url: 'check_exam.php',
+                        method: 'GET',
+                        data: {
+                            exam_id: examId
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.exists) {
+                                alert("Impossible de traiter, notes déjà en attente de traitement, veuillez contacter le coordinateur pour plus d'info");
+                            } else {
+                                window.location.href = href;
+                            }
+                        },
+                        error: function() {
+                            alert("Erreur lors de la vérification des notes provisoires.");
+                        }
+                    });
+                });
+            });
+        </script>
 </body>
 
 </html>

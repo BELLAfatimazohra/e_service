@@ -93,6 +93,9 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
             <p>Envoye le : <?= htmlspecialchars($date_message) ?></p>
         </div>
     </div>
+    <footer>
+        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
+    </footer>
 </body>
 
 </html>

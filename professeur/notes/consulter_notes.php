@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: login.php");
     exit;
 }
@@ -29,9 +29,10 @@ try {
     $stmt_filiere_info->execute(['filiere_id' => $filiere_id]);
     $filiere_info = $stmt_filiere_info->fetch(PDO::FETCH_ASSOC);
 
+   
 
     $filename = "notes_" . str_replace(' ', '_', strtolower($exam_info['type'])) . "_" . str_replace(' ', '_', strtolower($module_info['Nom_module'])) . "_" . str_replace(' ', '_', strtolower($filiere_info['Nom_filiere'])) . "_" . $filiere_info['annee'] . ".csv";
-    echo $filename;
+  
 
     if (file_exists($filename)) {
 ?>
@@ -59,7 +60,7 @@ try {
                 .bodyDiv {
                     padding: 20px;
                     max-width: 900px;
-                    margin: 0 auto;
+                    margin: 7rem auto;
                     background-color: #fff;
                     border-radius: 8px;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -67,7 +68,6 @@ try {
 
                 table {
                     width: 100%;
-
                     margin-bottom: 20px;
                 }
 
@@ -89,38 +89,7 @@ try {
 
                 form {
                     display: inline;
-                }
-
-                .btnnn {
-                    padding: 10px 20px;
-                    background-color: #007bff;
-                    border: none;
-                    color: white;
-                    cursor: pointer;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    transition: background-color 0.4s;
-
-                    margin-bottom: -16px;
-                    margin-left: 320px;
-
-
-
-                }
-
-                .btnn {
-                    padding: 10px 20px;
-                    background-color: #007bff;
-                    border: none;
-                    color: white;
-                    cursor: pointer;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    transition: background-color 0.4s;
-                    margin-top: -68px;
-                    margin-left: 500px;
-
-
+                    width: fit-content;
                 }
 
                 .btn {
@@ -132,32 +101,10 @@ try {
                     border-radius: 8px;
                     font-size: 16px;
                     transition: background-color 0.4s;
-                    margin-top: -100px;
-                    margin-left: 700px;
-
-
                 }
 
                 .btn:hover {
                     background-color: #0056b3;
-                }
-
-                .btnn:hover {
-                    background-color: #0056b3;
-                }
-
-                .btnnn:hover {
-                    background-color: #0056b3;
-                }
-
-                .btnn a {
-                    color: white;
-                    text-decoration: none;
-                }
-
-                .btnnn a {
-                    color: white;
-                    text-decoration: none;
                 }
 
                 .btn a {
@@ -179,77 +126,84 @@ try {
                 .consulter:hover {
                     background-color: #218838;
                 }
+
+                .container {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                }
             </style>
         </head>
 
         <body>
             <?php include '../assets/include/sidebarProf.php'; ?>
-
             <script>
-                // Select all elements with the class 'bodyDiv'
                 var bodyDivs = document.querySelectorAll('.bodyDiv');
 
                 // Loop through all elements and remove each one except the last
-                for (var i = 0; i < bodyDivs.length - 1; i++) {
+                for (var i = 0; i < bodyDivs.length; i++) {
                     bodyDivs[i].parentNode.removeChild(bodyDivs[i]);
                 }
-
-                // Now that only the last bodyDiv remains, you can modify its innerHTML
-                var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
-                lastBodyDiv.innerHTML = `
+            </script>
+            <div class="bodyDiv">
                 <h1>Les notes des etudiants sont :</h1>
                 <table>
                     <?php
                     $file = fopen($filename, "r");
-                    echo "<tr>";
-                    echo "<th>ID</th><th>First name</th><th>Last Name</th><th>Score</th><th>Remarks</th>";
-                    echo "</tr>";
-                    while (($data = fgetcsv($file))) {
-                        echo "<tr>";
-                        foreach ($data as $value) {
-                            echo "<td>$value</td>";
+                    if ($file !== false) {
+                        echo "<tr><th>ID</th><th>First name</th><th>Last Name</th><th>Score</th><th>Remarks</th></tr>";
+                        while (($data = fgetcsv($file))) {
+                            echo "<tr>";
+                            foreach ($data as $value) {
+                                echo "<td>$value</td>";
+                            }
+                            echo "</tr>";
                         }
-                        echo "</tr>";
+                        fclose($file);
+                    } else {
+                        echo "<p>Unable to open the file.</p>";
                     }
-                    fclose($file);
                     ?>
                 </table>
-                <form action="modifier_notes.php" method="POST">
-                    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-                    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
-                    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                    <button  class="btnnn" type="submit">Modifier les notes</button>
-                </form>
-                <form action="telecharger_notes.php" method="POST">
-                    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-                    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
-                    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                    <button  class="btnn" type="submit">Télécharger les notes</button>
-                </form>
-                <form action="valider_notes.php" method="POST" id="valider_notes">
-                    <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-                    <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
-                    <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                    <button class="btn" type="submit">Valider les notes</button>
-                <div id="success-message" style="display: none;">Notes validated successfully!</div>
-                </form>
-
-
-
-
-                `;
+                <div class="container">
+                    <form action="modifier_notes.php" method="POST">
+                        <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+                        <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+                        <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+                        <button class="btn" type="submit">Modifier les notes</button>
+                    </form>
+                    <form action="telecharger_notes.php" method="POST">
+                        <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+                        <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+                        <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+                        <button class="btn" type="submit">Télécharger les notes</button>
+                    </form>
+                    <form action="valider_notes.php" method="POST" id="valider_notes">
+                        <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+                        <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
+                        <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
+                        <button class="btn" type="submit">Valider les notes</button>
+                    </form></div>
+                    <div class="container">
+                        
+                    <div id="success-message" style="display: none;">Notes validated successfully!</div>
+                    <a style="display: none;" class="btn" href="/e_service/professeur/exam.php" id="return-button">Retour</a>
+                
+                    </div>
+            </div>
+            <script>
                 $(document).ready(function() {
                     $('#valider_notes').submit(function(event) {
                         event.preventDefault();
-
                         var formData = $(this).serialize();
-
                         $.ajax({
                             type: 'POST',
                             url: 'valider_notes.php',
                             data: formData,
                             success: function(response) {
                                 $('#success-message').show();
+                                $('#return-button').show();
                                 $('#valider_notes')[0].reset();
                             },
                             error: function(xhr, status, error) {
@@ -259,16 +213,13 @@ try {
                     });
                 });
             </script>
-
-
-
         </body>
 
         </html>
 
 <?php
     } else {
-        echo "Le fichier CSV n'existe pas.";
+        echo "Le fichier CSV n'existe pas.<br>";
     }
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();

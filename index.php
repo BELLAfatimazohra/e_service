@@ -1,3 +1,23 @@
+<?php
+session_start();
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
+
+    header("Location:coordinateur_prof/index.php");
+}
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'professeur') {
+
+    header("Location:professeur/index.php");
+}
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'etudiant') {
+
+    header("Location:etudiant/index.php");
+}
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'chef_departement') {
+
+    header("Location:chef_departement/index.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -114,17 +134,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $result_professeur['id'];
             header("Location:coordinateur_prof/index.php");
             exit;
-        } elseif ($result_professeur) {
-            $_SESSION['user_type'] = 'professeur';
-            $_SESSION['user_id'] = $result_professeur['id'];
-            header("Location:professeur/index.php");
-            exit;
-        } elseif ($result_professeur && $result_chef_departement) {
+        } elseif (($result_professeur) && ($result_chef_departement)) {
+
+            session_start();
             $_SESSION['email'] = $result_chef_departement['Email'];
             $_SESSION['password'] = $result_chef_departement['Password'];
             $_SESSION['user_type'] = 'chef_departement';
             $_SESSION['user_id'] = $result_chef_departement['id'];
             header("Location:chef_departement/index.php");
+            exit;
+        } elseif ($result_professeur) {
+
+            session_start();
+
+            $_SESSION['user_type'] = 'professeur';
+            $_SESSION['user_id'] = $result_professeur['id'];
+
+            header("Location:professeur/index.php");
             exit;
         } else {
             echo '<div class="error-message">Email ou mot de passe incorrect.</div>';

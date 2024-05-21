@@ -5,8 +5,8 @@
   if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'etudiant') {
     
   require_once "../include/database.php";
-  include_once "include/sidebarEtud.php";
-} else {    header("Location:/e_service/index.php");
+} 
+else {    header("Location:/e_service/index.php");
 }
   ?>
 <!DOCTYPE html>
@@ -19,6 +19,10 @@
   <title>Document</title>
 </head>
 <body>
-  
+<?php
+  include_once "include/sidebarEtud.php";?>
+<footer>
+        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
+    </footer>
 </body>
 </html>

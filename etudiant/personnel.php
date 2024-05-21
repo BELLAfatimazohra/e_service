@@ -76,6 +76,9 @@ try {
 
         document.querySelector(".liPersonnel").classList.add("active");
     </script>
+        <footer>
+        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
+    </footer>
 </body>
 
 </html>

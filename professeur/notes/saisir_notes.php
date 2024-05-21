@@ -87,7 +87,7 @@ try {
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
-            margin-top: 60px;
+            margin-top: 10rem;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -191,38 +191,61 @@ try {
         var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
         lastBodyDiv.innerHTML = `
         <h1>Saisir les notes pour le <?php echo $exam_info['type']; ?></h1>
-    <form method="POST">
-        <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Note</th>
-                    <th>Remarque</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($students as $student) : ?>
+        <form id="noteForm" method="POST">
+            <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo $student['nom']; ?></td>
-                        <td><?php echo $student['prenom']; ?></td>
-                        <td><input type="number" name="notes[<?php echo $student['id']; ?>]" min="0" max="20"></td>
-                        <td><input type="text" name="remarques[<?php echo $student['id']; ?>]"></td>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Note</th>
+                        <th>Remarque</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <button class="sauvegarder" type="submit"> Sauvegarder</button>
-        <button class="consulter">
-            <a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">
-                Consulter les Notes
-            </a>
-        </button>
-    </form>
+                </thead>
+                <tbody>
+                    <?php foreach ($students as $student) : ?>
+                        <tr>
+                            <td><?php echo $student['nom']; ?></td>
+                            <td><?php echo $student['prenom']; ?></td>
+                            <td><input type="number" name="notes[<?php echo $student['id']; ?>]" min="0" max="20"></td>
+                            <td><input type="text" name="remarques[<?php echo $student['id']; ?>]"></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <button class="sauvegarder" type="submit">Sauvegarder</button>
+            <button class="consulter">
+                <a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">
+                    Consulter les Notes
+                </a>
+            </button>
+        </form>
+        <div id="successMessage" style="display: none; color: green; margin-top: 20px;">Notes sauvegardées avec succès!</div>
+    
         `;
     </script>
 
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#noteForm').on('submit', function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                
+                $.ajax({
+                    url: window.location.href,
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        $('#successMessage').show().delay(3000).fadeOut();
+                        $("table").hide();
+                    },
+                    error: function() {
+                        alert('Erreur lors de la sauvegarde des notes.');
+                    }
+                });
+            });
+        });
+    </script>
 </html>

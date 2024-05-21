@@ -71,12 +71,6 @@ if ($etudiant_info) {
     <link rel="stylesheet" href="../include/sidebarEtud.css">
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
 
         .bodyDiv {
             margin-left: 150px;
@@ -204,6 +198,9 @@ if ($etudiant_info) {
             <p>NB: Vous serez notifié en cas de changements.</p>
         <?php endif; ?>
     </div>
+    <footer>
+        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
+    </footer>
 </body>
 
 </html>

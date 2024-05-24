@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
+if (!isset($_SESSION['user_id']) || ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: login.php");
     exit;
 }
@@ -14,12 +14,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pourcentage = $_POST['pourcentage'];
     $id_module = $_GET['module_id'];
     $id_prof = $_SESSION['user_id'];
-    $stmt = $pdo->prepare("INSERT INTO exam (type, pourcentage, id_module, id_prof) VALUES (:type, :pourcentage, :id_module, :id_prof)");
-    $stmt->execute(['type' => $type, 'pourcentage' => $pourcentage, 'id_module' => $id_module, 'id_prof' => $id_prof]);
-    header("Location: exam.php?module_id=" . $id_module);
-    exit;
-}
 
+    // Vérifier si l'examen existe déjà
+    $stmt_check = $pdo->prepare("SELECT COUNT(*) FROM exam WHERE type = :type AND id_module = :id_module");
+    $stmt_check->execute(['type' => $type, 'id_module' => $id_module]);
+    $exam_exists = $stmt_check->fetchColumn();
+
+    if ($exam_exists > 0) {
+        $error_message = "Ce type d'examen existe déjà pour ce module.";
+        echo $error_message;
+    } else {
+        $stmt = $pdo->prepare("INSERT INTO exam (type, pourcentage, id_module, id_prof) VALUES (:type, :pourcentage, :id_module, :id_prof)");
+        $stmt->execute(['type' => $type, 'pourcentage' => $pourcentage, 'id_module' => $id_module, 'id_prof' => $id_prof]);
+        header("Location: exam.php?module_id=" . $id_module);
+        exit;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: black;
         }
 
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -68,7 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 16px;
         }
 
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             border-color: #007bff;
             outline: none;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
@@ -90,6 +102,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .submit-button:hover {
             background-color: #0056b3;
         }
+
+        .error-message {
+            color: red;
+            margin-bottom: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -101,6 +119,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="">
         <div class="form-container">
             <h1 style="text-align: center; color: #333;">Ajouter un Examen</h1>
+            <?php
+            if (isset($error_message)) {
+                echo '<div class="error-message">' . $error_message . '</div>';
+            }
+            ?>
             <form action="" method="post">
                 <input type="hidden" name="id_module" value="<?php echo $_GET['module_id']; ?>">
                 <div class="form-group">
@@ -111,7 +134,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="Exam">EXAM</option>
                         <option value="Projet">Projet</option>
                     </select>
-
                 </div>
                 <div class="form-group">
                     <label for="pourcentage">Pourcentage:</label>
@@ -121,9 +143,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
-
-
-
 </body>
 
 </html>

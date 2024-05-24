@@ -36,12 +36,14 @@ if ($etudiant) {
 
 <head>
     <title>Profil de l'Étudiant</title>
+    <link rel="stylesheet" href="include/sidebarEtud.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+           color: black;
         }
 
         .container {
@@ -69,10 +71,30 @@ if ($etudiant) {
         .label {
             font-weight: bold;
         }
+        .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-left: 300px;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    
+    }
     </style>
 </head>
 
 <body>
+    <?php
+
+    include  "include/sidebarEtud.php";
+    ?>
+    <div class="bodyDiv">
     <div class="container">
         <h1>Profil de l'Étudiant</h1>
         <div class="profile-info">
@@ -91,6 +113,7 @@ if ($etudiant) {
         </div>
         <a href="modifier_profil.php" class="button">Modifier mes informations</a>
 
+    </div>
     </div>
 </body>
 

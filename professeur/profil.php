@@ -15,8 +15,66 @@ if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' &&
 
     <title>profil</title>
     <style>
-        .informations-professeur {
+        .bodyDiv {
             margin-left: 10px;
+            color: black;
+            max-width: 800px;
+            margin-top: 100px;
+            margin-left: 250px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .informations-professeur h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .informations {
+            margin-bottom: 30px;
+        }
+
+        .informations p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .modules h1,
+        .informations_naissances h1,
+        .informations_contact h1,
+        .autres_informations h1 {
+            font-size: 20px;
+            margin-top: 30px;
+            color: #444;
+        }
+
+        .modules table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .modules th,
+        .modules td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .modules th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .modules ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 0;
         }
     </style>
 </head>

@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $result_professeur['id'];
             header("Location:coordinateur_prof/index.php");
             exit;
-        } elseif (($result_professeur) && ($result_chef_departement)) {
+        } elseif ($result_professeur && $result_chef_departement) {
 
             session_start();
             $_SESSION['email'] = $result_chef_departement['Email'];

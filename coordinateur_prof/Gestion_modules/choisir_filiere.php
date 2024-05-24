@@ -25,7 +25,6 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin: 0;
             padding: 0;
         }
-
         .change {
             background-color: white;
             margin: 20px auto;
@@ -34,10 +33,10 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-
         form {
             display: flex;
             flex-direction: column;
+            margin-left: 20px;
         }
 
         label {
@@ -47,9 +46,10 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
         select {
             padding: 8px;
             margin-bottom: 10px;
+            width: 220px;
         }
 
-        button {
+        button[type="submit"] {
             background-color: #007BFF;
             color: white;
             border: none;
@@ -58,7 +58,7 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
             cursor: pointer;
         }
 
-        button:hover {
+        button[type="submit"]:hover {
             background-color: #0056b3;
         }
 
@@ -85,16 +85,14 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     <script>
+        document.querySelectorAll("li").forEach(function(li) {
+            if (li.classList.contains("active")) {
+                li.classList.remove("active");
+            }
+        });
 
-document.querySelectorAll("li").forEach(function(li) {
-    if(li.classList.contains("active")){
-        li.classList.remove("active");
-    }
-});
-
-document.querySelector(".liModules").classList.add("active");
-
-</script>
+        document.querySelector(".liModules").classList.add("active");
+    </script>
 </body>
 
 </html>

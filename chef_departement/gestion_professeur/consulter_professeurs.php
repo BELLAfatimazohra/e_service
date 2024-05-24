@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "../../include/database.php";
 
+include "../../include/database.php";
 $filiere_id = isset($_GET['filiere']) ? (int)$_GET['filiere'] : 0;
 
 if ($filiere_id > 0) {
@@ -16,7 +16,10 @@ if ($filiere_id > 0) {
 } else {
     $results = [];
 }
-
+$sql = "SELECT Nom_filiere ,annee FROM filiere WHERE id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$filiere_id]);
+$filiere = $stmt->fetch(PDO::FETCH_ASSOC);
 $professeurs = [];
 foreach ($results as $row) {
     $prof_id = $row['prof_id'];
@@ -37,59 +40,100 @@ foreach ($results as $row) {
 
 <head>
     <title>Liste des Professeurs et Modules</title>
+    <link rel="stylesheet" href="../include/sidbar_chef_dep.css">
     <style>
-        .bodyDiv {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 600px;
-        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding-top: 100px;
 
-        h1 {
-            text-align: center;
             color: #333;
         }
 
-        ul {
+        .bodyDiv {
+            margin-top: 200px;
+            padding-top: 200px;
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bodyDiv h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .bodyDiv ul {
             list-style-type: none;
             padding: 0;
         }
 
-        li {
-            margin-bottom: 10px;
+        .bodyDiv ul>li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .prof-name {
-            font-weight: bold;
+        .bodyDiv ul>li strong {
+            font-size: 1.2em;
+            color: #555;
         }
 
-        .module-list {
+        .bodyDiv ul ul {
+            list-style-type: disc;
             margin-left: 20px;
+            padding-left: 20px;
         }
 
-        .module-list li {
-            margin-bottom: 5px;
+        .bodyDiv ul ul li {
+            font-size: 0.9em;
+            color: #777;
         }
 
-        .button {
-            display: inline-block;
-
-            padding: 10px 15px;
-
-            color: black;
+        .bodyDiv p {
+            color: #999;
             text-align: center;
-            text-decoration: none;
-            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .bodyDiv button {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .bodyDiv button:hover {
+            background-color: #0056b3;
+
+        }
+
+        .bodyDiv button a {
+            color: #fff;
+            text-decoration: none;
         }
     </style>
 
 </head>
 
 <body>
+
+    <?php
+    include "../include/sidebar_chef_dep.php";
+
+    ?>
     <div class="bodyDiv">
-        <h1>Liste des Professeurs et Modules pour la filière choisie</h1>
+        <h1>Liste des Professeurs et Modules pour la filière <?php echo $filiere['Nom_filiere'] . "_" . $filiere['annee'] ?></h1>
         <?php if (!empty($professeurs)) : ?>
             <ul>
                 <?php foreach ($professeurs as $professeur) : ?>

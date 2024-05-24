@@ -39,6 +39,7 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
         form {
             display: flex;
             flex-direction: column;
+            margin-left: 30px;
         }
 
         label {
@@ -50,7 +51,7 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin-bottom: 10px;
         }
 
-        button {
+        .subm {
             background-color: #007BFF;
             color: white;
             border: none;
@@ -59,7 +60,7 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
             cursor: pointer;
         }
 
-        button:hover {
+        .subm:hover {
             background-color: #0056b3;
         }
 
@@ -81,21 +82,19 @@ $filieres = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <option value="<?php echo $filiere['id']; ?>"><?php echo htmlspecialchars($filiere['Nom_filiere_annee']); ?></option>
                     <?php endforeach; ?>
                 </select>
-                <button type="submit">Afficher la liste des étudiants</button>
+                <button class="subm" type="submit">Afficher la liste des étudiants</button>
             </form>
         </div>
     </div>
     <script>
+        document.querySelectorAll("li").forEach(function(li) {
+            if (li.classList.contains("active")) {
+                li.classList.remove("active");
+            }
+        });
 
-document.querySelectorAll("li").forEach(function(li) {
-    if(li.classList.contains("active")){
-        li.classList.remove("active");
-    }
-});
-
-document.querySelector(".liEtudiants").classList.add("active");
-
-</script>
+        document.querySelector(".liEtudiants").classList.add("active");
+    </script>
 </body>
 
 </html>

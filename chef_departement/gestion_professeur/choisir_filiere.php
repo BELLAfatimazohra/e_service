@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../include/sidebar_chef_dep.php";
 include "../../include/database.php";
 
 $id_chef_departement = $_SESSION['user_id'];
@@ -15,6 +16,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
     <title>Gestion des Filières</title>
+    <link rel="stylesheet" href="../include/sidbar_chef_dep.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,6 +77,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <?php 
+   
+    ?>
     <div class="bodyDiv">
         <form action="consulter_professeurs.php" method="get">
             <label for="filiere">Sélectionner une filière :</label>

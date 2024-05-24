@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include "../../include/database.php";
 
 
@@ -20,66 +21,66 @@ if ($filiere_id > 0) {
 
 <head>
     <title>Sélectionner un Professeur à Supprimer</title>
+    <link rel="stylesheet" href="../include/sidbar_chef_dep.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
         .bodyDiv {
-            background-color: #fff;
+            margin-left: 10px;
+            color: black;
+            max-width: 600px;
+          margin-top: 150px;
+          margin-left: 350px;
             padding: 20px;
+            background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
         }
 
-        h1 {
-            color: #333;
+        .bodyDiv h1 {
+            font-size: 24px;
             margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            
         }
 
-        label {
+        .bodyDiv label {
             display: block;
-            text-align: left;
-            margin: 10px 0 5px;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: #555;
+           padding-left: 75px;
+            margin-left: 100px;
         }
 
-        select {
+        .bodyDiv select,
+        .bodyDiv input[type="submit"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #d9534f;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
             font-size: 16px;
+            margin-left: 60px;
         }
 
-        input[type="submit"]:hover {
-            background-color: #c9302c;
+        .bodyDiv input[type="submit"] {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .bodyDiv input[type="submit"]:hover {
+            background-color: #e53935;
         }
     </style>
 </head>
 
 <body>
+    <?php
+    include "../include/sidebar_chef_dep.php";
+    ?>
     <div class="bodyDiv">
         <h1>Sélectionner un Professeur à Supprimer</h1>
         <form method="get" action="confirmer_suppression_professeur.php">

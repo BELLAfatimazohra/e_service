@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include "../../include/database.php";
 
 
@@ -43,61 +44,66 @@ try {
 
 <head>
     <title>Modifier Professeur</title>
+    <link rel="stylesheet" href="../include/sidbar_chef_dep.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin-top: 30px;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #fff;
-
+        .bodyDiv {
+            margin-top: 150px;
+            margin-left: 10px;
+            color: black;
+            max-width: 600px;
+            margin-left: 350px;
+            padding: 20px;
+            background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
         }
 
-        h1 {
-            text-align: center;
+        .bodyDiv h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+
             color: #333;
-            margin-top: -300px;
+
         }
 
-        label {
+        .bodyDiv label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
+            font-weight: bold;
+            color: #555;
+
+            margin-left: 200px;
         }
 
-        select,
-        input[type="submit"] {
+        .bodyDiv select,
+        .bodyDiv input[type="submit"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-left: 100px;
         }
 
-        input[type="submit"] {
-            background-color: #5cb85c;
-            color: #fff;
+        .bodyDiv input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
             border: none;
             cursor: pointer;
         }
 
-        input[type="submit"]:hover {
-            background-color: #4cae4c;
+        .bodyDiv input[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 
 <body>
+    <?php
+    include "../include/sidebar_chef_dep.php";
+    ?>
     <div class="bodyDiv">
         <h1>Modifier Professeur</h1>
         <form method="post">

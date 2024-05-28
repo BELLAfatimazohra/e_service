@@ -3,7 +3,7 @@ session_start();
 
 // Vérifier si l'utilisateur est connecté en tant que coordinateur
 if (isset($_SESSION['user_id']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_prof') {
-require_once '../../include/database.php';
+    require_once '../../include/database.php';
     include '../include/sidebarCoor.php';
 } else {
     // Rediriger vers la page d'index si l'utilisateur n'est pas connecté ou s'il n'est pas un coordinateur
@@ -45,18 +45,23 @@ $filiereRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .bodyDiv form {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-left: 150px;
         }
+
         .bodyDiv label {
             font-size: 18px;
             margin-bottom: 10px;
             color: #333;
         }
+
         .bodyDiv select {
             width: 100%;
+            width: 300px;
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ccc;
@@ -65,6 +70,7 @@ $filiereRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .bodyDiv button {
+            width: 300px;
             padding: 10px 20px;
             background-color: #007bff;
             border: none;
@@ -96,16 +102,14 @@ $filiereRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <script>
+        document.querySelectorAll("li").forEach(function(li) {
+            if (li.classList.contains("active")) {
+                li.classList.remove("active");
+            }
+        });
 
-document.querySelectorAll("li").forEach(function(li) {
-    if(li.classList.contains("active")){
-        li.classList.remove("active");
-    }
-});
-
-document.querySelector(".liEmp").classList.add("active");
-
-</script>
+        document.querySelector(".liEmp").classList.add("active");
+    </script>
 </body>
 
 </html>

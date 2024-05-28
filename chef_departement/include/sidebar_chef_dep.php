@@ -89,7 +89,7 @@ try {
         </div>
         <ul class="nav-list">
             <li class="liHome active">
-                <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/coordinateur_prof/index.php'" aria-current="page">
+                <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/chef_departement/index.php'" aria-current="page">
                     <div class="group"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                             <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
                         </svg> <span>Acceuille</span> </div>

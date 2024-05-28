@@ -133,7 +133,7 @@ document.querySelector(".liNote").classList.add("active");
 
 </script>
 <footer>
-        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
+        E-SERVICES © Copyright 2020 - Dévelopé par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
     </footer>
 </body>
 

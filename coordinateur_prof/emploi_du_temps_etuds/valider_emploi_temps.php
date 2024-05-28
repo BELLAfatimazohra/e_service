@@ -4,16 +4,13 @@
 <?php
 session_start();
 $_SESSION['user_type'] = 'coordinateur_prof';
-
 // Vérifier si l'utilisateur est connecté en tant que coordinateur
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'coordinateur_prof') {
     // Rediriger vers la page d'index si l'utilisateur n'est pas connecté ou s'il n'est pas un coordinateur
     header("Location: index.php");
     exit;
 }
-
 require_once '../../include/database.php';
-
 // Vérifier si les données POST ont été envoyées depuis le formulaire
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Récupérer les données du formulaire

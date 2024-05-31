@@ -123,12 +123,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
     </div>
 
+
     <script>
         document.querySelectorAll("li").forEach(function(li) {
             li.classList.remove("active");
         });
 
-        document.querySelector(".liProfil").classList.add("active");
+        document.querySelector(".liProf").classList.add("active");
     </script>
 </body>
 

@@ -1,16 +1,18 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'chef_departement' && $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: index.php");
     exit;
 }
 
-$userId = $_SESSION['user_id'];
 
 require_once "../include/database.php";
+include_once 'assets/include/sidebarProf.php';
 
+$userId = $_SESSION['user_id'];
 try {
+    var_dump($userId);
     $stmt_filieres = $pdo->prepare("SELECT DISTINCT f.id, f.Nom_filiere ,f.annee FROM module m INNER JOIN filiere f ON m.id_filiere = f.id WHERE m.id_prof = :id_prof");
     $stmt_filieres->execute(['id_prof' => $userId]);
     $filieres = $stmt_filieres->fetchAll(PDO::FETCH_ASSOC);
@@ -33,7 +35,10 @@ try {
 <body>
 
     <?php
-    include_once 'assets/include/sidebarProf.php';
+    
+echo $_SESSION['user_id'];
+    
+
     ?>
     <script>
         document.querySelector(".bodyDiv").innerHTML = `

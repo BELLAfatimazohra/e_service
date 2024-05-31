@@ -81,7 +81,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
     ?>
     <div class="bodyDiv">
-        <form action="consulter_professeurs.php" method="get">
+        <form action="consulter_module.php" method="get">
             <label for="filiere">Sélectionner une filière :</label>
             <select id="filiere" name="filiere">
                 <?php
@@ -91,16 +91,18 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
                 ?>
             </select>
-            <input type="submit" value="consulter la liste des professeurs ">
+            <input type="submit" value="consulter la liste des modules ">
         </form>
     </div>
-    
+
     <script>
         document.querySelectorAll("li").forEach(function(li) {
-            li.classList.remove("active");
+            if (li.classList.contains("active")) {
+                li.classList.remove("active");
+            }
         });
 
-        document.querySelector(".liProf").classList.add("active");
+        document.querySelector(".liModules").classList.add("active");
     </script>
 </body>
 

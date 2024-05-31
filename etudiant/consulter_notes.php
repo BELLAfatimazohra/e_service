@@ -18,37 +18,43 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'etudiant') {
     <link rel="stylesheet" href="include/sidebarEtud.css">
     <title>Document</title>
     <style>
-table {
-    width: 100%; /* Largeur du tableau */
-    border-collapse: collapse; /* Les bordures des cellules sont fusionnées */
-    margin-top: 20px; /* Marge au-dessus du tableau */
-}
-th, td {
-    border: 1px solid #ccc; /* Bordure des cellules */
-    padding: 8px; /* Espacement intérieur */
-    text-align: left; /* Alignement du texte */
-    font-size: 16px; /* Taille de la police */
-}
-th {
-    background-color: #3d44d1; /* Couleur de fond des en-têtes */
-    color: white; /* Couleur du texte des en-têtes */
-}
-tr:nth-child(even) {
-    background-color: #ffffff; /* Couleur de fond pour les lignes paires */
-}
-tr:hover {
-    background-color: #ddd; /* Couleur de fond au survol des lignes */
-}
+        table {
+            width: 100%; /* Largeur du tableau */
+            border-collapse: collapse; /* Les bordures des cellules sont fusionnées */
+            margin-top: 20px; /* Marge au-dessus du tableau */
+        }
+        th, td {
+            border: 1px solid #ccc; /* Bordure des cellules */
+            padding: 8px; /* Espacement intérieur */
+            text-align: left; /* Alignement du texte */
+            font-size: 16px; /* Taille de la police */
+        }
+        th {
+            background-color: #3d44d1; /* Couleur de fond des en-têtes */
+            color: white; /* Couleur du texte des en-têtes */
+        }
+        tr:nth-child(even) {
+            background-color: #ffffff; /* Couleur de fond pour les lignes paires */
+        }
+        tr:hover {
+            background-color: #ddd; /* Couleur de fond au survol des lignes */
+        }
+        .module-header {
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="bodyDiv">
 
+    <button class="btn"><i class="fas fa-calendar-alt"></i> <a class="opt" href="consulter_moyenne.php"> Mes moyennes</a> </button>
 
         <?php
-
-
         try {
             // First query to get notes for the student
             $sql = "SELECT * FROM note WHERE id_etudiant = :user_id";
@@ -89,52 +95,73 @@ tr:hover {
                 }
             }
 
-            // Display or process $enriched_results as needed
-            echo "<pre>";
-            echo "</pre>";
+            // Group the results by module name
+            $grouped_results = [];
+            foreach ($enriched_results as $result) {
+                $module_name = $result['Nom_module'];
+                if (!isset($grouped_results[$module_name])) {
+                    $grouped_results[$module_name] = [];
+                }
+                $grouped_results[$module_name][] = $result;
+            }
+
+            // Display the results
+            if ($grouped_results) {
+                echo "<h1>Affichages Disponibles</h1>";
+                echo "<table border='1'>";
+                echo "<tr>";
+                echo "<th>Module</th><th>Type</th><th>Pourcentage</th><th>Score</th><th>Remarks</th>";
+                echo "</tr>";
+
+                foreach ($grouped_results as $module_name => $results) {
+                    echo "<tr class='module-header'>";
+                    echo "<td colspan='5'>" . htmlspecialchars($module_name) . "</td>";
+                    echo "</tr>";
+
+                    foreach ($results as $row) {
+                        echo "<tr class='module-details hidden'>";
+                        echo "<td>" . htmlspecialchars($row['Nom_module']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['type']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['pourcentage']) . '%' . "</td>";
+                        echo "<td>" . htmlspecialchars($row['note_value']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['remarque']) . "</td>";
+                        echo "</tr>";
+                    }
+                }
+
+                echo "</table>";
+            } else {
+                echo "No results found for the specified exam.";
+            }
+
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
-
-
-        if ($enriched_results) {
-            echo "<h1>Affichages Disponibles</h1>";
-            echo "<table border='1'>";
-            echo "<tr>";
-            echo "<th>Module</th><th>Type</th><th>Pourcentage</th><th>Score</th><th>Remarks</th>";
-            echo "</tr>";
-
-            foreach ($enriched_results as $row) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($row['Nom_module']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['type']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['pourcentage']) . '%' . "</td>";
-                echo "<td>" . htmlspecialchars($row['note_value']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['remarque']) . "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "No results found for the specified exam.";
-        }
-
         ?>
     </div>
     
     <script>
+        document.querySelectorAll(".module-header").forEach(function(header) {
+            header.addEventListener("click", function() {
+                var nextRow = header.nextElementSibling;
+                while (nextRow && !nextRow.classList.contains("module-header")) {
+                    nextRow.classList.toggle("hidden");
+                    nextRow = nextRow.nextElementSibling;
+                }
+            });
+        });
 
-document.querySelectorAll("li").forEach(function(li) {
-    if(li.classList.contains("active")){
-        li.classList.remove("active");
-    }
-});
+        document.querySelectorAll("li").forEach(function(li) {
+            if (li.classList.contains("active")) {
+                li.classList.remove("active");
+            }
+        });
 
-document.querySelector(".liNote").classList.add("active");
-
-</script>
-<footer>
+        document.querySelector(".liNote").classList.add("active");
+    </script>
+    
+    <footer>
         E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
     </footer>
 </body>
-
 </html>

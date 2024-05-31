@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             li.classList.remove("active");
         });
 
-        document.querySelector(".liProfil").classList.add("active");
+        document.querySelector(".liProf").classList.add("active");
     </script>
 </body>
 

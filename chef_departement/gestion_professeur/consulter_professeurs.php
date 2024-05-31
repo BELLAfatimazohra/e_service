@@ -42,20 +42,10 @@ foreach ($results as $row) {
     <title>Liste des Professeurs et Modules</title>
     <link rel="stylesheet" href="../include/sidbar_chef_dep.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding-top: 100px;
-
-            color: #333;
-        }
 
         .bodyDiv {
-            margin-top: 200px;
-            padding-top: 200px;
+            padding-top: 500px;
             width: 80%;
-            margin: auto;
             padding: 20px;
             background-color: #fff;
             border: 1px solid #ddd;
@@ -158,6 +148,14 @@ foreach ($results as $row) {
         <?php endif; ?>
         <button> <a href="ajouter_professeur.php?filiere_id=<?php echo $filiere_id; ?>" class="button">Ajouter un professeur</a></button>
     </div>
+    
+    <script>
+        document.querySelectorAll("li").forEach(function(li) {
+            li.classList.remove("active");
+        });
+
+        document.querySelector(".liProf").classList.add("active");
+    </script>
 </body>
 
 </html>

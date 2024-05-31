@@ -1,33 +1,41 @@
 <?php
+
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=ensah_eservice', 'root', '');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Erreur de connexion : " . $e->getMessage();
+    exit();
 }
 
 try {
     $user_id = $_SESSION['user_id'];
+    $user_type = $_SESSION['user_type'];
+
+    if ( isset($_SESSION['original_user_id'])) {
+        // Switch back to chef_departement role
+        $user_id = $_SESSION['original_user_id'];
+        unset($_SESSION['original_user_id']);
+        $_SESSION['user_id'] = $user_id;
+    }
 
     $sql = "SELECT CONCAT(Nom, ' ', Prenom) AS full_name FROM coordinateur WHERE id = :user_id";
-
     $stmt = $pdo->prepare($sql);
-
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-
     $stmt->execute();
-
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result) {
         $nom = $result['full_name'];
     } else {
         echo "No user found with user ID $user_id";
+        exit();
     }
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
+    exit();
 }
-
+echo $_SESSION['user_id'];
 ?>
 
 

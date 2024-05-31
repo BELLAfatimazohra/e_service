@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['user_type'] = 'professeur';
 // Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type'])) {
     header("Location: index.php");
@@ -8,16 +7,13 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type'])) {
 }
 
 // Vérifie si l'utilisateur est un professeur
-if ($_SESSION['user_type'] !== 'professeur') {
-    header("Location: index.php"); // Redirige vers la page d'accueil
+if (!isset($_SESSION['user_type']) || ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'chef_departement' &&  $_SESSION['user_type'] !== 'coordinateur_prof')) {
+    header("Location: index.php");
     exit;
 }
-
 require_once '../../include/database.php';
-
 // Récupère le nom du professeur connecté
 $user_id = $_SESSION['user_id'];
-
 // Requête pour récupérer le nom du professeur
 $sql_professeur = "SELECT Nom , Prenom FROM professeur WHERE id = :user_id";
 $stmt_professeur = $pdo->prepare($sql_professeur);

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
@@ -12,6 +11,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 
 ?>
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -26,6 +26,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'coordinateur_pr
 <body>
 
     <?php
+    
+echo $_SESSION['user_id'];
     require_once '../include/database.php';
     include_once 'include/sidebarCoor.php';
     ?>

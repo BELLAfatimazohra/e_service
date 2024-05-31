@@ -96,6 +96,14 @@ if ($filiere_id > 0) {
             <input type="submit" value="Sélectionner">
         </form>
     </div>
+    
+    <script>
+        document.querySelectorAll("li").forEach(function(li) {
+            li.classList.remove("active");
+        });
+
+        document.querySelector(".liProf").classList.add("active");
+    </script>
 </body>
 
 </html>

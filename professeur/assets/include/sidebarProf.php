@@ -1,35 +1,111 @@
 <?php
+session_start();
+
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=ensah_eservice', 'root', '');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Erreur de connexion : " . $e->getMessage();
+    exit();
 }
 
 try {
-    $user_id = $_SESSION['user_id'];
+    if (isset($_SESSION['original_user_id'])) {
+        $user_id = $_SESSION['original_user_id'];
+    } else {
+        $user_id = $_SESSION['user_id'];
+    }
+    $user_type = $_SESSION['user_type'];
 
+    if ($user_type === "chef_departement") {
+        // Fetch the email and password from chef_departement table
+        $sql = "SELECT email, password FROM chef_departement WHERE id = :user_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $chefDepResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($chefDepResult) {
+            $email = $chefDepResult['email'];
+            $password = $chefDepResult['password'];
+
+            // Fetch the corresponding user ID from professeur table
+            $sql = "SELECT id FROM professeur WHERE email = :email AND password = :password";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->execute();
+            $profResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($profResult) {
+                if (!isset($_SESSION['original_user_id'])) {
+                    $_SESSION['original_user_id'] = $user_id;
+                }
+                $_SESSION['user_id'] = $profResult['id'];
+                $user_id = $_SESSION['user_id'];
+            } else {
+                echo "No matching professeur record found for the given chef_departement.";
+                exit();
+            }
+        } else {
+            echo "No chef_departement found with user ID $user_id";
+            exit();
+        }
+    } elseif ($user_type === "coordinateur_prof") {
+        // Fetch the email and password from coordinateur table
+        $sql = "SELECT email, password FROM coordinateur WHERE id = :user_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $coordResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($coordResult) {
+            $email = $coordResult['email'];
+            $password = $coordResult['password'];
+
+            // Fetch the corresponding user ID from professeur table
+            $sql = "SELECT id FROM professeur WHERE email = :email AND password = :password";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->execute();
+            $profResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($profResult) {
+                if (!isset($_SESSION['original_user_id'])) {
+                    $_SESSION['original_user_id'] = $user_id;
+                }
+                $_SESSION['user_id'] = $profResult['id'];
+                $user_id = $_SESSION['user_id'];
+            } else {
+                echo "No matching professeur record found for the given coordinateur.";
+                exit();
+            }
+        } else {
+            echo "No coordinateur found with user ID $user_id";
+            exit();
+        }
+    }
+
+    // Fetch the full name from professeur table using the updated user_id
     $sql = "SELECT CONCAT(Nom, ' ', Prenom) AS full_name FROM professeur WHERE id = :user_id";
-
     $stmt = $pdo->prepare($sql);
-
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-
     $stmt->execute();
-
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result) {
         $nom = $result['full_name'];
     } else {
         echo "No user found with user ID $user_id";
+        exit();
     }
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
+    exit();
 }
-
+echo $_SESSION['user_id'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,6 +127,15 @@ try {
         ?>
             <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/coordinateur_prof/index.php'">
                 <button class="changer">Accéder à la zone Coord</button>
+            </a>
+        <?php
+        }
+        ?>
+        <?php
+        if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === "chef_departement") {
+        ?>
+            <a href="javascript:void(0);" onclick="window.location.href='http://localhost/e_service/chef_departement/index.php'">
+                <button class="changer">Accéder à la zone Chef Dep</button>
             </a>
         <?php
         }

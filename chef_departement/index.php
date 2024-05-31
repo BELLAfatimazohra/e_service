@@ -279,6 +279,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'chef_departemen
     <?php
     require_once '.././include/database.php';
     include_once 'include/sidebar_chef_dep.php';
+    
+$userId = $_SESSION['user_id'];
+echo $_SESSION['user_id'];
     ?>
 
 

@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=ensah_eservice', 'root', '');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -20,7 +20,12 @@ $professeur_id = $_SESSION['user_id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <link rel="stylesheet" href="../assets/envoyer_message.css">
-    <title>Envoyer un message aux étudiants</title>
+    <title>Envoyer un Message aux tudiants</title>
+    <style>
+        body{
+            background-color: #EEEE;
+        }
+    </style>
 </head>
 
 <body><?php
@@ -57,6 +62,17 @@ $professeur_id = $_SESSION['user_id'];
             <button class="button" type="submit">Envoyer le message</button>
         </form>
     </div>
+    <script>
+        // Select all .bodyDiv elements
+        const bodyDivs = document.querySelectorAll('.bodyDiv');
+
+        // Loop through the NodeList and remove all but the first element
+        bodyDivs.forEach((div, index) => {
+            if (index == 0) {
+                div.remove();
+            }
+        });
+    </script>
 </body>
 
 </html>

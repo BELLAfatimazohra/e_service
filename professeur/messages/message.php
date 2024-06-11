@@ -7,6 +7,10 @@ if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' &&
 }
 
 ?>
+    <?php
+        require_once '../../include/database.php';
+        include_once '../assets/include/sidebarProf.php'; 
+    ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,19 +22,14 @@ if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' &&
     <link rel="stylesheet" href="../assets/message.css">
     <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
 
-        .bodyDiv {
+
+        .Div {
             padding: 20px;
             max-width: 800px;
             margin: 40px auto;
             margin-top: 100px;
-
+            background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px #999999;
             text-align: center;
@@ -39,20 +38,20 @@ if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' &&
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 20px;
+            margin: 20px;
         }
 
         button.no-button {
             display: block;
             width: 250px;
-            margin: 10px auto;
+            margin: 20px auto;
             padding: 15px;
-            background-color: #007bff;
-            border: none;
+            background-color: var(--nav-bg);
             color: white;
             font-size: 16px;
+            border: 1px solid var(--nav-bg);
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 15px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
@@ -67,24 +66,21 @@ if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' &&
         }
 
         form {
-            margin: 0;
+            margin: 30px;
         }
     </style>
 </head>
 <body>
-    <?php
-        require_once '../../include/database.php';
-        include_once '../assets/include/sidebarProf.php'; 
-    ?>
+
 
     
-        <div class="bodyDiv">
+        <div class="Div">
                     <h1>Page de messages</h1>
         <form action="envoyer_message.php" method="POST">
-            <button class="no-button" type="submit">Envoyer un message</button>
+            <button class="no-button" type="submit">Envoyer Message</button>
         </form>
         <form action="liste_message.php" method="GET">
-            <button class="no-button" type="submit">Consulter la liste des messages</button>
+            <button class="no-button" type="submit">Consulter Messages</button>
         </form>
         </div>
         <script>

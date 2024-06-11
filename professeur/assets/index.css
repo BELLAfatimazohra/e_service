@@ -212,16 +212,18 @@ h1 {
 
 .filiere-list {
   background-color: #fff;
-  padding: 20px;
+  padding: 25px 50px;
   margin-left: 1rem;
   border-radius: 15px;
   grid-row: 2/4;
   grid-column: span 3;
   place-self: start;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 102%;
+  height: 70%;
 }
 .filiere-list h2 {
-  font-size: 24px;
+  font-size: 1.4rem;
   color: #333;
   margin-bottom: 30px;
   margin-left: 1rem;
@@ -236,4 +238,8 @@ h1 {
 
 .filiere-list a:hover {
   color: #0056b3;
+}
+.filiere-list ul {
+  margin-left: 1rem;
+  font-size: 1rem;
 }

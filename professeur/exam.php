@@ -55,18 +55,17 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         .module-list {
-            max-width: 800px;
             margin: 20px auto;
             background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 20px 50px;
+            border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
         }
 
-        .module-list h2 {
-            font-size: 24px;
+        .module-list h1 {
             color: #333;
-            margin-bottom: 30px;
+            margin: 40px 0;
             text-align: center;
         }
 
@@ -84,7 +83,7 @@ try {
         }
 
         .module-list table th {
-            background-color: #007bff;
+            background-color: var(--nav-bg);
             color: #fff;
         }
 
@@ -108,8 +107,8 @@ try {
 
         .module-list a .fa-plus {
             display: inline-block;
-            padding: 10px 15px;
-            background-color: #007bff;
+            padding: 10px 12px;
+            background-color: var(--nav-bg);
             color: #fff;
             border-radius: 50%;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -138,7 +137,7 @@ try {
     <div class="bodyDiv">
         <div class="">
             <div class="module-list">
-                <h2>Liste des Exams</h2>
+                <h1>Liste des Exams</h1>
                 <table>
                     <thead>
                         <tr>
@@ -202,6 +201,15 @@ try {
                     });
                 });
             });
+        </script>
+                            <script>
+            document.querySelectorAll("li").forEach(function(li) {
+                if (li.classList.contains("active")) {
+                    li.classList.remove("active");
+                }
+            });
+
+            document.querySelector(".liNote").classList.add("active");
         </script>
 </body>
 

@@ -44,22 +44,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         .form-container {
-            max-width: 300px;
-            margin: 50px auto;
+            width: 80%;
             background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .form-container h1 {
             font-size: 24px;
             color: #333;
-            margin-bottom: 30px;
+            margin: 30px;
+            text-align: center;
         }
 
         .form-group {
             margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .form-group label {
@@ -89,10 +96,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .submit-button {
             width: 100%;
             padding: 10px 15px;
-            background-color: #007bff;
+            background-color: var(--nav-bg);
             color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 15px;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -116,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include './assets/include/sidebarProf.php';
     ?>
 
-    <div class="">
+    <div class="bodyDiv">
         <div class="form-container">
             <h1 style="text-align: center; color: #333;">Ajouter un Examen</h1>
             <?php

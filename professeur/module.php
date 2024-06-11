@@ -41,27 +41,20 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xgWvbC/GtpG27dbUMf057Ok6ZgoyNnuToSCzjUEuFQlyDhVdRflh5JL4tsbvtRL8yK1z2CqS3hINQjyGv7wXVg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        h2 {
-            text-align: center;
-            font-family: 'Arial', sans-serif;
-            margin-bottom: 20px;
-            color: #454545;
-        }
-
         .module-button {
             display: block;
             width: 100%;
             max-width: 300px;
             margin: 10px auto;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 5px 30px;
+            font-size: 1rem;
             font-weight: bold;
             text-align: center;
             color: #fff;
-            background-color: #007BFF;
-            height: 50px;
+            background-color: var(--nav-bg);
+            height: 70px;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
@@ -78,13 +71,26 @@ try {
         form {
             text-align: center;
         }
+        
+        .Div {
+            padding: 50px 250px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #999999;
+            text-align: center;
+            display: flex;flex-direction: column;
+            gap: 30px;
+        }
     </style>
 </head>
 
 <body>
     <?php include './assets/include/sidebarProf.php'; ?>
     <div class="bodyDiv">
-        <h2>Modules de la filière</h2>
+        <div class="Div">
+            <h2>Modules de la Filière</h2>
         <?php if (empty($modules)) : ?>
             <p style="text-align: center;">Aucun module trouvé pour cette filière.</p>
         <?php else : ?>
@@ -95,7 +101,20 @@ try {
                 </form>
             <?php endforeach; ?>
         <?php endif; ?>
+        </div>
+        
+
     </div>
+    <script>
+            document.querySelectorAll("li").forEach(function(li) {
+                if (li.classList.contains("active")) {
+                    li.classList.remove("active");
+                }
+            });
+
+            document.querySelector(".liNote").classList.add("active");
+        </script>
 </body>
+
 
 </html>

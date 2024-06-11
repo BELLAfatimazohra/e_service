@@ -87,6 +87,15 @@ try {
             </ul>
         </div>
     </div>
+    <script>
+            document.querySelectorAll("li").forEach(function(li) {
+                if (li.classList.contains("active")) {
+                    li.classList.remove("active");
+                }
+            });
+
+            document.querySelector(".liNote").classList.add("active");
+        </script>
 </body>
 
 </html>

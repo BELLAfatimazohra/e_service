@@ -67,25 +67,32 @@ try {
                 }
 
                 table {
-                    width: 100%;
-                    margin-bottom: 20px;
-                }
 
-                th,
-                td {
-                    padding: 12px;
-                    text-align: left;
-                    border-bottom: 1px solid #ddd;
-                }
+            width: 80%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-                th {
-                    background-color: #f8f8f8;
-                    color: #333;
-                }
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-                tr:nth-child(even) {
-                    background-color: #f2f2f2;
-                }
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
                 form {
                     display: inline;
@@ -147,7 +154,7 @@ try {
                 }
             </script>
             <div class="bodyDiv">
-                <h1>Les notes des etudiants sont :</h1>
+                <h1>Les Notes des Etudiants Sont :</h1>
                 <table>
                     <?php
                     $file = fopen($filename, "r");
@@ -171,19 +178,19 @@ try {
                         <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                         <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                         <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                        <button class="btn" type="submit">Modifier les notes</button>
+                        <button class="btn" type="submit">Modifier les Notes</button>
                     </form>
                     <form action="telecharger_notes.php" method="POST">
                         <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                         <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                         <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                        <button class="btn" type="submit">Télécharger les notes</button>
+                        <button class="btn" type="submit">Télécharger les Notes</button>
                     </form>
                     <form action="valider_notes.php" method="POST" id="valider_notes">
                         <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
                         <input type="hidden" name="module_id" value="<?php echo $module_id; ?>">
                         <input type="hidden" name="filiere_id" value="<?php echo $filiere_id; ?>">
-                        <button class="btn" type="submit">Valider les notes</button>
+                        <button class="btn" type="submit">Valider les Notes</button>
                     </form></div>
                     <div class="container">
                         
@@ -213,6 +220,15 @@ try {
                     });
                 });
             </script>
+                    <script>
+            document.querySelectorAll("li").forEach(function(li) {
+                if (li.classList.contains("active")) {
+                    li.classList.remove("active");
+                }
+            });
+
+            document.querySelector(".liNote").classList.add("active");
+        </script>
         </body>
 
         </html>

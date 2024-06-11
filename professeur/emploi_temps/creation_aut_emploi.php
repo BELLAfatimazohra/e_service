@@ -116,13 +116,22 @@ if (isset($professeur_info['Nom']) && isset($professeur_info['Prenom'])) {
         th,
         td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 20px;
             text-align: center;
         }
-
-        th {
+        tr{
+            background-color: white;
+        }
+        tr:nth-child(odd){
             background-color: #f2f2f2;
         }
+
+
+        th {
+            background-color: var(--nav-bg);
+            color: white;
+        }
+        
     </style>
 </head>
 
@@ -131,7 +140,8 @@ if (isset($professeur_info['Nom']) && isset($professeur_info['Prenom'])) {
     include "../assets/include/sidebarProf.php"
     ?>
     <div class="bodyDiv">
-        <h2>Votre emploi du temps </h2>
+        
+        <h1>Votre Emploi du Temps </h1>
 
         <?php if (isset($emploi_prof_matrice)) : ?>
             <table>
@@ -159,12 +169,20 @@ if (isset($professeur_info['Nom']) && isset($professeur_info['Prenom'])) {
                 <?php endforeach; ?>
 
             </table>
-            <p>NB : Votre emploi emploi du temps sera change et vous serez notifie par tous changements</p>
+            <p>NB : Vous seriez notifié au cas de changements</p>
         <?php else : ?>
             <p>Aucun cours n'est prévu pour le professeur <?php echo $prof_nom; ?> dans l'emploi du temps.</p>
         <?php endif; ?>
     </div>
+    <script>
+            document.querySelectorAll("li").forEach(function(li) {
+                if (li.classList.contains("active")) {
+                    li.classList.remove("active");
+                }
+            });
 
+            document.querySelector(".liEmp").classList.add("active");
+        </script>
 </body>
 
 </html>

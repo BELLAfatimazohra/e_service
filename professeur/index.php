@@ -36,7 +36,6 @@ try {
 
     <?php
     
-echo $_SESSION['user_id'];
     
 
     ?>
@@ -97,11 +96,14 @@ echo $_SESSION['user_id'];
 
 
             <div class="filiere-list">
-                <h2>Liste des filières enseignées</h2>
+                <h2>Liste des Filières Enseignées</h2>
                 <ul>
-                    <?php foreach ($filieres as $filiere) : ?>
-                        <a href="module.php?filiere_id=<?php echo $filiere['id']; ?>"><?php echo $filiere['Nom_filiere'] . " " . $filiere['annee']; ?></a>
-                    <?php endforeach; ?>
+                    <?php
+                    $i=1;
+                     foreach ($filieres as $filiere) : ?>
+                        <a href="module.php?filiere_id=<?php echo $filiere['id']; ?>"><?php echo $i . ". " .  $filiere['Nom_filiere'] . " " . $filiere['annee']; $i++;?></a>
+                    
+                        <?php endforeach; ?>
                 </ul>
             </div>
         </div>

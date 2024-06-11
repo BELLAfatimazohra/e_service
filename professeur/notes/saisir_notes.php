@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'chef_departement' &&  $_SESSION['user_type'] !== 'coordinateur_prof') ) {
+if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' && $_SESSION['user_type'] !== 'chef_departement' &&  $_SESSION['user_type'] !== 'coordinateur_prof')) {
     header("Location: login.php");
     exit;
 }
@@ -82,22 +82,23 @@ try {
     <link rel="stylesheet" href="../assets/include/sidebarProf.css">
     <title>Saisir les notes</title>
     <style>
-        .bodyDiv {
-            padding-top: 30px;
+        .Div {
             padding: 20px;
-            max-width: 800px;
+            padding-top: 50px;
             margin: 0 auto;
-            margin-top: 10rem;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         table {
-            padding-top: 50px;
+            margin-top: 50px;
+            width: 80%;
             padding: 20px;
-            max-width: 800px;
-            margin: 20 auto;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -142,6 +143,10 @@ try {
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
+        h1 {
+            margin: 40px 0;
+        }
+
         button.sauvegarder :hover {
             background-color: #0056b3;
             transform: scale(1.1);
@@ -171,6 +176,14 @@ try {
         button.consulter:hover {
             background-color: #0056b3;
         }
+
+        #noteForm {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
     </style>
 </head>
 
@@ -190,6 +203,7 @@ try {
         // Now that only the last bodyDiv remains, you can modify its innerHTML
         var lastBodyDiv = bodyDivs[bodyDivs.length - 1]; // Get the last bodyDiv element
         lastBodyDiv.innerHTML = `
+            <div class="Div">
         <h1>Saisir les notes pour le <?php echo $exam_info['type']; ?></h1>
         <form id="noteForm" method="POST">
             <input type="hidden" name="exam_id" value="<?php echo $exam_id; ?>">
@@ -213,39 +227,51 @@ try {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <button class="sauvegarder" type="submit">Sauvegarder</button>
+            
+<div><button class="sauvegarder" type="submit">Sauvegarder</button>
             <button class="consulter">
                 <a href="consulter_notes.php?exam_id=<?php echo $exam_id; ?>&module_id=<?php echo $exam_info['id_module']; ?>&filiere_id=<?php echo $module_info['id_filiere']; ?>">
                     Consulter les Notes
                 </a>
-            </button>
+            </button></div>
+            
         </form>
         <div id="successMessage" style="display: none; color: green; margin-top: 20px;">Notes sauvegardées avec succès!</div>
     
-        `;
+        
+    </div>`;
     </script>
+                    <script>
+            document.querySelectorAll("li").forEach(function(li) {
+                if (li.classList.contains("active")) {
+                    li.classList.remove("active");
+                }
+            });
 
+            document.querySelector(".liNote").classList.add("active");
+        </script>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#noteForm').on('submit', function(event) {
-                event.preventDefault();
-                var formData = $(this).serialize();
-                
-                $.ajax({
-                    url: window.location.href,
-                    method: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        $('#successMessage').show().delay(3000).fadeOut();
-                        $("table").hide();
-                    },
-                    error: function() {
-                        alert('Erreur lors de la sauvegarde des notes.');
-                    }
-                });
+<script>
+    $(document).ready(function() {
+        $('#noteForm').on('submit', function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: window.location.href,
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    $('#successMessage').show().delay(3000).fadeOut();
+                    $("table").hide();
+                },
+                error: function() {
+                    alert('Erreur lors de la sauvegarde des notes.');
+                }
             });
         });
-    </script>
+    });
+</script>
+
 </html>

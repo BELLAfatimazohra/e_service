@@ -62,12 +62,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         .form-container {
-            max-width: 600px;
-
+            width: 80%;
             background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px 50px;
+            align-self: center;
         }
 
         .form-container h1 {
@@ -106,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .submit-button {
             width: 100%;
             padding: 10px 15px;
-            background-color: #007bff;
+            background-color: var(--nav-bg);
             color: #fff;
             border: none;
             border-radius: 4px;

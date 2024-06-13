@@ -160,8 +160,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'etudiant') {
         document.querySelector(".liNote").classList.add("active");
     </script>
     
-    <footer>
-        E-SERVICES © Copyright 2020 - Dévelopée par AMMARA ABDERRAHMANE & BELLA FATIMA ZOHRA
-    </footer>
+
 </body>
 </html>

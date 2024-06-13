@@ -74,6 +74,22 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'chef_departemen
             <a class="forgot-password" href="forget_pass.php">Mot de passe oublié ?</a>
         </section>
     </main>
+    <script>
+        document.getElementById('showPwd').addEventListener('change', function() {
+            const passwordField = document.getElementById('password');
+            const pwdIcon = document.querySelector('.pwd');
+            const pwdvIcon = document.querySelector('.pwdv');
+            if (this.checked) {
+                passwordField.type = 'text';
+                pwdIcon.style.display = 'none';
+                pwdvIcon.style.display = 'inline';
+            } else {
+                passwordField.type = 'password';
+                pwdIcon.style.display = 'inline';
+                pwdvIcon.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>

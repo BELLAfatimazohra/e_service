@@ -19,7 +19,6 @@ try {
 $id_prof_connecte = $_SESSION['user_id'];
 $id_module_clique = isset($_GET['module_id']) ? $_GET['module_id'] : null;
 
-
 if (isset($_GET['delete_exam_id'])) {
     $delete_exam_id = $_GET['delete_exam_id'];
     try {
@@ -37,6 +36,12 @@ try {
     $stmt_exams = $pdo->prepare("SELECT id, type, pourcentage FROM exam WHERE id_prof = :id_prof AND id_module = :id_module");
     $stmt_exams->execute(['id_prof' => $id_prof_connecte, 'id_module' => $id_module_clique]);
     $exams = $stmt_exams->fetchAll(PDO::FETCH_ASSOC);
+
+    // Calculate the total percentage
+    $total_percentage = 0;
+    foreach ($exams as $exam) {
+        $total_percentage += $exam['pourcentage'];
+    }
 } catch (PDOException $e) {
     echo "Erreur lors de l'exécution de la requête : " . $e->getMessage();
 }
@@ -100,7 +105,6 @@ try {
             text-decoration: none;
         }
 
-
         .module-list a .fas {
             margin-right: 5px;
         }
@@ -127,6 +131,13 @@ try {
         .fa-trash {
             color: #dc3545;
         }
+
+        .alert {
+            color: red;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -138,10 +149,16 @@ try {
         <div class="">
             <div class="module-list">
                 <h1>Liste des Exams</h1>
+                <?php if ($total_percentage !== 100) : ?>
+                    <div class="alert">
+                        Attention: Le total des pourcentages des examens est de <?php echo $total_percentage; ?>%. Il doit être égal à 100%.
+                    </div>
+                <?php endif; ?>
                 <table>
                     <thead>
                         <tr>
                             <th>Type d'examen</th>
+                            <th>Pourcentage</th>
                             <th>Options</th>
                         </tr>
                     </thead>
@@ -150,8 +167,11 @@ try {
                             <tr>
                                 <td>
                                     <a class="check-exam" href="notes/saisir_notes.php?exam_id=<?php echo $exam['id']; ?>">
-                                        <?php echo $exam['type']; ?> - <?php echo $exam['pourcentage']; ?>%
+                                        <?php echo $exam['type']; ?>
                                     </a>
+                                </td>
+                                <td>
+                                    <?php echo $exam['pourcentage']; ?>%
                                 </td>
                                 <td>
                                     <a href="modifier_exam.php?exam_id=<?php echo $exam['id']; ?>">
@@ -175,34 +195,39 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function() {
+                var totalPercentage = <?php echo $total_percentage; ?>;
                 $('.check-exam').on('click', function(event) {
-                    event.preventDefault();
-                    var href = $(this).attr('href');
-                    var urlParams = new URLSearchParams(href.split('?')[1]);
-                    var examId = urlParams.get('exam_id');
+                    if (totalPercentage !== 100) {
+                        event.preventDefault();
+                        alert("Le total des pourcentages des examens doit être égal à 100% avant de pouvoir accéder à cet examen.");
+                    } else {
+                        var href = $(this).attr('href');
+                        var urlParams = new URLSearchParams(href.split('?')[1]);
+                        var examId = urlParams.get('exam_id');
 
-                    $.ajax({
-                        url: 'check_exam.php',
-                        method: 'GET',
-                        data: {
-                            exam_id: examId
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            if (response.exists) {
-                                alert("Impossible de traiter, notes déjà en attente de traitement, veuillez contacter le coordinateur pour plus d'info");
-                            } else {
-                                window.location.href = href;
+                        $.ajax({
+                            url: 'check_exam.php',
+                            method: 'GET',
+                            data: {
+                                exam_id: examId
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                if (response.exists) {
+                                    alert("Impossible de traiter, notes déjà en attente de traitement, veuillez contacter le coordinateur pour plus d'info");
+                                } else {
+                                    window.location.href = href;
+                                }
+                            },
+                            error: function() {
+                                alert("Erreur lors de la vérification des notes provisoires.");
                             }
-                        },
-                        error: function() {
-                            alert("Erreur lors de la vérification des notes provisoires.");
-                        }
-                    });
+                        });
+                    }
                 });
             });
         </script>
-                            <script>
+        <script>
             document.querySelectorAll("li").forEach(function(li) {
                 if (li.classList.contains("active")) {
                     li.classList.remove("active");

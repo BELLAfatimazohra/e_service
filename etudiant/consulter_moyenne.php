@@ -47,14 +47,14 @@ include_once "include/sidebarEtud.php";
 <div class="bodyDiv">
     <?php
     try {
-        // Fetch all required exam types per module
-        $sql = "SELECT id_module, type FROM exam GROUP BY id_module, type";
+        // Fetch all required exam types per module including pourcentage
+        $sql = "SELECT id_module, type, pourcentage FROM exam GROUP BY id_module, type, pourcentage";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $module_exam_types = $stmt->fetchAll(PDO::FETCH_GROUP|PDO::FETCH_ASSOC);
 
         // Fetch grades for the student
-        $sql = "SELECT note.*, exam.type, exam.id_module, module.Nom_module 
+        $sql = "SELECT note.*, exam.type, exam.id_module, exam.pourcentage, module.Nom_module 
                 FROM note 
                 JOIN exam ON note.ide_exam = exam.id 
                 JOIN module ON exam.id_module = module.id
@@ -70,18 +70,20 @@ include_once "include/sidebarEtud.php";
             $student_grades_by_module[$grade['id_module']][$grade['type']] = $grade;
         }
 
-        // Determine if all exam types are completed per module and calculate average
+        // Determine if all exam types are completed per module and calculate weighted average
         $averages = [];
         foreach ($module_exam_types as $moduleId => $examTypes) {
             if (isset($student_grades_by_module[$moduleId]) && 
                 count($student_grades_by_module[$moduleId]) === count($examTypes)) {
-                // Calculate average
+                // Calculate weighted average
                 $sum = 0;
+                $total_percentage = 0;
                 foreach ($student_grades_by_module[$moduleId] as $typeGrades) {
-                    $sum += $typeGrades['note_value'];
+                    $sum += $typeGrades['note_value'] * $typeGrades['pourcentage'];
+                    $total_percentage += $typeGrades['pourcentage'];
                 }
                 $averages[$moduleId] = [
-                    'average' => $sum / count($examTypes),
+                    'average' => $sum / $total_percentage,
                     'module_name' => $student_grades_by_module[$moduleId][array_key_first($student_grades_by_module[$moduleId])]['Nom_module']
                 ];
             }

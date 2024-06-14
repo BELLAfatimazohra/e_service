@@ -12,40 +12,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
     $confirmer_mdp = $_POST['confirmer_mdp'];
 
     if ($nouveau_mdp !== $confirmer_mdp) {
-        echo "Les nouveaux mots de passe ne correspondent pas.";
-        exit;
-    }
-    try {
-        $pdo = new PDO('mysql:host=localhost;dbname=ensah_eservice', 'root', '');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-        echo "Erreur de connexion : " . $e->getMessage();
-    }
-
-
-    $userId = $_SESSION['user_id'];
-    try {
-
-        $stmt = $pdo->prepare("SELECT Password FROM etudiant WHERE id = :id");
-        $stmt->execute(['id' => $userId]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-        if ($row && $ancien_mdp === $row['Password']) {
-
-            $stmt = $pdo->prepare("UPDATE etudiant SET Password = :password WHERE id = :id");
-
-            $stmt->execute(['password' => $nouveau_mdp, 'id' => $userId]);
-
-            header("Location:confirmation.php");
-            exit;
-        } else {
-
-            echo "L'ancien mot de passe est incorrect.";
+        $erreur_message = "Les nouveaux mots de passe ne correspondent pas.";
+    } else {
+        try {
+            $pdo = new PDO('mysql:host=localhost;dbname=ensah_eservice', 'root', '');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo "Erreur de connexion : " . $e->getMessage();
         }
-    } catch (PDOException $e) {
 
-        echo "Erreur lors de la modification du mot de passe : " . $e->getMessage();
+        $userId = $_SESSION['user_id'];
+        try {
+
+            $stmt = $pdo->prepare("SELECT Password FROM etudiant WHERE id = :id");
+            $stmt->execute(['id' => $userId]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($row && $ancien_mdp === $row['Password']) {
+
+                $stmt = $pdo->prepare("UPDATE etudiant SET Password = :password WHERE id = :id");
+                $stmt->execute(['password' => $nouveau_mdp, 'id' => $userId]);
+
+                header("Location:confirmation.php");
+                exit;
+            } else {
+                $erreur_message = "L'ancien mot de passe est incorrect.";
+            }
+        } catch (PDOException $e) {
+            $erreur_message = "Erreur lors de la modification du mot de passe : " . $e->getMessage();
+        }
     }
 }
 ?>
@@ -203,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
                 - Le mot de passe doit contenir au moins un caractère majuscule. <br>
                 - Le mot de passe doit contenir au moins un symbole. <br>
                 Le mot de passe doit contenir au moins un caractère majuscule.</p>
-            <form action="changer_mot_de_passe.php" method="post">
+            <form action="" method="post">
                 <label for="ancien_mdp">Ancien mot de passe :</label>
                 <input type="password" id="ancien_mdp" name="ancien_mdp" required><br><br>
                 <label for="nouveau_mdp">Nouveau mot de passe :</label>
@@ -211,9 +206,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ancien_mdp']) && isset
                 <label for="confirmer_mdp">Confirmer le nouveau mot de passe :</label>
                 <input type="password" id="confirmer_mdp" name="confirmer_mdp" required><br><br>
                 <input type="submit" value="Modifier le mot de passe">
-                <a href="../professeur/index.php"><button type="button">Annuler</button></a>
+                <a href="index.php"><button type="button">Annuler</button></a>
             </form>
+
+            <!-- Affichage du message d'erreur -->
+            <?php if (isset($erreur_message)) : ?>
+                <p style="color: red;"><?php echo $erreur_message; ?></p>
+            <?php endif; ?>
         </div>
+    </div>
 
 
 

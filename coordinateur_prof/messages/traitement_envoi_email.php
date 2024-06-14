@@ -54,7 +54,7 @@ try {
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
     $mail->Username = 'bellafatimazahrae@gmail.com';
-    $mail->Password = 'xpbo xdos badf auwh';
+    $mail->Password = 'nfss eche ucuy wgfu';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
@@ -78,7 +78,7 @@ try {
 
     $pdo->commit();
 
-    echo "Message envoyé et enregistré avec succès.";
+    header("location:message.php");
 } catch (Exception $e) {
     $pdo->rollBack();
     echo "Erreur: " . $e->getMessage();

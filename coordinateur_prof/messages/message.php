@@ -31,7 +31,8 @@ background-color: white;
         button.no-button {
             display: block;
             width: 250px;
-            margin: 10px auto;
+          margin-left: 250px;
+           
             padding: 15px;
             background-color: #007bff;
             border: none;

@@ -42,6 +42,7 @@ require_once '../../include/database.php';
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-left: 250px;
         }
 
         label {

@@ -30,14 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
 <head>
     <meta charset="UTF-8">
     <title>Affectation des modules aux professeurs</title>
+    <link rel="stylesheet" href="../include/sidebarCoor.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
         .container {
             max-width: 800px;
             min-height: 200px;
@@ -48,44 +42,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
         form {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
         }
 
         label {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         select {
             padding: 8px;
             margin-bottom: 10px;
+            width: 100%;
         }
 
-        .enregistrer {
+        button.enregistrer {
             background-color: #007BFF;
             color: white;
             border: none;
             padding: 10px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .enregistrer:hover {
+        button.enregistrer:hover {
             background-color: #0056b3;
         }
+
+        
     </style>
-    <link rel="stylesheet" href="../include/sidebarCoor.css">
-    <?php include "../include/sidebarCoor.php"; ?>
 </head>
 
 <body>
+    <?php
+    include '../include/sidebarCoor.php';
+    ?>
+
     <div class="bodyDiv">
         <div class="container">
-            <h2>Affectation des modules aux professeurs</h2>
+            <h2>Affectation des modules aux professeurs</h2><br>
 
             <form action="enregistrer_affectation.php" method="post">
                 <?php if (!empty($professeurs) && !empty($modules)) { ?>

@@ -202,7 +202,17 @@ if (!isset($_SESSION['user_id']) ||  ($_SESSION['user_type'] !== 'professeur' &&
 
 
 
+    <script>
+        // Select all .bodyDiv elements
+        const bodyDivs = document.querySelectorAll('.bodyDiv');
 
+        // Loop through the NodeList and remove all but the first element
+        bodyDivs.forEach((div, index) => {
+            if (index == 0) {
+                div.remove();
+            }
+        });
+    </script>
 </body>
 
 </html>

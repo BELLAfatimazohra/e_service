@@ -31,6 +31,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-    header("Location:choisir_filiere.php");
     exit;
 }

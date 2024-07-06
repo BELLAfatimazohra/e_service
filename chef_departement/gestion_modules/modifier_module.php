@@ -134,7 +134,7 @@ if ($module_id > 0) {
             </div>
             <div>
                 <label for="nom_prof">Nom Professeur:</label>
-                <input type="text" id="nom_prof" name="nom_prof" value="<?php echo htmlspecialchars($professor['nom_prof']); ?>" required>
+                <input type="text" id="nom_prof" name="nom_prof" value="<?php echo htmlspecialchars($professor['nom_prof']); ?>" readonly>
             </div>
             <div>
                 <label for="nom_filiere">Nom Filière:</label>

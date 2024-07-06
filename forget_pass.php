@@ -9,32 +9,42 @@ require 'professeur/PHPMailer/src/SMTP.php';
 require_once 'include/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
-
     $email = $_POST['email'];
-
-
     $newPassword = generateRandomPassword();
 
+    // Function to update the password in the specified table
+    function updatePassword($pdo, $table, $email, $newPassword) {
+        $stmt = $pdo->prepare("UPDATE $table SET password = ? WHERE email = ?");
+        return $stmt->execute([$newPassword, $email]);
+    }
 
-    $stmt = $pdo->prepare("SELECT * FROM etudiant  WHERE Email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
+    // Check each user type to see if the email exists
+    $userTypes = ['etudiant', 'professeur', 'coordinateur', 'chef_departement'];
+    $userFound = false;
 
-    if ($user) {
+    foreach ($userTypes as $userType) {
+        $stmt = $pdo->prepare("SELECT * FROM $userType WHERE Email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
 
-        $stmt = $pdo->prepare("UPDATE etudiant SET password = ? WHERE email = ?");
-        $stmt->execute([$newPassword, $email]);
+        if ($user) {
+            if (updatePassword($pdo, $userType, $email, $newPassword)) {
+                sendNewPasswordByEmail($email, $newPassword);
+                echo "Un nouveau mot de passe a été envoyé à votre adresse e-mail.";
+            } else {
+                echo "Erreur lors de la mise à jour du mot de passe.";
+            }
+            $userFound = true;
+            break;
+        }
+    }
 
-        sendNewPasswordByEmail($email, $newPassword);
-
-        echo "Un nouveau mot de passe a été envoyé à votre adresse e-mail .";
-    } else {
+    if (!$userFound) {
         echo "L'adresse e-mail n'existe pas dans notre base de données.";
     }
 }
 
-function generateRandomPassword($length = 8)
-{
+function generateRandomPassword($length = 8) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $password = "";
     for ($i = 0; $i < $length; $i++) {
@@ -43,47 +53,40 @@ function generateRandomPassword($length = 8)
     return $password;
 }
 
-function sendNewPasswordByEmail($email, $password)
-{
-
+function sendNewPasswordByEmail($email, $password) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'bellafatimazahrae@gmail.com';
-        $mail->Password   = 'udrt vdly tvcs auim';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port       = 465;
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'e.service.ensah@gmail.com';
+        $mail->Password = 'bjtp ifey envd koar';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
 
-        $mail->setFrom('bellafatimazahrae@gmail.com', 'BELLA Fatima Zohra');
+        $mail->setFrom('e.service.ensah@gmail.com', 'Service Tech E-services');
         $mail->addAddress($email);
-
 
         $mail->isHTML(true);
         $mail->Subject = 'Nouveau mot de passe';
         $mail->Body    = 'Votre nouveau mot de passe est : ' . $password;
 
-
         $mail->send();
     } catch (Exception $e) {
+        echo "Erreur lors de l'envoi de l'e-mail : {$mail->ErrorInfo}";
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="professeur/assets/index.css">
     <title>Réinitialisation de mot de passe</title>
 </head>
-
 <body>
-
-
     <main>
         <div style="max-width: 400px; margin: 0 auto;">
             <h2 style="text-align: center; margin-bottom: 20px;">Réinitialisation de mot de passe</h2>
@@ -98,7 +101,5 @@ function sendNewPasswordByEmail($email, $password)
             </form>
         </div>
     </main>
-
 </body>
-
 </html>

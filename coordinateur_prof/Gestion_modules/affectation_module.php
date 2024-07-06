@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
     $stmt_modules = $pdo->prepare("SELECT id, Nom_module FROM module WHERE id_filiere = :id_filiere");
     $stmt_modules->execute(['id_filiere' => $id_filiere]);
     $modules = $stmt_modules->fetchAll(PDO::FETCH_ASSOC);
-    $stmt_professeurs = $pdo->prepare("SELECT id, Nom ,Prenom FROM professeur ");
+    $stmt_professeurs = $pdo->prepare("SELECT id, Nom, Prenom FROM professeur WHERE id_filiere = 8"); // Assuming professors of filiere 8
     $stmt_professeurs->execute();
     $professeurs = $stmt_professeurs->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -77,7 +77,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
             background-color: #0056b3;
         }
 
-        
+        .message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 
@@ -90,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
         <div class="container">
             <h2>Affectation des modules aux professeurs</h2><br>
 
-            <form action="enregistrer_affectation.php" method="post">
+            <form id="affectationForm">
                 <?php if (!empty($professeurs) && !empty($modules)) { ?>
                     <?php foreach ($modules as $module) : ?>
                         <label for="prof_<?php echo $module['id']; ?>">Choisir un professeur pour <?php echo $module['Nom_module']; ?>:</label>
@@ -101,13 +115,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
                                     <?php echo $professeur['Nom'] . ' ' . $professeur['Prenom']; ?>
                                 </option>
                             <?php endforeach; ?>
-                        </select>
+                        </select><br>
                     <?php endforeach; ?>
                     <button class="enregistrer" type="submit">Enregistrer l'affectation</button>
                 <?php } else { ?>
                     <span>Aucune donnée trouvée</span>
                 <?php } ?>
             </form>
+            <div id="message" class="message" style="display:none;"></div>
         </div>
     </div>
 
@@ -119,6 +134,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filiere'])) {
         });
 
         document.querySelector(".liModules").classList.add("active");
+
+        document.getElementById('affectationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'enregistrer_affectation.php', true);
+
+            xhr.onload = function() {
+                const messageDiv = document.getElementById('message');
+                if (xhr.status === 200) {
+                    messageDiv.className = 'message success';
+                    messageDiv.textContent = 'Affectation enregistrée avec succès!';
+                } else {
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+                }
+                messageDiv.style.display = 'block';
+            };
+
+            xhr.send(formData);
+        });
     </script>
 </body>
 
